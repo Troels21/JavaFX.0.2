@@ -61,7 +61,7 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" text="Scene 3" />
+            <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" text="Arkiv" />
             <Button layoutX="444.0" layoutY="146.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" text="Scene 2" />
             <Separator layoutX="394.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="5.0" />
             <ImageView fitHeight="293.0" fitWidth="355.0" layoutX="92.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
@@ -69,7 +69,7 @@
                   <Image url="@IMG/ATVT5375.JPG" />
                </image>
             </ImageView>
-            <Button layoutX="444.0" layoutY="58.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Puls" />
+            <Button layoutX="444.0" layoutY="58.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Puls/SpO2" />
       </children>
     </AnchorPane>
   </children>

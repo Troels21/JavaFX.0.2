@@ -62,7 +62,7 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <LineChart fx:id="Diagram" animated="false" layoutX="6.0" layoutY="82.0" prefHeight="304.0" prefWidth="623.0">
+            <LineChart id="Diagram" fx:id="Diagram" animated="false" layoutX="8.0" layoutY="72.0" prefHeight="304.0" prefWidth="623.0">
               <xAxis>
                 <CategoryAxis label="Tid i sekund" prefWidth="537.0" side="BOTTOM" />
               </xAxis>
@@ -72,8 +72,9 @@
             </LineChart>
             <Button layoutX="97.0" layoutY="47.0" mnemonicParsing="false" onAction="#monitorStart" text="Start" />
             <Button layoutX="138.0" layoutY="47.0" mnemonicParsing="false" onAction="#monitorStop" text="Stop" />
-            <TextField layoutX="471.0" layoutY="15.0" onAction="#setName" prefHeight="25.0" prefWidth="96.0" text="Set Name" />
+            <TextField fx:id="Name" layoutX="471.0" layoutY="15.0" prefHeight="25.0" prefWidth="96.0" text="Set Name" />
             <Button layoutX="484.0" layoutY="47.0" mnemonicParsing="false" onAction="#saveData" text="Save Data" />
+            <Button layoutX="567.0" layoutY="15.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
       </children>
     </AnchorPane>
   </children>
