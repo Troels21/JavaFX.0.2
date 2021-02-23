@@ -37,6 +37,7 @@ public class ControllerScene1 {
                     String bogstav = String.valueOf(b.i);
                     b.pulsSimulering();
                     pulsSerie.getData().add(new XYChart.Data(bogstav, b.puls));
+
                 }), 0, 1, TimeUnit.SECONDS);
     }
 
@@ -57,6 +58,9 @@ public class ControllerScene1 {
             allertButton.setText("OK");
             alertLabel.setText("Invalid Name");
             allertStage.setTitle("Alert");
+
+
+
 
             allertButton.setOnAction(e ->allertStage.close());
             allertLayout.getChildren().addAll(allertButton,alertLabel);
