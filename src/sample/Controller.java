@@ -13,7 +13,7 @@ public class Controller{
 
     public void scene1Clicked() throws IOException {
         Parent Scene1 = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
-        m.stage.setScene(new Scene(Scene1, 600, 400));
+        m.stage.setScene(new Scene(Scene1, 650, 400));
         m.stage.show();
     }
 }

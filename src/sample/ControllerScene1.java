@@ -20,23 +20,35 @@ public class ControllerScene1 {
     Main m = new Main();
     Beregner b = new Beregner();
     ScheduledExecutorService pulsEventhandler = Executors.newSingleThreadScheduledExecutor();
-    XYChart.Series pulsSerie = new XYChart.Series();
+    XYChart.Series pulsSeries = new XYChart.Series();
+    XYChart.Series temperatureSeries = new XYChart.Series();
     String name;
+    int pulseCheck,tempCheck;
 
     @FXML
         LineChart<CategoryAxis, NumberAxis> Diagram;
     @FXML
         TextField Name;
+        @FXML
+        Label Spo2Label;
+
 
 
     public void monitorStart() throws IOException {
-        pulsSerie.setName("puls");
-        Diagram.getData().add(pulsSerie);
+        pulsSeries.setName("puls");
+        Diagram.getData().addAll(pulsSeries,temperatureSeries);
         pulsEventhandler.scheduleAtFixedRate(() ->
                 Platform.runLater(() -> {
                     String bogstav = String.valueOf(b.i);
-                    b.pulsSimulering();
-                    pulsSerie.getData().add(new XYChart.Data(bogstav, b.puls));
+                    b.SpO2Simulation();
+                    b.pulseSimulation();
+                    b.temperatureSimulation();
+                    if (tempCheck==1)
+                        temperatureSeries.getData().add(new XYChart.Data(bogstav, b.temp));
+                    if (pulseCheck==1)
+                        pulsSeries.getData().add(new XYChart.Data(bogstav, b.puls));
+                    if (b.i%5==0)
+                    Spo2Label.setText(b.Spo2);
 
                 }), 0, 1, TimeUnit.SECONDS);
     }
@@ -59,9 +71,6 @@ public class ControllerScene1 {
             alertLabel.setText("Invalid Name");
             allertStage.setTitle("Alert");
 
-
-
-
             allertButton.setOnAction(e ->allertStage.close());
             allertLayout.getChildren().addAll(allertButton,alertLabel);
             Scene allertScene = new Scene(allertLayout, 200,100);
@@ -71,6 +80,7 @@ public class ControllerScene1 {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         }
+        //skriv til filewriter
 
     }
 
@@ -81,7 +91,27 @@ public class ControllerScene1 {
 
     public void refresh() {
         Diagram.getData().clear();
-        pulsSerie.getData().clear();
+        pulsSeries.getData().clear();
+        temperatureSeries.getData().clear();
+        Spo2Label.setText("00%");
+    }
 
+    public int showPulse(){
+    if (pulseCheck==1){
+        pulseCheck=0;
+        return pulseCheck;}
+    if (pulseCheck==0){
+        pulseCheck=1;
+        return pulseCheck;}
+        return 0;
+    }
+    public int showTemperature(){
+        if (tempCheck==1){
+            tempCheck=0;
+            return tempCheck;}
+        if (tempCheck==0){
+            tempCheck=1;
+            return tempCheck;}
+        return 0;
     }
 }
