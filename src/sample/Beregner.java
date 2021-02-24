@@ -4,7 +4,6 @@ public class Beregner {
     double math,math2,math3;
     int puls,temp;
     String Spo2;
-    int i;
     double intervalmin=70;
     double intervalmax=70;
     double intervalmin2=98;
@@ -20,7 +19,6 @@ public class Beregner {
             intervalmin = math - 5;
     }
     public void SpO2Simulation(){
-        i++;
         math2 = Math.random() * (intervalmax2 - intervalmin2) + intervalmin2;
         Spo2 = String.valueOf((int)math2)+"%";
         intervalmax2 = math2 + 0.05;

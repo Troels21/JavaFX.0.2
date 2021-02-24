@@ -23,7 +23,7 @@ public class ControllerScene1 {
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
     String name;
-    int pulseCheck,tempCheck;
+    int pulseCheck,tempCheck,i;
 
     @FXML
         LineChart<CategoryAxis, NumberAxis> Diagram;
@@ -39,7 +39,7 @@ public class ControllerScene1 {
         Diagram.getData().addAll(pulsSeries,temperatureSeries);
         pulsEventhandler.scheduleAtFixedRate(() ->
                 Platform.runLater(() -> {
-                    String bogstav = String.valueOf(b.i);
+                    String bogstav = String.valueOf(i);
                     b.SpO2Simulation();
                     b.pulseSimulation();
                     b.temperatureSimulation();
@@ -47,9 +47,9 @@ public class ControllerScene1 {
                         temperatureSeries.getData().add(new XYChart.Data(bogstav, b.temp));
                     if (pulseCheck==1)
                         pulsSeries.getData().add(new XYChart.Data(bogstav, b.puls));
-                    if (b.i%5==0)
+                    if (i%5==0)
                     Spo2Label.setText(b.Spo2);
-
+                    i++;
                 }), 0, 1, TimeUnit.SECONDS);
     }
 
@@ -58,9 +58,9 @@ public class ControllerScene1 {
     }
 
     public void saveData() {
+        //String pulseString=pulsSeries.getData().toString();
+        //String tempString=temperatureSeries.getData().toString();
         String name2 =Name.getText();
-        System.out.println(name2);
-
         if (name2.equals("") || name2.equals("Set Name")){
             Label alertLabel = new Label();
             StackPane allertLayout= new StackPane();
@@ -80,8 +80,7 @@ public class ControllerScene1 {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         }
-        //skriv til filewriter
-
+        //filewriter.print(name2+"  Pulse: "+pulsString+"  Temp: "+tempString);
     }
 
     public void setName() {
