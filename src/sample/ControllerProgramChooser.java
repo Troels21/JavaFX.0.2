@@ -1,19 +1,17 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller{
+public class ControllerProgramChooser {
     Main m = new Main();
 
     public void scene1Clicked() throws IOException {
-        Parent Scene1 = FXMLLoader.load(getClass().getResource("Scene1.fxml"));
-        m.stage.setScene(new Scene(Scene1, 650, 400));
+        Parent Puls_SpO2_Temp = FXMLLoader.load(getClass().getResource("Puls_SpO2_Temp.fxml"));
+        m.stage.setScene(new Scene(Puls_SpO2_Temp, 650, 400));
         m.stage.show();
     }
 }
