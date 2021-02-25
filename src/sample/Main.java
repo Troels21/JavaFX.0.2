@@ -8,21 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    // hej med dig det er mig mig mig mig naveed
-    /*hej dhsccrdnscjndsjncljnds
-    cnjdslncljdslcndsjlncs
-    djcnsdlncsdnlcnsd
-    cndsjlnclnsd
-    jcndslnclsnd
-    cn
-    dsjcj
-    dsn
-    cnsdjnclsdn
-    c
-    dsnsd
-    ncds
 
-     */
     Stage stage = new Stage();
 
     @Override
