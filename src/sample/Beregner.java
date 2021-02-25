@@ -30,7 +30,4 @@ public class Beregner {
         intervalmax3 = math3 + 0.05;
         intervalmin3 = math3 - 0.05;
     }
-    public void stopPulse(){
-        switchpulse = false;
-    }
 }
