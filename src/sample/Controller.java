@@ -16,4 +16,9 @@ public class Controller{
         m.stage.setScene(new Scene(Scene1, 650, 400));
         m.stage.show();
     }
+    public void ekgClicked() throws IOException {
+        Parent EKG = FXMLLoader.load(getClass().getResource("EKG.fxml"));
+        m.stage.setScene(new Scene(EKG, 650, 400));
+        m.stage.show();
+    }
 }
