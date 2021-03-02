@@ -58,9 +58,9 @@ public class Puls_SpO2_Temp {
         pulsEventhandler.shutdown();
     }
 
-    public void saveData() {
-        //String pulseString=pulsSeries.getData().toString();
-        //String tempString=temperatureSeries.getData().toString();
+    public void saveData() throws IOException {
+        String pulseString=pulsSeries.getData().toString();
+        String tempString=temperatureSeries.getData().toString();
         String name =Name.getText();
         if (name.equals("") || name.equals("Set CPR")){
             Label alertLabel = new Label();
@@ -81,8 +81,11 @@ public class Puls_SpO2_Temp {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         }
-
-        //filewriter.print(name2+"  Pulse: "+pulsString+"  Temp: "+tempString);
+        else{
+        ControllerArkiv ca = new ControllerArkiv(name);
+        ca.f1.write(name+"  \nPulse: "+pulseString+"  \nTemp: "+tempString);
+        ca.f1.close();
+        }
     }
 
     public String getName() {
