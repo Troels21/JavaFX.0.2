@@ -54,15 +54,18 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="127.0" layoutY="44.0" style="&#10;" text="Choose a Program" textAlignment="CENTER" wrapText="false">
+        <Label alignment="CENTER" layoutX="49.0" layoutY="160.0" style="&#10;" text="Choose a Program" textAlignment="CENTER" wrapText="false">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-            <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" text="Arkiv" />
+            <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" onAction="#Arkiv" prefHeight="55.0" prefWidth="106.0" text="Arkiv" />
             <Button layoutX="444.0" layoutY="146.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" text="EKG" />
-            <Separator layoutX="394.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="5.0" />
+            <Separator layoutX="226.0" layoutY="7.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="5.0" />
             <Button layoutX="444.0" layoutY="58.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Puls/Temp/SpO2" />
+            <Button layoutX="273.0" layoutY="58.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Alarm" />
+            <Button layoutX="273.0" layoutY="146.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Dummy" />
+            <Button layoutX="273.0" layoutY="245.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Dummy" />
       </children>
     </AnchorPane>
   </children>
