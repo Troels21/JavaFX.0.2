@@ -10,7 +10,6 @@ public class Beregner {
     double intervalmax2=100;
     double intervalmin3=36;
     double intervalmax3=40;
-    boolean switchpulse;
 
     public void pulseSimulation(){
             math = Math.random() * (intervalmax - intervalmin) + intervalmin;

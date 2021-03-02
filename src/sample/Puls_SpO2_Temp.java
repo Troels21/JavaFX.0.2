@@ -62,7 +62,7 @@ public class Puls_SpO2_Temp {
         //String pulseString=pulsSeries.getData().toString();
         //String tempString=temperatureSeries.getData().toString();
         String name2 =Name.getText();
-        if (name2.equals("") || name2.equals("Set Name")){
+        if (name2.equals("") || name2.equals("Set CPR")){
             Label alertLabel = new Label();
             StackPane allertLayout= new StackPane();
             Stage allertStage = new Stage();
@@ -81,11 +81,12 @@ public class Puls_SpO2_Temp {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         }
+        setName();
         //filewriter.print(name2+"  Pulse: "+pulsString+"  Temp: "+tempString);
     }
 
     public void setName() {
-        name="";
+        name="CPR";
     }
 
     public void refresh() {
