@@ -1,7 +1,5 @@
 package sample;
 
-import sun.text.resources.cldr.wae.FormatData_wae;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
