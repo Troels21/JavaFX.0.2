@@ -13,15 +13,19 @@ import java.util.concurrent.TimeUnit;
 
 
 public class EKGcontroller {
+
     @FXML LineChart<String,Number> ekgplot;
     Beregner bb = new Beregner();
     ScheduledExecutorService tid = Executors.newSingleThreadScheduledExecutor();
     XYChart.Series<String,Number> data = new XYChart.Series<String, Number>();
+
     public void startEKG(){
         tid.scheduleAtFixedRate(()->
         Platform.runLater(() ->{
             bb.ekgSimulation();
-            data.getData().add((new XYChart.Data<String, Number>("n",bb.red)));
+            String n= String.valueOf(bb.u);
+            int redval=bb.redv();
+            data.getData().add((new XYChart.Data<String, Number>(n,redval)));
             ekgplot.getData().add(data); }
             ),0,100,TimeUnit.MILLISECONDS);
 

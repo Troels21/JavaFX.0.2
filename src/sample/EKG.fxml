@@ -8,7 +8,7 @@
    <children>
       <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#startEKG" prefHeight="49.0" prefWidth="76.0" text="Start" />
       <Button layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#stop" prefHeight="49.0" prefWidth="76.0" text="Stop" />
-      <LineChart fx:id="ekgplot" layoutY="197.0" prefHeight="431.0" prefWidth="722.0" title="EKG">
+      <LineChart fx:id="ekgplot" animated="false" layoutY="197.0" prefHeight="431.0" prefWidth="722.0" title="EKG">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
