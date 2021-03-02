@@ -25,6 +25,11 @@ public class Puls_SpO2_Temp {
     String name;
     int pulseCheck,tempCheck,i;
 
+    String SpO2String;
+    String split1[];
+    String tempSeriesFiltered[] = new String[5000];
+    String pulseSeriesFiltered[] = new String[5000];
+
     @FXML
         LineChart<CategoryAxis, NumberAxis> Diagram;
     @FXML
@@ -42,6 +47,7 @@ public class Puls_SpO2_Temp {
                 Platform.runLater(() -> {
                     String bogstav = String.valueOf(i);
                     b.SpO2Simulation();
+                    SpO2String +=bogstav+" "+b.Spo2+" ";
                     b.pulseSimulation();
                     b.temperatureSimulation();
                     if (tempCheck==1)
@@ -59,12 +65,10 @@ public class Puls_SpO2_Temp {
     }
 
     public void saveData() throws IOException {
-        String pulseString=pulsSeries.getData().toString();
-        String tempString=temperatureSeries.getData().toString();
-        String name =Name.getText();
-        if (name.equals("") || name.equals("Set CPR")){
+        String name = Name.getText();
+        if (name.equals("") || name.equals("Set CPR")) {
             Label alertLabel = new Label();
-            StackPane allertLayout= new StackPane();
+            StackPane allertLayout = new StackPane();
             Stage allertStage = new Stage();
             Button allertButton = new Button();
 
@@ -72,19 +76,43 @@ public class Puls_SpO2_Temp {
             alertLabel.setText("Invalid Name");
             allertStage.setTitle("Alert");
 
-            allertButton.setOnAction(e ->allertStage.close());
-            allertLayout.getChildren().addAll(allertButton,alertLabel);
-            Scene allertScene = new Scene(allertLayout, 200,100);
+            allertButton.setOnAction(e -> allertStage.close());
+            allertLayout.getChildren().addAll(allertButton, alertLabel);
+            Scene allertScene = new Scene(allertLayout, 200, 100);
             alertLabel.setTranslateY(-25);
 
             allertStage.setScene(allertScene);
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
+        } else {
+            ControllerArkiv ca = new ControllerArkiv(name);
+            ca.f1.write(name + "\n");
+            String pulseString = pulsSeries.getData().toString();
+            String tempString = temperatureSeries.getData().toString();
+            if (pulseString.length() > 3) {
+                split(pulseString, pulseSeriesFiltered);
+                ca.f1.write("pulse:  ");
+                for (int s = 1; s < split1.length - 1; s++) {
+                    ca.f1.write(pulseSeriesFiltered[s] + "|");
+                }
+                ca.f1.write("\n");
+            }
+            if (tempString.length() > 3) {
+                split(tempString, tempSeriesFiltered);
+                ca.f1.write("temperature:  ");
+                for (int s = 1; s < split1.length - 1; s++) {
+                    ca.f1.write(tempSeriesFiltered[s] + "|");
+                }
+                ca.f1.write("\n");
+            }
+            ca.f1.close();
         }
-        else{
-        ControllerArkiv ca = new ControllerArkiv(name);
-        ca.f1.write(name+"  \nPulse: "+pulseString+"  \nTemp: "+tempString);
-        ca.f1.close();
+    }
+
+    public void split(String serie,String seriesfiltered[]){
+        split1 = serie.split("]");
+        for (int p=1;p<split1.length-1;p++){
+            seriesfiltered[p]=split1[p].substring(7);
         }
     }
 
