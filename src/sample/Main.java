@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    //test
+
     Stage stage = new Stage();
 
     @Override
@@ -18,7 +20,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) { launch(args);
     }
 }

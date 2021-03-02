@@ -14,4 +14,10 @@ public class ControllerProgramChooser {
         m.stage.setScene(new Scene(Puls_SpO2_Temp, 650, 400));
         m.stage.show();
     }
+
+    public void Arkiv() throws IOException {
+        Parent ControllerArkiv = FXMLLoader.load(getClass().getResource("Arkiv.fxml"));
+        m.stage.setScene(new Scene(ControllerArkiv, 650, 400));
+        m.stage.show();
+    }
 }
