@@ -86,7 +86,7 @@ public class Puls_SpO2_Temp {
     }
 
     public void setName() {
-        name="CPR";
+
     }
 
     public void refresh() {
