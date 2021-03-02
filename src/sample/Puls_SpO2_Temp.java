@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ControllerScene1 {
+public class Puls_SpO2_Temp {
     Main m = new Main();
     Beregner b = new Beregner();
     ScheduledExecutorService pulsEventhandler = Executors.newSingleThreadScheduledExecutor();
@@ -29,13 +29,14 @@ public class ControllerScene1 {
         LineChart<CategoryAxis, NumberAxis> Diagram;
     @FXML
         TextField Name;
-        @FXML
+    @FXML
         Label Spo2Label;
 
 
 
     public void monitorStart() throws IOException {
         pulsSeries.setName("puls");
+        temperatureSeries.setName("Temperature");
         Diagram.getData().addAll(pulsSeries,temperatureSeries);
         pulsEventhandler.scheduleAtFixedRate(() ->
                 Platform.runLater(() -> {
@@ -85,7 +86,6 @@ public class ControllerScene1 {
 
     public void setName() {
         name="";
-        //et eller andet med arkiv navn, skal man kunne sætte her.
     }
 
     public void refresh() {

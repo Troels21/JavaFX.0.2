@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class Main extends Application {
 
@@ -13,8 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Test.fxml"));
-        primaryStage.setTitle("Scene chooser");
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene (root, 650, 400));
         primaryStage.show();
     }
