@@ -13,10 +13,10 @@ public class ControllerArkiv {
     public void PatientFolder() throws IOException, InterruptedException {
 
         Puls_SpO2_Temp PatientInfo = new Puls_SpO2_Temp();
-        String PatientName = PatientInfo.setName();
+      //  String PatientName = PatientInfo.setName();
 
-        File f1 = new File("PatientData",PatientName);
-        f1.createNewFile();
+        //File f1 = new File("PatientData",PatientName);
+        //f1.createNewFile();
     }
 
 /*

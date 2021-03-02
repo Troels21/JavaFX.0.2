@@ -7,9 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
-    //test
-
     Stage stage = new Stage();
 
     @Override
