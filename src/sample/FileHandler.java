@@ -3,9 +3,9 @@ package sample;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Filgenerering {
+public class FileHandler {
     FileWriter f1;
-    public Filgenerering(String navn){
+    public FileHandler(String navn){
         {
             try {
                 f1 = new FileWriter("PatientData/"+navn);

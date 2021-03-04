@@ -25,4 +25,9 @@ public class ControllerProgramChooser {
         m.stage.setScene(new Scene(EKG, 650, 400));
         m.stage.show();
     }
+    public void alarmClicked() throws IOException {
+        Parent EKG = FXMLLoader.load(getClass().getResource("Alarm.fxml"));
+        m.stage.setScene(new Scene(EKG, 650, 400));
+        m.stage.show();
+    }
 }

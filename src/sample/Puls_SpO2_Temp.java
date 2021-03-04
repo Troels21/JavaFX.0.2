@@ -85,7 +85,7 @@ public class Puls_SpO2_Temp {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         } else {
-            Filgenerering fg = new Filgenerering(name);
+            FileHandler fg = new FileHandler(name);
             fg.f1.write(name + "\n");
             String pulseString = pulsSeries.getData().toString();
             String tempString = temperatureSeries.getData().toString();
