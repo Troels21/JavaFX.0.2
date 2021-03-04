@@ -18,42 +18,33 @@ public class ControllerArkiv {
     @FXML
     TextField CPR;
 
-    public void PatientChooser() {
-        String Patient = CPR.getText();
-        File checker = new File(Patient);
-        boolean exists = checker.exists();
-        if (exists){
-            Patient = "";
+    public void PatientChooser() throws FileNotFoundException {
+            File checker = new File("PatientData",CPR.getText());
+
+            if (checker.exists() && CPR.getText().length() >0) {
+                //Fremvisning af data
+            }
+            else {
+                Label alertLabel = new Label();
+                StackPane allertLayout = new StackPane();
+                Stage allertStage = new Stage();
+                Button allertButton = new Button();
+
+                allertButton.setText("OK");
+                alertLabel.setText("Ugyldigt CPR-nummer");
+                allertStage.setTitle("Fejl");
+
+                allertButton.setOnAction(e -> allertStage.close());
+                allertLayout.getChildren().addAll(allertButton, alertLabel);
+                Scene allertScene = new Scene(allertLayout, 200, 100);
+                alertLabel.setTranslateY(-25);
+
+                allertStage.setScene(allertScene);
+                allertStage.initModality(Modality.APPLICATION_MODAL);
+                allertStage.show();
+            }
         }
-        if (Patient.equals("")) {
-            Label alertLabel = new Label();
-            StackPane allertLayout = new StackPane();
-            Stage allertStage = new Stage();
-            Button allertButton = new Button();
-
-            allertButton.setText("OK");
-            alertLabel.setText("Ugyldigt CPR-nummer");
-            allertStage.setTitle("Fejl");
-
-            allertButton.setOnAction(e -> allertStage.close());
-            allertLayout.getChildren().addAll(allertButton, alertLabel);
-            Scene allertScene = new Scene(allertLayout, 200, 100);
-            alertLabel.setTranslateY(-25);
-
-            allertStage.setScene(allertScene);
-            allertStage.initModality(Modality.APPLICATION_MODAL);
-            allertStage.show();
-        }
-
     }
-        }
-
-       // File checker = new File(Patient);
-        //boolean exists = checker.exists();
-
-       // if (CPR.equals("") || CPR.equals("Set CPR")) {
-
-   // }
 
 
 
