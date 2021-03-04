@@ -1,40 +1,27 @@
 package sample;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.*;
+import javafx.scene.control.ChoiceBox;
 
 public class ControllerArkiv {
+    Main m = new Main();
 
 
-    /*public void PatientFolder() throws IOException, InterruptedException {
+    ObservableList list = FXCollections.observableArrayList();
+    @FXML
+    private ChoiceBox <String> choiceBox;
 
-        //
+
+    public void PatientChooser(){
+        list.removeAll(list);
+        String a = "test1";
+        String b = "test2";
+        list.addAll(a,b);
+        choiceBox.getItems().addAll(list);
     }
+}
 
-
-    public void visTemperatur() throws IOException {
-        Puls_SpO2_Temp temp = new Puls_SpO2_Temp();
-        FileWriter TemperaturFil = new FileWriter("Temp");
-
-    }
-
-    public void visIltmætning() throws IOException {
-        FileWriter iltmætningFil = new FileWriter("SpO2");
-
-    }
-
-    public void visPuls() throws IOException {
-        FileWriter pulsFil = new FileWriter("Puls");
-
-    }
-
-    public void visEKG () throws IOException {
-        FileWriter EKGFil = new FileWriter("EKG");
- */
-
-    }
 
 
