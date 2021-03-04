@@ -39,7 +39,7 @@
             <Label layoutX="170.0" layoutY="139.0" text="Iltmætning" />
             <Label layoutX="329.0" layoutY="139.0" text="Puls" />
             <Label layoutX="484.0" layoutY="139.0" text="EKG" />
-            <Button layoutX="292.0" layoutY="325.0" mnemonicParsing="false" onAction="#PatientFolder" text="Start" />
+            <Button layoutX="292.0" layoutY="325.0" mnemonicParsing="false" text="Start" />
             <Button layoutX="293.0" layoutY="359.0" mnemonicParsing="false" text="Stop" />
       </children>
     </AnchorPane>

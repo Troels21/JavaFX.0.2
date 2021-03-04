@@ -85,27 +85,28 @@ public class Puls_SpO2_Temp {
             allertStage.initModality(Modality.APPLICATION_MODAL);
             allertStage.show();
         } else {
-            ControllerArkiv ca = new ControllerArkiv(name);
-            ca.f1.write(name + "\n");
+            Filgenerering fg = new Filgenerering(name);
+            fg.f1.write(name + "\n");
             String pulseString = pulsSeries.getData().toString();
             String tempString = temperatureSeries.getData().toString();
             if (pulseString.length() > 3) {
                 split(pulseString, pulseSeriesFiltered);
-                ca.f1.write("pulse:  ");
+                fg.f1.write("pulse:  ");
                 for (int s = 1; s < split1.length - 1; s++) {
-                    ca.f1.write(pulseSeriesFiltered[s] + "|");
+                    fg.f1.write(pulseSeriesFiltered[s] + "|");
                 }
-                ca.f1.write("\n");
+                fg.f1.write("\n");
             }
+
             if (tempString.length() > 3) {
                 split(tempString, tempSeriesFiltered);
-                ca.f1.write("temperature:  ");
+                fg.f1.write("temperature:  ");
                 for (int s = 1; s < split1.length - 1; s++) {
-                    ca.f1.write(tempSeriesFiltered[s] + "|");
+                    fg.f1.write(tempSeriesFiltered[s] + "|");
                 }
-                ca.f1.write("\n");
+                fg.f1.write("\n");
             }
-            ca.f1.close();
+            fg.f1.close();
         }
     }
 
