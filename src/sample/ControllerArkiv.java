@@ -1,28 +1,62 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import java.util.*;
 import java.io.*;
 
 public class ControllerArkiv {
     @FXML
     TextField CPR;
-
     public void PatientChooser() throws FileNotFoundException {
             File checker = new File("PatientData",CPR.getText());
 
             if (checker.exists() && CPR.getText().length() >0) {
-                //Fremvisning af data
+                Scanner Patient = new Scanner(checker);
+                Patient.nextLine();
+                String RåPuls = Patient.nextLine();
+                String RåTemp = Patient.nextLine();
+
+                System.out.println(RåPuls);
+                System.out.println(RåTemp);
+
+                RåPuls = RåPuls.replaceAll("[^0-9,]", "");
+                RåTemp = RåTemp.replaceAll("[^0-9,]", "");
+
+                System.out.println(RåPuls);
+                System.out.println(RåTemp);
+
+                String[] Pulse = RåPuls.split(",");
+                int PulseLenght = Pulse.length;
+                int Lenght = PulseLenght/2;
+
+                System.out.println("Længde "+ PulseLenght);
+
+                String[] PulseTime = new String[Lenght];
+                for (int i = 0; i== Pulse.length; i++){
+                    while (i%2 != 0) {
+                        PulseTime[i] = Pulse[i];
+
+
+                    }
+                }
+
+                String[] PulseValue = new String[PulseLenght / 2];
+                for (int i = 1; i== Pulse.length; i++){
+                    while (i%2 == 0) {
+                        PulseValue[i] = Pulse[i];
+                    }
+                }
+
+                System.out.println(PulseTime);
+                System.out.println(PulseValue);
+
             }
             else {
                 Label alertLabel = new Label();
