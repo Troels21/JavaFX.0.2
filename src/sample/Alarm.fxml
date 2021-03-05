@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerAlarm">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerAlarm">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -65,14 +58,14 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <TextField fx:id="pulseMax" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="172.0" prefHeight="10.0" prefWidth="68.0" text="220" />
-            <TextField fx:id="pulseMin" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="198.0" prefHeight="25.0" prefWidth="68.0" text="0" />
-            <TextField fx:id="tempMax" alignment="CENTER_RIGHT" layoutX="245.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" text="40" />
-            <TextField fx:id="tempMin" alignment="CENTER_RIGHT" layoutX="245.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" text="35" />
-            <TextField fx:id="SpO2Max" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" text="100" />
-            <TextField fx:id="SpO2Min" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" text="95" />
-            <TextField fx:id="ekgMax" alignment="CENTER_RIGHT" layoutX="512.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" text="1337" />
-            <TextField fx:id="ekgMin" alignment="CENTER_RIGHT" layoutX="512.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" text="420" />
+            <TextField fx:id="pulseMax" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="172.0" prefHeight="10.0" prefWidth="68.0" />
+            <TextField fx:id="pulseMin" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="198.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="tempMax" alignment="CENTER_RIGHT" layoutX="245.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="tempMin" alignment="CENTER_RIGHT" layoutX="245.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="SpO2Max" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="SpO2Min" alignment="CENTER_RIGHT" layoutX="382.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="ekgMax" alignment="CENTER_RIGHT" layoutX="512.0" layoutY="172.0" prefHeight="25.0" prefWidth="81.0" />
+            <TextField fx:id="ekgMin" alignment="CENTER_RIGHT" layoutX="512.0" layoutY="198.0" prefHeight="25.0" prefWidth="81.0" />
             <Button layoutX="525.0" layoutY="319.0" mnemonicParsing="false" onAction="#updateAlarm" text="Update" />
       </children>
     </AnchorPane>
