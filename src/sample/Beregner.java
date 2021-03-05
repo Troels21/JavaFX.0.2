@@ -12,6 +12,7 @@ public class Beregner {
     double intervalmax3=40;
 
 
+
     public void pulseSimulation(){
             math = Math.random() * (intervalmax - intervalmin) + intervalmin;
             puls = (int) math;
