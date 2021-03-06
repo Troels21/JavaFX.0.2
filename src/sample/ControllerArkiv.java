@@ -23,39 +23,50 @@ public class ControllerArkiv {
                 String RåPuls = Patient.nextLine();
                 String RåTemp = Patient.nextLine();
 
-                System.out.println(RåPuls);
-                System.out.println(RåTemp);
-
                 RåPuls = RåPuls.replaceAll("[^0-9,]", "");
                 RåTemp = RåTemp.replaceAll("[^0-9,]", "");
 
-                System.out.println(RåPuls);
-                System.out.println(RåTemp);
 
                 String[] Pulse = RåPuls.split(",");
-                int PulseLenght = Pulse.length;
-                int Lenght = PulseLenght/2;
 
-                System.out.println("Længde "+ PulseLenght);
-
-                String[] PulseTime = new String[Lenght];
-                for (int i = 0; i== Pulse.length; i++){
-                    while (i%2 != 0) {
-                        PulseTime[i] = Pulse[i];
-
-
+                int[] PulseTime = new int[Pulse.length/2];
+                if(Pulse.length > 1)
+                {
+                    for (int i = 0; i < Pulse.length; i = i + 2)
+                    {
+                        PulseTime[i / 2] = Integer.parseInt(Pulse[i]);
                     }
                 }
 
-                String[] PulseValue = new String[PulseLenght / 2];
-                for (int i = 1; i== Pulse.length; i++){
-                    while (i%2 == 0) {
-                        PulseValue[i] = Pulse[i];
+                int[] PulseValue = new int[Pulse.length/2];
+                if(Pulse.length > 1)
+                {
+                    for (int i = 1; i < Pulse.length; i = i + 2)
+                    {
+                        PulseValue[i / 2] = Integer.parseInt(Pulse[i]);
                     }
                 }
 
-                System.out.println(PulseTime);
-                System.out.println(PulseValue);
+                String[] Temp = RåTemp.split(",");
+
+                int[] TempTime = new int[Temp.length/2];
+                if(Temp.length > 1)
+                {
+                    for (int i = 0; i < Temp.length; i = i + 2)
+                    {
+                        TempTime[i / 2] = Integer.parseInt(Temp[i]);
+                    }
+                }
+
+                int[] TempValue = new int[Temp.length/2];
+                if(Temp.length > 1)
+                {
+                    for (int i = 1; i < Temp.length; i = i + 2)
+                    {
+                        TempValue[i / 2] = Integer.parseInt(Temp[i]);
+                    }
+                }
+
 
             }
             else {
