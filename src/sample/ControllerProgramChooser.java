@@ -20,11 +20,13 @@ public class ControllerProgramChooser {
         m.stage.setScene(new Scene(ControllerArkiv, 650, 400));
         m.stage.show();
     }
+
     public void ekgClicked() throws IOException {
         Parent EKG = FXMLLoader.load(getClass().getResource("EKG.fxml"));
         m.stage.setScene(new Scene(EKG, 650, 400));
         m.stage.show();
     }
+
     public void alarmClicked() throws IOException {
         Parent EKG = FXMLLoader.load(getClass().getResource("Alarm.fxml"));
         m.stage.setScene(new Scene(EKG, 650, 400));

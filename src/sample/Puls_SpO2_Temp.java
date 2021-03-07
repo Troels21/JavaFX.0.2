@@ -23,7 +23,7 @@ public class Puls_SpO2_Temp {
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
     String name;
-    int pulseCheck,tempCheck,i;
+    int pulseCheck, tempCheck, i;
 
     String SpO2String;
     String split1[];
@@ -31,31 +31,30 @@ public class Puls_SpO2_Temp {
     String pulseSeriesFiltered[] = new String[5000];
 
     @FXML
-        LineChart<CategoryAxis, NumberAxis> Diagram;
+    LineChart<CategoryAxis, NumberAxis> Diagram;
     @FXML
-        TextField Name;
+    TextField Name;
     @FXML
-        Label Spo2Label;
-
+    Label Spo2Label;
 
 
     public void monitorStart() throws IOException {
         pulsSeries.setName("puls");
         temperatureSeries.setName("Temperature");
-        Diagram.getData().addAll(pulsSeries,temperatureSeries);
+        Diagram.getData().addAll(pulsSeries, temperatureSeries);
         pulsEventhandler.scheduleAtFixedRate(() ->
                 Platform.runLater(() -> {
                     String bogstav = String.valueOf(i);
                     b.SpO2Simulation();
-                    SpO2String +=bogstav+" "+b.Spo2+" ";
+                    SpO2String += bogstav + " " + b.Spo2 + " ";
                     b.pulseSimulation();
                     b.temperatureSimulation();
-                    if (tempCheck==1)
+                    if (tempCheck == 1)
                         temperatureSeries.getData().add(new XYChart.Data(bogstav, b.temp));
-                    if (pulseCheck==1)
+                    if (pulseCheck == 1)
                         pulsSeries.getData().add(new XYChart.Data(bogstav, b.puls));
-                    if (i%5==0)
-                    Spo2Label.setText(b.Spo2);
+                    if (i % 5 == 0)
+                        Spo2Label.setText(b.Spo2);
                     i++;
                 }), 0, 1, TimeUnit.SECONDS);
     }
@@ -110,19 +109,19 @@ public class Puls_SpO2_Temp {
         }
     }
 
-    public void split(String serie,String seriesfiltered[]){
+    public void split(String serie, String seriesfiltered[]) {
         split1 = serie.split("]");
-        for (int p=1;p<split1.length-1;p++){
-            seriesfiltered[p]=split1[p].substring(7);
+        for (int p = 1; p < split1.length - 1; p++) {
+            seriesfiltered[p] = split1[p].substring(7);
         }
     }
 
     public String getName() {
-        if (name !=null){
-        name=Name.getText();
-        return name;}
-        else{
-            name="fejl";
+        if (name != null) {
+            name = Name.getText();
+            return name;
+        } else {
+            name = "fejl";
             return name;
         }
     }
@@ -134,22 +133,27 @@ public class Puls_SpO2_Temp {
         Spo2Label.setText("00%");
     }
 
-    public int showPulse(){
-    if (pulseCheck==1){
-        pulseCheck=0;
-        return pulseCheck;}
-    if (pulseCheck==0){
-        pulseCheck=1;
-        return pulseCheck;}
+    public int showPulse() {
+        if (pulseCheck == 1) {
+            pulseCheck = 0;
+            return pulseCheck;
+        }
+        if (pulseCheck == 0) {
+            pulseCheck = 1;
+            return pulseCheck;
+        }
         return 0;
     }
-    public int showTemperature(){
-        if (tempCheck==1){
-            tempCheck=0;
-            return tempCheck;}
-        if (tempCheck==0){
-            tempCheck=1;
-            return tempCheck;}
+
+    public int showTemperature() {
+        if (tempCheck == 1) {
+            tempCheck = 0;
+            return tempCheck;
+        }
+        if (tempCheck == 0) {
+            tempCheck = 1;
+            return tempCheck;
+        }
         return 0;
     }
 }
