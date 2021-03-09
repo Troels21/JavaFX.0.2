@@ -39,31 +39,75 @@ public class Puls_SpO2_Temp {
 
 
     public void monitorStart() throws IOException {
-        pulsSeries.setName("puls");
-        temperatureSeries.setName("Temperature");
-        Diagram.getData().addAll(pulsSeries, temperatureSeries);
-        pulsEventhandler.scheduleAtFixedRate(() ->
-                Platform.runLater(() -> {
-                    String bogstav = String.valueOf(i);
-                    b.SpO2Simulation();
-                    SpO2String += bogstav + " " + b.Spo2 + " ";
-                    b.pulseSimulation();
-                    b.temperatureSimulation();
-                    if (tempCheck == 1)
-                        temperatureSeries.getData().add(new XYChart.Data(bogstav, b.temp));
-                    if (pulseCheck == 1)
-                        pulsSeries.getData().add(new XYChart.Data(bogstav, b.puls));
-                    if (i % 5 == 0)
-                        Spo2Label.setText(b.Spo2);
-                    i++;
-                }), 0, 1, TimeUnit.SECONDS);
+        this.name = Name.getText();
+        if (name.equals("") || name.equals("Set CPR")) {
+            Label alertLabel = new Label();
+            StackPane allertLayout = new StackPane();
+            Stage allertStage = new Stage();
+            Button allertButton = new Button();
+
+            allertButton.setText("OK");
+            alertLabel.setText("Invalid Name");
+            allertStage.setTitle("Alert");
+
+            allertButton.setOnAction(e -> allertStage.close());
+            allertLayout.getChildren().addAll(allertButton, alertLabel);
+            Scene allertScene = new Scene(allertLayout, 200, 100);
+            alertLabel.setTranslateY(-25);
+
+            allertStage.setScene(allertScene);
+            allertStage.initModality(Modality.APPLICATION_MODAL);
+            allertStage.show();
+        } else {
+            FileHandler fh = new FileHandler(name);
+            pulsSeries.setName("puls");
+            temperatureSeries.setName("Temperature");
+            Diagram.getData().addAll(pulsSeries, temperatureSeries);
+            pulsEventhandler.scheduleAtFixedRate(() ->
+                    Platform.runLater(() -> {
+                        String bogstav = String.valueOf(i);
+                        b.SpO2Simulation();
+                        SpO2String += bogstav + " " + b.Spo2 + " ";
+                        b.pulseSimulation();
+                        b.temperatureSimulation();
+                        if (tempCheck == 1)
+                            temperatureSeries.getData().add(new XYChart.Data(bogstav, b.temp));
+
+                        try {
+                            fh.saveData("Temp", bogstav, b.temp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (pulseCheck == 1)
+                            pulsSeries.getData().add(new XYChart.Data(bogstav, b.puls));
+
+                        try {
+                            fh.saveData("Pulse", bogstav, b.puls);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (i % 5 == 0) {
+                            Spo2Label.setText(b.Spo2);
+
+                            try {
+                                fh.saveData("SpO2", bogstav, b.SpO2int);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        i++;
+                    }), 0, 1, TimeUnit.SECONDS);
+        }
     }
 
-    public void monitorStop() {
+    public void monitorStop() throws IOException {
         pulsEventhandler.shutdown();
     }
 
-    public void saveData() throws IOException {
+    /*public void saveData() throws IOException {
         String name = Name.getText();
         if (name.equals("") || name.equals("Set CPR")) {
             Label alertLabel = new Label();
@@ -107,14 +151,14 @@ public class Puls_SpO2_Temp {
             }
             fg.f1.close();
         }
-    }
+    }*/
 
-    public void split(String serie, String seriesfiltered[]) {
+    /*public void split(String serie, String seriesfiltered[]) {
         split1 = serie.split("]");
         for (int p = 1; p < split1.length - 1; p++) {
             seriesfiltered[p] = split1[p].substring(7);
         }
-    }
+    }*/
 
     public String getName() {
         if (name != null) {

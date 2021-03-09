@@ -2,7 +2,7 @@ package sample;
 
 public class Beregner {
     double math,math2,math3;
-    int puls,temp, red,u;
+    int puls,temp, red,u,SpO2int;
     String Spo2;
     double intervalmin=70;
     double intervalmax=70;
@@ -10,7 +10,6 @@ public class Beregner {
     double intervalmax2=100;
     double intervalmin3=36;
     double intervalmax3=40;
-
 
 
     public void pulseSimulation(){
@@ -21,7 +20,8 @@ public class Beregner {
     }
     public void SpO2Simulation(){
         math2 = Math.random() * (intervalmax2 - intervalmin2) + intervalmin2;
-        Spo2 = String.valueOf((int)math2)+"%";
+        SpO2int = (int)math2;
+        Spo2 = String.valueOf(SpO2int+"%");
         intervalmax2 = math2 + 0.05;
         intervalmin2 = math2 - 0.05;
     }
