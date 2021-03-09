@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Puls_SpO2_Temp">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Puls_SpO2_TempController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -63,7 +63,7 @@
                 </LineChart>
                 <Button layoutX="38.0" layoutY="47.0" mnemonicParsing="false" onAction="#monitorStart" text="Start" />
                 <Button layoutX="79.0" layoutY="47.0" mnemonicParsing="false" onAction="#monitorStop" text="Stop" />
-                <TextField fx:id="Name" layoutX="31.0" layoutY="15.0" prefHeight="25.0" prefWidth="96.0" text="Set CPR" />
+                <TextField fx:id="Name" layoutX="31.0" layoutY="15.0" prefHeight="25.0" prefWidth="96.0" promptText="Set CPR" />
                 <Button layoutX="528.0" layoutY="28.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                 <Label layoutX="551.0" layoutY="63.0" text="SpO2:" />
                 <Label fx:id="Spo2Label" layoutX="584.0" layoutY="63.0" text="00%" />

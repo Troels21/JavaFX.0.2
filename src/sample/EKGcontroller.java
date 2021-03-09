@@ -5,14 +5,19 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextField;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
-public class EKGcontroller {
+public class EKGcontroller extends Beregner implements Initializable {
+    public TextField CPRLabel;
     int y=0;
 
     @FXML LineChart<String,Number> ekgplot;
@@ -40,4 +45,8 @@ public class EKGcontroller {
         tid.shutdown();
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        CPRLabel.setText(name);
     }
+}

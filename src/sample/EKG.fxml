@@ -4,20 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="plot" prefHeight="561.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EKGcontroller">
+<AnchorPane id="plot" prefHeight="561.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EKGcontroller">
     <children>
-        <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#startEKG" prefHeight="49.0"
-                prefWidth="76.0" text="Start"/>
-        <Button layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#stop" prefHeight="49.0"
-                prefWidth="76.0" text="Stop"/>
+        <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#startEKG" prefHeight="49.0" prefWidth="76.0" text="Start" />
+        <Button layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#stop" prefHeight="49.0" prefWidth="76.0" text="Stop" />
         <LineChart fx:id="ekgplot" animated="false" layoutY="197.0" prefHeight="431.0" prefWidth="722.0" title="EKG">
             <xAxis>
-                <CategoryAxis side="BOTTOM"/>
+                <CategoryAxis side="BOTTOM" />
             </xAxis>
             <yAxis>
-                <NumberAxis side="LEFT"/>
+                <NumberAxis side="LEFT" />
             </yAxis>
         </LineChart>
+      <TextField fx:id="CPRLabel" layoutX="151.0" layoutY="65.0" promptText="Set CPR" />
     </children>
 </AnchorPane>
