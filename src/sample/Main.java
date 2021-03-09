@@ -8,14 +8,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     Stage stage = new Stage();
-    double pulseMaxDouble = 220;
-    double pulseMinDouble = 0;
-    double tempMaxDouble = 40;
-    double tempMinDouble = 35;
-    double SpO2MaxDouble = 100;
-    double SpO2MinDouble = 95;
-    double ekgMaxDouble = 1337;
-    double ekgMinDouble = 420;
 
     @Override
     public void start(Stage primaryStage) throws Exception {

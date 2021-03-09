@@ -34,6 +34,14 @@ public class Beregner{
     double intervalmin3 = 36;
     double intervalmax3 = 40;
 
+    static double pulseMaxDouble = 220;
+    static double pulseMinDouble = 0;
+    static double tempMaxDouble = 40;
+    static double tempMinDouble = 35;
+    static double SpO2MaxDouble = 100;
+    static double SpO2MinDouble = 95;
+    static double ekgMaxDouble = 1337;
+    static double ekgMinDouble = 420;
 
     static String name;
     int pulseCheck, tempCheck, i;

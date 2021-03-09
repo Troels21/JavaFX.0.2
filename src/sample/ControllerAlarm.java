@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerAlarm implements Initializable {
-    Main m = new Main();
+    Beregner b = new Beregner();
 
     public TextField pulseMax;
     public TextField pulseMin;
@@ -33,24 +33,7 @@ public class ControllerAlarm implements Initializable {
         check(ekgMax, ekgMin);
 
         if (a == 4) {
-            m.pulseMaxDouble = Double.parseDouble(pulseMax.getText());
-            m.pulseMinDouble = Double.parseDouble(pulseMin.getText());
-            m.tempMaxDouble = Double.parseDouble(tempMax.getText());
-            m.tempMinDouble = Double.parseDouble(tempMin.getText());
-            m.SpO2MaxDouble = Double.parseDouble(SpO2Max.getText());
-            m.SpO2MinDouble = Double.parseDouble(SpO2Min.getText());
-            m.ekgMaxDouble = Double.parseDouble(ekgMax.getText());
-            m.ekgMinDouble = Double.parseDouble(ekgMin.getText());
-
-            System.out.println(m.pulseMaxDouble);
-            System.out.println(m.pulseMinDouble);
-            System.out.println(m.tempMaxDouble);
-            System.out.println(m.tempMinDouble);
-            System.out.println(m.SpO2MaxDouble);
-            System.out.println(m.SpO2MinDouble);
-            System.out.println(m.ekgMaxDouble);
-            System.out.println(m.ekgMinDouble);
-
+            getText();
             setText();
         }
     }
@@ -103,14 +86,25 @@ public class ControllerAlarm implements Initializable {
 
 
     public void setText() {
-        pulseMax.setText(String.valueOf(m.pulseMaxDouble));
-        pulseMin.setText(String.valueOf(m.pulseMinDouble));
-        tempMax.setText(String.valueOf(m.tempMaxDouble));
-        tempMin.setText(String.valueOf(m.tempMinDouble));
-        SpO2Max.setText(String.valueOf(m.SpO2MaxDouble));
-        SpO2Min.setText(String.valueOf(m.SpO2MinDouble));
-        ekgMax.setText(String.valueOf(m.ekgMaxDouble));
-        ekgMin.setText(String.valueOf(m.ekgMinDouble));
+        pulseMax.setText(String.valueOf(b.pulseMaxDouble));
+        pulseMin.setText(String.valueOf(b.pulseMinDouble));
+        tempMax.setText(String.valueOf(b.tempMaxDouble));
+        tempMin.setText(String.valueOf(b.tempMinDouble));
+        SpO2Max.setText(String.valueOf(b.SpO2MaxDouble));
+        SpO2Min.setText(String.valueOf(b.SpO2MinDouble));
+        ekgMax.setText(String.valueOf(b.ekgMaxDouble));
+        ekgMin.setText(String.valueOf(b.ekgMinDouble));
+    }
+
+    public void getText(){
+        b.pulseMaxDouble = Double.parseDouble(pulseMax.getText());
+        b.pulseMinDouble = Double.parseDouble(pulseMin.getText());
+        b.tempMaxDouble = Double.parseDouble(tempMax.getText());
+        b.tempMinDouble = Double.parseDouble(tempMin.getText());
+        b.SpO2MaxDouble = Double.parseDouble(SpO2Max.getText());
+        b.SpO2MinDouble = Double.parseDouble(SpO2Min.getText());
+        b.ekgMaxDouble = Double.parseDouble(ekgMax.getText());
+        b.ekgMinDouble = Double.parseDouble(ekgMin.getText());
     }
 
     @Override
