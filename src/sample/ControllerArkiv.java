@@ -23,89 +23,151 @@ public class ControllerArkiv {
     @FXML
     LineChart<CategoryAxis, NumberAxis> Pulse;
     LineChart<CategoryAxis, NumberAxis> Temp;
-
-    XYChart.Series Pulse1 = new XYChart.Series();
-    XYChart.Series Temperatur1 = new XYChart.Series();
-
-    int[] PulseTime;
-    int[] PulseValue;
-    int[] TempTime;
-    int[] TempValue;
+    LineChart<CategoryAxis, NumberAxis> SpO2;
+    LineChart<CategoryAxis, NumberAxis> EKG;
 
 
-    public void PulsArkiv() {
-        Pulse.getData().add(Pulse1);
-        if (PulseTime != null && PulseValue != null) {
-            Pulse1.getData().add(new XYChart.Data(PulseTime, PulseValue));
-        }
-        System.out.println("Virker");
-    }
+    XYChart.Series PulseLineChart = new XYChart.Series();
+    XYChart.Series TempLineChart = new XYChart.Series();
+    XYChart.Series SpO2LineChart = new XYChart.Series();
+    XYChart.Series EKGLineChart = new XYChart.Series();
 
-    public void TempArkiv(){
 
-    }
+    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue ;
+
 
     public void PatientChooser() throws FileNotFoundException {
-            File checker = new File("PatientData",CPR.getText());
+        File checker = new File("PatientData", CPR.getText());
 
-            if (checker.exists() && CPR.getText().length() >0) {
-                Scanner Patient = new Scanner(checker);
-                Patient.nextLine();
-                String RåPuls = Patient.nextLine();
-                String RåTemp = Patient.nextLine();
+        if (checker.exists() && CPR.getText().length() > 0) {
+            Label alertLabel = new Label();
+            StackPane allertLayout = new StackPane();
+            Stage allertStage = new Stage();
+            Button allertButton = new Button();
 
-                RåPuls = RåPuls.replaceAll("[^0-9,]", "");
-                RåTemp = RåTemp.replaceAll("[^0-9,]", "");
+            allertButton.setText("OK");
+            alertLabel.setText("CPR-nummer er godkendt");
+            allertStage.setTitle("Godkendt");
 
-                String[] Pulse = RåPuls.split(",");
+            allertButton.setOnAction(e -> allertStage.close());
+            allertLayout.getChildren().addAll(allertButton, alertLabel);
+            Scene allertScene = new Scene(allertLayout, 200, 100);
+            alertLabel.setTranslateY(-25);
 
-                PulseTime = new int[Pulse.length/2];
-                if(Pulse.length > 1) {
-                    for (int i = 0; i < Pulse.length; i = i + 2) {
-                        PulseTime[i / 2] = Integer.parseInt(Pulse[i]); }
-                }
-                PulseValue = new int[Pulse.length/2];
-                if(Pulse.length > 1) {
-                    for (int i = 1; i < Pulse.length; i = i + 2) {
-                        PulseValue[i / 2] = Integer.parseInt(Pulse[i]); }
-                }
+            allertStage.setScene(allertScene);
+            allertStage.initModality(Modality.APPLICATION_MODAL);
+            allertStage.show();
 
-                String[] Temp = RåTemp.split(",");
+        } else {
+            Label alertLabel = new Label();
+            StackPane allertLayout = new StackPane();
+            Stage allertStage = new Stage();
+            Button allertButton = new Button();
 
-                TempTime = new int[Temp.length/2];
-                if(Temp.length > 1) {
-                    for (int i = 0; i < Temp.length; i = i + 2) {
-                        TempTime[i / 2] = Integer.parseInt(Temp[i]); }
-                }
+            allertButton.setText("OK");
+            alertLabel.setText("Ugyldigt CPR-nummer");
+            allertStage.setTitle("Fejl");
 
-                TempValue = new int[Temp.length/2];
-                if(Temp.length > 1) {
-                    for (int i = 1; i < Temp.length; i = i + 2) {
-                        TempValue[i / 2] = Integer.parseInt(Temp[i]); }
-                }
+            allertButton.setOnAction(e -> allertStage.close());
+            allertLayout.getChildren().addAll(allertButton, alertLabel);
+            Scene allertScene = new Scene(allertLayout, 200, 100);
+            alertLabel.setTranslateY(-25);
+
+            allertStage.setScene(allertScene);
+            allertStage.initModality(Modality.APPLICATION_MODAL);
+            allertStage.show();
+        }
+    }
+
+    public void PulsArkiv() throws FileNotFoundException {
+        String FileName = CPR.getText();
+        File Pulse1 = new File(FileName, "Pulse");
+        Scanner Patient = new Scanner(Pulse1);
+        String PulseData = Patient.nextLine();
+
+        String RåPuls = PulseData.replaceAll("[^0-9,]", "");
+        String[] Pulse = RåPuls.split(",");
+
+        PulseTime = new int[Pulse.length / 2];
+        if (Pulse.length > 1) {
+            for (int i = 0; i < Pulse.length; i = i + 2) {
+                PulseTime[i / 2] = Integer.parseInt(Pulse[i]);
             }
-            else {
-                Label alertLabel = new Label();
-                StackPane allertLayout = new StackPane();
-                Stage allertStage = new Stage();
-                Button allertButton = new Button();
-
-                allertButton.setText("OK");
-                alertLabel.setText("Ugyldigt CPR-nummer");
-                allertStage.setTitle("Fejl");
-
-                allertButton.setOnAction(e -> allertStage.close());
-                allertLayout.getChildren().addAll(allertButton, alertLabel);
-                Scene allertScene = new Scene(allertLayout, 200, 100);
-                alertLabel.setTranslateY(-25);
-
-                allertStage.setScene(allertScene);
-                allertStage.initModality(Modality.APPLICATION_MODAL);
-                allertStage.show();
+        }
+        PulseValue = new int[Pulse.length / 2];
+        if (Pulse.length > 1) {
+            for (int i = 1; i < Pulse.length; i = i + 2) {
+                PulseValue[i / 2] = Integer.parseInt(Pulse[i]);
             }
         }
     }
 
+    public void TempArkiv() throws FileNotFoundException {
+        String FileName = CPR.getText();
+        File Temp1 = new File(FileName, "Temp");
+        Scanner Patient = new Scanner(Temp1);
+        String TempData = Patient.nextLine();
 
+        String RåTemp = TempData.replaceAll("[^0-9,]", "");
+        String[] Temp = RåTemp.split(",");
 
+        TempTime = new int[Temp.length / 2];
+        if (Temp.length > 1) {
+            for (int i = 0; i < Temp.length; i = i + 2) {
+                TempTime[i / 2] = Integer.parseInt(Temp[i]);
+            }
+        }
+        TempValue = new int[Temp.length / 2];
+        if (Temp.length > 1) {
+            for (int i = 1; i < Temp.length; i = i + 2) {
+                TempValue[i / 2] = Integer.parseInt(Temp[i]);
+            }
+        }
+    }
 
+    public void SpO2Arkiv() throws FileNotFoundException {
+        String FileName = CPR.getText();
+        File SpO21 = new File(FileName, "SpO2");
+        Scanner Patient = new Scanner(SpO21);
+        String SpO2Data = Patient.nextLine();
+
+        String RåSpO2 = SpO2Data.replaceAll("[^0-9,]", "");
+        String[] SpO2 = RåSpO2.split(",");
+
+        SpO2Time = new int[SpO2.length / 2];
+        if (SpO2.length > 1) {
+            for (int i = 0; i < SpO2.length; i = i + 2) {
+                SpO2Time[i / 2] = Integer.parseInt(SpO2[i]);
+            }
+        }
+        SpO2Value = new int[SpO2.length / 2];
+        if (SpO2.length > 1) {
+            for (int i = 1; i < SpO2.length; i = i + 2) {
+                SpO2Value[i / 2] = Integer.parseInt(SpO2[i]);
+            }
+        }
+    }
+
+    public void EKGArkiv() throws FileNotFoundException {
+        String FileName = CPR.getText();
+        File EKG1 = new File(FileName, "EKG");
+        Scanner Patient = new Scanner(EKG1);
+        String EKGData = Patient.nextLine();
+
+        String RåEKG = EKGData.replaceAll("[^0-9,]", "");
+        String[] EKG = RåEKG.split(",");
+
+        EKGTime = new int[EKG.length / 2];
+        if (EKG.length > 1) {
+            for (int i = 0; i < EKG.length; i = i + 2) {
+                EKGTime[i / 2] = Integer.parseInt(EKG[i]);
+            }
+        }
+        EKGValue = new int[EKG.length / 2];
+        if (EKG.length > 1) {
+            for (int i = 1; i < EKG.length; i = i + 2) {
+                EKGValue[i / 2] = Integer.parseInt(EKG[i]);
+            }
+        }
+    }
+}
