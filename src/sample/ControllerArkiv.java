@@ -20,12 +20,12 @@ import java.io.*;
 public class ControllerArkiv {
     @FXML
     TextField CPR;
-    @FXML
-    LineChart<CategoryAxis, NumberAxis> Pulse;
-    LineChart<CategoryAxis, NumberAxis> Temp;
-    LineChart<CategoryAxis, NumberAxis> SpO2;
-    LineChart<CategoryAxis, NumberAxis> EKG;
 
+    @FXML
+    LineChart<NumberAxis, NumberAxis> Pulse;
+    LineChart<NumberAxis, NumberAxis> Temp;
+    LineChart<NumberAxis, NumberAxis> SpO2;
+    LineChart<NumberAxis, NumberAxis> EKG;
 
     XYChart.Series PulseLineChart = new XYChart.Series();
     XYChart.Series TempLineChart = new XYChart.Series();
@@ -33,8 +33,8 @@ public class ControllerArkiv {
     XYChart.Series EKGLineChart = new XYChart.Series();
 
 
-    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue ;
 
+    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue ;
 
     public void PatientChooser() throws FileNotFoundException {
         File checker = new File("PatientData", CPR.getText());
@@ -100,6 +100,13 @@ public class ControllerArkiv {
                 PulseValue[i / 2] = Integer.parseInt(Pulse[i]);
             }
         }
+        final NumberAxis Xakse = new NumberAxis();
+        final NumberAxis Yakse = new NumberAxis();
+        LineChart<Number,Number> PulseDiagram = new LineChart<>(Xakse, Yakse);
+        for (int a = 0; a<PulseTime.length; a++){
+            PulseLineChart.getData().add(new XYChart.Data(PulseTime[a],PulseValue[a]));
+        }
+        PulseDiagram.getData().add(PulseLineChart);
     }
 
     public void TempArkiv() throws FileNotFoundException {
@@ -123,6 +130,13 @@ public class ControllerArkiv {
                 TempValue[i / 2] = Integer.parseInt(Temp[i]);
             }
         }
+        final NumberAxis Xakse = new NumberAxis();
+        final NumberAxis Yakse = new NumberAxis();
+        LineChart<Number,Number> TempDiagram = new LineChart<>(Xakse, Yakse);
+        for (int a = 0; a<TempTime.length; a++){
+            TempLineChart.getData().add(new XYChart.Data(TempTime[a],TempValue[a]));
+        }
+        TempDiagram.getData().add(TempLineChart);
     }
 
     public void SpO2Arkiv() throws FileNotFoundException {
@@ -146,6 +160,13 @@ public class ControllerArkiv {
                 SpO2Value[i / 2] = Integer.parseInt(SpO2[i]);
             }
         }
+        final NumberAxis Xakse = new NumberAxis();
+        final NumberAxis Yakse = new NumberAxis();
+        LineChart<Number,Number> SpO2Diagram = new LineChart<>(Xakse, Yakse);
+        for (int a = 0; a<SpO2Time.length; a++){
+            SpO2LineChart.getData().add(new XYChart.Data(SpO2Time[a],SpO2Value[a]));
+        }
+        SpO2Diagram.getData().add(SpO2LineChart);
     }
 
     public void EKGArkiv() throws FileNotFoundException {
@@ -169,5 +190,13 @@ public class ControllerArkiv {
                 EKGValue[i / 2] = Integer.parseInt(EKG[i]);
             }
         }
+        final NumberAxis Xakse = new NumberAxis();
+        final NumberAxis Yakse = new NumberAxis();
+        LineChart<Number,Number> EKGDiagram = new LineChart<>(Xakse, Yakse);
+        for (int a = 0; a<EKGTime.length; a++){
+            EKGLineChart.getData().add(new XYChart.Data(EKGTime[a],EKGValue[a]));
+        }
+        EKGDiagram.getData().add(EKGLineChart);
     }
+
 }
