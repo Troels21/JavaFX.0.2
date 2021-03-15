@@ -10,7 +10,7 @@ public class FileHandler {
     FileWriter f1;
 
     public FileHandler(String cpr) {
-        this.path = "PatientData/cpr";
+        this.path = "PatientData/"+cpr;
         System.out.println(path);
         File folder = new File(path);
         folder.mkdir();
