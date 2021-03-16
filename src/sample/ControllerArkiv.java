@@ -20,13 +20,13 @@ public class ControllerArkiv {
     TextField CPR;
 
     @FXML
-    LineChart<CategoryAxis, NumberAxis> PulseChart;
+    LineChart<NumberAxis, NumberAxis> PulseChart;
     @FXML
-    LineChart<CategoryAxis, NumberAxis> TempChart;
+    LineChart<NumberAxis, NumberAxis> TempChart;
     @FXML
-    LineChart<CategoryAxis, NumberAxis> SpO2Chart;
+    LineChart<NumberAxis, NumberAxis> SpO2Chart;
     @FXML
-    LineChart<CategoryAxis, NumberAxis> EKGChart;
+    LineChart<NumberAxis, NumberAxis> EKGChart;
 
     XYChart.Series PulseXYChart = new XYChart.Series();
     XYChart.Series TempXYChart  = new XYChart.Series();

@@ -37,7 +37,6 @@ public class ControllerLogin {
             m.stage.show();
         } else if(KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
-
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("PatientArkiv.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
@@ -48,7 +47,7 @@ public class ControllerLogin {
 
     private boolean KontrolP() {
         // skal upgraderes til at kigge efter allerede eksisterende filer
-        String[] arkiv = new String[]{"dude"};
+        String[] arkiv = new String[]{"123"};
         String U = Username.getText();
         String P = Password.getText();
         CPR = U;
