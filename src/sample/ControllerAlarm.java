@@ -45,42 +45,10 @@ public class ControllerAlarm implements Initializable {
             if (max > min) {
                 a++;
             } else {
-                Label alertLabel = new Label();
-                StackPane allertLayout = new StackPane();
-                Stage allertStage = new Stage();
-                Button allertButton = new Button();
-
-                allertButton.setText("OK");
-                alertLabel.setText("Max has to be greater than Min");
-                allertStage.setTitle("Alert");
-
-                allertButton.setOnAction(p -> allertStage.close());
-                allertLayout.getChildren().addAll(allertButton, alertLabel);
-                Scene allertScene = new Scene(allertLayout, 200, 100);
-                alertLabel.setTranslateY(-25);
-
-                allertStage.setScene(allertScene);
-                allertStage.initModality(Modality.APPLICATION_MODAL);
-                allertStage.show();
+                b.error("Max has to be greater than Min");
             }
         } catch (NumberFormatException e) {
-            Label alertLabel = new Label();
-            StackPane allertLayout = new StackPane();
-            Stage allertStage = new Stage();
-            Button allertButton = new Button();
-
-            allertButton.setText("OK");
-            alertLabel.setText("Invalid Number, Write a real number comma with . ");
-            allertStage.setTitle("Alert");
-
-            allertButton.setOnAction(p -> allertStage.close());
-            allertLayout.getChildren().addAll(allertButton, alertLabel);
-            Scene allertScene = new Scene(allertLayout, 200, 100);
-            alertLabel.setTranslateY(-25);
-
-            allertStage.setScene(allertScene);
-            allertStage.initModality(Modality.APPLICATION_MODAL);
-            allertStage.show();
+            b.error("Invalid Number, Write a real number comma with . ");
         }
     }
 
