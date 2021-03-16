@@ -8,7 +8,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class ControllerLogin {
@@ -24,7 +26,6 @@ public class ControllerLogin {
 
     public void login() throws IOException {
 
-
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
@@ -35,12 +36,12 @@ public class ControllerLogin {
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
-        } else if(KontrolP()) {
+        } else if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("PatientArkiv.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
-        } else{
+        } else {
             b.error("Forkert adgangskode");
         }
     }
