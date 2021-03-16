@@ -51,6 +51,7 @@ public class Beregner{
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
 
+    //Pulse spo2 temp
 
     public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart, Label label) throws IOException {
         this.name = textField.getText();
@@ -152,6 +153,8 @@ public class Beregner{
         }
         return 0;
     }
+
+    //Simulations
 
     public void pulseSimulation() {
         math = Math.random() * (intervalmax - intervalmin) + intervalmin;

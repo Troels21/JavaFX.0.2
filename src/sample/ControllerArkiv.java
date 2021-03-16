@@ -19,25 +19,32 @@ import java.io.*;
 
 public class ControllerArkiv {
     @FXML
+    public TextField timeMin;
+    @FXML
+    public TextField timeMax;
+    @FXML
     TextField CPR;
 
     @FXML
-    LineChart<NumberAxis, NumberAxis> Pulse;
+    LineChart<CategoryAxis, NumberAxis> PulseChart;
     @FXML
-    LineChart<NumberAxis, NumberAxis> Temp;
+    LineChart<CategoryAxis, NumberAxis> TempChart;
     @FXML
-    LineChart<NumberAxis, NumberAxis> SpO2;
+    LineChart<CategoryAxis, NumberAxis> SpO2Chart;
     @FXML
-    LineChart<NumberAxis, NumberAxis> EKG;
+    LineChart<CategoryAxis, NumberAxis> EKGChart;
 
-    XYChart.Series PulseLineChart = new XYChart.Series();
-    XYChart.Series TempLineChart = new XYChart.Series();
-    XYChart.Series SpO2LineChart = new XYChart.Series();
-    XYChart.Series EKGLineChart = new XYChart.Series();
+    XYChart.Series PulseXYChart = new XYChart.Series();
+    XYChart.Series TempXYChart  = new XYChart.Series();
+    XYChart.Series SpO2XYChart  = new XYChart.Series();
+    XYChart.Series EKGXYChart = new XYChart.Series();
 
 
 
-    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue ;
+    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue;
+    String [] pulsArray,tempArray,SpO2Array,EKGArray;
+    int timeMaxInt= 60;
+    int timeMinInt=0;
 
     public void PatientChooser() throws FileNotFoundException {
         File checker = new File("PatientData", CPR.getText());
@@ -83,123 +90,63 @@ public class ControllerArkiv {
     }
 
     public void PulsArkiv() throws FileNotFoundException {
-        String FileName = CPR.getText();
-        File Pulse1 = new File("PatientData/"+FileName+"/Pulse"); //mac :FileName, "Pulse"
-        Scanner Patient = new Scanner(Pulse1);
-        String PulseData = Patient.nextLine();
+        populateChart("Pulse",pulsArray,PulseXYChart,PulseChart,PulseTime,PulseValue);
 
-        String RåPuls = PulseData.replaceAll("[^0-9,]", "");
-        String[] Pulse = RåPuls.split(",");
-
-        PulseTime = new int[Pulse.length / 2];
-        if (Pulse.length > 1) {
-            for (int i = 0; i < Pulse.length; i = i + 2) {
-                PulseTime[i / 2] = Integer.parseInt(Pulse[i]);
-            }
-        }
-        PulseValue = new int[Pulse.length / 2];
-        if (Pulse.length > 1) {
-            for (int i = 1; i < Pulse.length; i = i + 2) {
-                PulseValue[i / 2] = Integer.parseInt(Pulse[i]);
-            }
-        }
-        final NumberAxis Xakse = new NumberAxis();
-        final NumberAxis Yakse = new NumberAxis();
-        LineChart<Number,Number> PulseDiagram = new LineChart<>(Xakse, Yakse);
-        for (int a = 0; a<PulseTime.length; a++){
-            PulseLineChart.getData().add(new XYChart.Data(PulseTime[a],PulseValue[a]));
-        }
-        PulseDiagram.getData().add(PulseLineChart);
     }
 
     public void TempArkiv() throws FileNotFoundException {
-        String FileName = CPR.getText();
-        File Temp1 = new File("PatientData/"+FileName+"/Temp"); // Mac:FileName, "Temp"
-        Scanner Patient = new Scanner(Temp1);
-        String TempData = Patient.nextLine();
-
-        String RåTemp = TempData.replaceAll("[^0-9,]", "");
-        String[] Temp = RåTemp.split(",");
-
-        TempTime = new int[Temp.length / 2];
-        if (Temp.length > 1) {
-            for (int i = 0; i < Temp.length; i = i + 2) {
-                TempTime[i / 2] = Integer.parseInt(Temp[i]);
-            }
-        }
-        TempValue = new int[Temp.length / 2];
-        if (Temp.length > 1) {
-            for (int i = 1; i < Temp.length; i = i + 2) {
-                TempValue[i / 2] = Integer.parseInt(Temp[i]);
-            }
-        }
-        final NumberAxis Xakse = new NumberAxis();
-        final NumberAxis Yakse = new NumberAxis();
-        LineChart<Number,Number> TempDiagram = new LineChart<>(Xakse, Yakse);
-        for (int a = 0; a<TempTime.length; a++){
-            TempLineChart.getData().add(new XYChart.Data(TempTime[a],TempValue[a]));
-        }
-        TempDiagram.getData().add(TempLineChart);
+        populateChart("Temp",tempArray,TempXYChart,TempChart,TempTime,TempValue);
     }
 
     public void SpO2Arkiv() throws FileNotFoundException {
-        String FileName = CPR.getText();
-        File SpO21 = new File("PatientData/"+FileName+"/SpO2"); //FileName, "SpO2"
-        Scanner Patient = new Scanner(SpO21);
-        String SpO2Data = Patient.nextLine();
-
-        String RåSpO2 = SpO2Data.replaceAll("[^0-9,]", "");
-        String[] SpO2 = RåSpO2.split(",");
-
-        SpO2Time = new int[SpO2.length / 2];
-        if (SpO2.length > 1) {
-            for (int i = 0; i < SpO2.length; i = i + 2) {
-                SpO2Time[i / 2] = Integer.parseInt(SpO2[i]);
-            }
-        }
-        SpO2Value = new int[SpO2.length / 2];
-        if (SpO2.length > 1) {
-            for (int i = 1; i < SpO2.length; i = i + 2) {
-                SpO2Value[i / 2] = Integer.parseInt(SpO2[i]);
-            }
-        }
-        final NumberAxis Xakse = new NumberAxis();
-        final NumberAxis Yakse = new NumberAxis();
-        LineChart<Number,Number> SpO2Diagram = new LineChart<>(Xakse, Yakse);
-        for (int a = 0; a<SpO2Time.length; a++){
-            SpO2LineChart.getData().add(new XYChart.Data(SpO2Time[a],SpO2Value[a]));
-        }
-        SpO2Diagram.getData().add(SpO2LineChart);
+        populateChart("SpO2",SpO2Array,SpO2XYChart,SpO2Chart,SpO2Time,SpO2Value);
     }
 
     public void EKGArkiv() throws FileNotFoundException {
-        String FileName = CPR.getText();
-        File EKG1 = new File("PatientData/"+FileName+"/EKG"); //FileName, "EKG"
-        Scanner Patient = new Scanner(EKG1);
-        String EKGData = Patient.nextLine();
-
-        String RåEKG = EKGData.replaceAll("[^0-9,]", "");
-        String[] EKG = RåEKG.split(",");
-
-        EKGTime = new int[EKG.length / 2];
-        if (EKG.length > 1) {
-            for (int i = 0; i < EKG.length; i = i + 2) {
-                EKGTime[i / 2] = Integer.parseInt(EKG[i]);
-            }
-        }
-        EKGValue = new int[EKG.length / 2];
-        if (EKG.length > 1) {
-            for (int i = 1; i < EKG.length; i = i + 2) {
-                EKGValue[i / 2] = Integer.parseInt(EKG[i]);
-            }
-        }
-        final NumberAxis Xakse = new NumberAxis();
-        final NumberAxis Yakse = new NumberAxis();
-        LineChart<Number,Number> EKGDiagram = new LineChart<>(Xakse, Yakse);
-        for (int a = 0; a<EKGTime.length; a++){
-            EKGLineChart.getData().add(new XYChart.Data(EKGTime[a],EKGValue[a]));
-        }
-        EKGDiagram.getData().add(EKGLineChart);
+        populateChart("EKG",EKGArray,EKGXYChart,EKGChart,EKGTime,EKGValue);
     }
 
+    public void populateChart(String filename,String[] array,XYChart.Series xyChart, LineChart lineChart,int[] time, int[] value ) throws FileNotFoundException {
+        xyChart.getData().clear();
+        lineChart.getData().clear();
+
+        String FileName = CPR.getText();
+        File Pulse1 = new File("PatientData/"+FileName+"/"+filename); //mac :FileName, "Pulse"
+        Scanner Patient = new Scanner(Pulse1);
+        String PulseData = Patient.nextLine();
+
+        String Rå = PulseData.replaceAll("[^0-9,]", "");
+        array = Rå.split(",");
+
+        time = new int[array.length / 2];
+        if (array.length > 1) {
+            for (int i = 0; i < array.length; i = i + 2) {
+                time[i / 2] = Integer.parseInt(array[i]);
+
+            }
+        }
+
+        value = new int[array.length / 2];
+        if (array.length > 1) {
+            for (int i = 1; i < array.length; i = i + 2) {
+                value[i / 2] = Integer.parseInt(array[i]); // hvad sker der når man deler 3 med 2 som integer.
+
+            }
+        }
+        if (timeMax.getText()!="null" && timeMin.getText()!="null"){
+        try{
+        timeMaxInt= Integer.parseInt(timeMax.getText());
+        timeMinInt= Integer.parseInt(timeMin.getText());}
+        catch (NumberFormatException e) {
+            e.printStackTrace();
+        }}
+        if (timeMaxInt>value.length){
+            timeMaxInt=value.length;
+            timeMax.setText(String.valueOf(timeMaxInt));
+        }
+        for (int a = timeMinInt; a<timeMaxInt; a++){
+            xyChart.getData().add(new XYChart.Data(time[a],value[a]));
+        }
+        lineChart.getData().add(xyChart);
+    }
 }
