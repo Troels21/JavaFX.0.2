@@ -23,8 +23,11 @@ public class ControllerArkiv {
 
     @FXML
     LineChart<NumberAxis, NumberAxis> Pulse;
+    @FXML
     LineChart<NumberAxis, NumberAxis> Temp;
+    @FXML
     LineChart<NumberAxis, NumberAxis> SpO2;
+    @FXML
     LineChart<NumberAxis, NumberAxis> EKG;
 
     XYChart.Series PulseLineChart = new XYChart.Series();
