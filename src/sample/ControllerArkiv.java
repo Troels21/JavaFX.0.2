@@ -1,23 +1,17 @@
 package sample;
 
 import javafx.fxml.*;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.util.*;
 import java.io.*;
 
 public class ControllerArkiv {
+    Beregner b = new Beregner();
+
     @FXML
     public TextField timeMin;
     @FXML
@@ -50,42 +44,10 @@ public class ControllerArkiv {
         File checker = new File("PatientData", CPR.getText());
 
         if (checker.exists() && CPR.getText().length() > 0) {
-            Label alertLabel = new Label();
-            StackPane allertLayout = new StackPane();
-            Stage allertStage = new Stage();
-            Button allertButton = new Button();
-
-            allertButton.setText("OK");
-            alertLabel.setText("CPR-nummer er godkendt");
-            allertStage.setTitle("Godkendt");
-
-            allertButton.setOnAction(e -> allertStage.close());
-            allertLayout.getChildren().addAll(allertButton, alertLabel);
-            Scene allertScene = new Scene(allertLayout, 200, 100);
-            alertLabel.setTranslateY(-25);
-
-            allertStage.setScene(allertScene);
-            allertStage.initModality(Modality.APPLICATION_MODAL);
-            allertStage.show();
+            b.error("CPR-nummer er godkendt");
 
         } else {
-            Label alertLabel = new Label();
-            StackPane allertLayout = new StackPane();
-            Stage allertStage = new Stage();
-            Button allertButton = new Button();
-
-            allertButton.setText("OK");
-            alertLabel.setText("Ugyldigt CPR-nummer");
-            allertStage.setTitle("Fejl");
-
-            allertButton.setOnAction(e -> allertStage.close());
-            allertLayout.getChildren().addAll(allertButton, alertLabel);
-            Scene allertScene = new Scene(allertLayout, 200, 100);
-            alertLabel.setTranslateY(-25);
-
-            allertStage.setScene(allertScene);
-            allertStage.initModality(Modality.APPLICATION_MODAL);
-            allertStage.show();
+            b.error("Ugyldigt CPR-nummer");
         }
     }
 

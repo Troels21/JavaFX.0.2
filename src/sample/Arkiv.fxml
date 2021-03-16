@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -52,7 +51,7 @@
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis label="SpO2" side="LEFT" upperBound="220.0" />
+                  <NumberAxis label="SpO2" lowerBound="80.0" minorTickCount="1" side="LEFT" />
                </yAxis>
             </LineChart>
             <Button layoutX="567.0" layoutY="33.0" mnemonicParsing="false" onAction="#SpO2Arkiv" text="Show" />

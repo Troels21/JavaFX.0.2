@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Puls_SpO2_TempController extends Beregner implements Initializable {
-    Beregner b = new Beregner();
+
 
     @FXML
     LineChart<CategoryAxis, NumberAxis> Diagram;
@@ -21,23 +21,23 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
 
 
     public void monitorStart() throws IOException {
-        b.monitorStartPuls(Name,Diagram,Spo2Label);
+        monitorStartPuls(Name,Diagram,Spo2Label);
     }
 
     public void monitorStop() throws IOException {
-        b.monitorStopPuls();
+        monitorStopPuls();
     }
 
     public void refresh() {
-        b.refreshPuls(Diagram,Spo2Label);
+        refreshPuls(Diagram,Spo2Label);
     }
 
     public void showPulse() {
-        b.showPulsePuls();
+        showPulsePuls();
     }
 
     public void showTemperature() {
-        b.showTemperaturePuls();
+        showTemperaturePuls();
     }
 
     public void setName(String string){
