@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Beregner{
+public class Beregner {
 
     double nametest;
     double math, math2, math3;
@@ -50,54 +50,58 @@ public class Beregner{
     XYChart.Series temperatureSeries = new XYChart.Series();
 
     //Pulse spo2 temp
-
     public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart, Label label) throws IOException {
         this.name = textField.getText();
         try {
             nametest = Double.parseDouble(name);
-            FileHandler fh = new FileHandler(name);
-            pulsSeries.setName("puls");
-            temperatureSeries.setName("Temperature");
-            linechart.getData().addAll(pulsSeries, temperatureSeries);
-            pulsEventhandler.scheduleAtFixedRate(() ->
-                    Platform.runLater(() -> {
-                        String bogstav = String.valueOf(i);
-                        SpO2Simulation();
-                        SpO2String += bogstav + " " + Spo2 + " ";
-                        pulseSimulation();
-                        temperatureSimulation();
-                        if (tempCheck == 1)
-                            temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
-
-                        try {
-                            fh.saveData("Temp", bogstav, temp);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (pulseCheck == 1)
-                            pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
-
-                        try {
-                            fh.saveData("Pulse", bogstav, puls);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (i % 5 == 0) {
-                            label.setText(Spo2);
+            if (name.length() == 10) {
+                FileHandler fh = new FileHandler(name);
+                pulsSeries.setName("puls");
+                temperatureSeries.setName("Temperature");
+                linechart.getData().addAll(pulsSeries, temperatureSeries);
+                pulsEventhandler.scheduleAtFixedRate(() ->
+                        Platform.runLater(() -> {
+                            String bogstav = String.valueOf(i);
+                            SpO2Simulation();
+                            SpO2String += bogstav + " " + Spo2 + " ";
+                            pulseSimulation();
+                            temperatureSimulation();
+                            if (tempCheck == 1)
+                                temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
 
                             try {
-                                fh.saveData("SpO2", bogstav, SpO2int);
+                                fh.saveData("Temp", bogstav, temp);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
 
-                        i++;
-                    }), 0, 1, TimeUnit.SECONDS);
+                            if (pulseCheck == 1)
+                                pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
+
+                            try {
+                                fh.saveData("Pulse", bogstav, puls);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (i % 5 == 0) {
+                                label.setText(Spo2);
+
+                                try {
+                                    fh.saveData("SpO2", bogstav, SpO2int);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            i++;
+                        }), 0, 1, TimeUnit.SECONDS);
+            } else {
+                error("Invalid input, Cpr skal være 10 cifre");
+            }
+
         } catch (Exception e) {
-           error("Wrong name");
+            error("Invalid input, CPR skal være tal");
         }
     }
 
@@ -175,7 +179,7 @@ public class Beregner{
         return red;
     }
 
-    public void error(String message){
+    public void error(String message) {
         Label alertLabel = new Label();
         StackPane allertLayout = new StackPane();
         Stage allertStage = new Stage();

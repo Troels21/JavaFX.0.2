@@ -35,29 +35,33 @@ public class EKGcontroller extends Beregner implements Initializable {
     public void startEKG() {
         y = 0;
         navn = CPRLabel.getText();
-        name=navn;
         try {
             tjek = Double.parseDouble(navn);
-
-            FileHandler FL = new FileHandler(navn);
-            tid.scheduleAtFixedRate(() ->
-                    Platform.runLater(() -> {
-                                ekgplot.getData().clear();
-                                ekgSimulation();
-                                String n = String.valueOf(y);
-                                int redval = redv();
-                                data.getData().add((new XYChart.Data<String, Number>(n, redval)));
-                                ekgplot.getData().add(data);
-                                try {
-                                    FL.saveData("EKG", n, redval);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+            if (navn.length() == 10) {
+                name = navn;
+                FileHandler FL = new FileHandler(navn);
+                tid.scheduleAtFixedRate(() ->
+                        Platform.runLater(() -> {
+                                    ekgplot.getData().clear();
+                                    ekgSimulation();
+                                    String n = String.valueOf(y);
+                                    int redval = redv();
+                                    data.getData().add((new XYChart.Data<String, Number>(n, redval)));
+                                    ekgplot.getData().add(data);
+                                    try {
+                                        FL.saveData("EKG", n, redval);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    y++;
                                 }
-                                y++;
-                            }
-                    ), 0, 100, TimeUnit.MILLISECONDS);
-        } catch (RuntimeException e) {
-            error("Wrong name");
+                        ), 0, 100, TimeUnit.MILLISECONDS);
+            } else {
+                error("Invalid input, Cpr skal være 10 cifre");
+            }
+
+        } catch (Exception e) {
+            error("Invalid input, CPR skal være tal");
         }
     }
 
