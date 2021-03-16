@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public class ControllerLogin {
     Main m = new Main();
+    Beregner b = new Beregner();
+    static String CPR;
 
     @FXML
     TextField Username;
@@ -19,27 +21,48 @@ public class ControllerLogin {
 
     public void login() throws IOException {
 
-        if (KontrolSP()) {
+        if (KontrolL()) {
+            // læge skal kunne tilgå det hele
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
-        } else if (KontrolL()) {
+        } else if (KontrolSP()) {
+            // sundhedspersonale skal kunne tilgå det meste, undtagen alarmgrænser.
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
-        } else {
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
+        } else if(KontrolP()) {
+            // patienter skal kun kunne tilgå deres arkiv.
+
+            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("PatientArkiv.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
+        } else{
+            b.error("Forkert adgangskode");
         }
     }
 
+    private boolean KontrolP() {
+        // skal upgraderes til at kigge efter allerede eksisterende filer
+        String[] arkiv = new String[]{"dude"};
+        String U = Username.getText();
+        String P = Password.getText();
+        CPR = U;
+
+        for (int i = 0; i < arkiv.length; i++) {
+            if (U.equals(arkiv[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean KontrolL() {
-        String[] arkiv = new String[]{"dude", "bro", "guy", "friend", "pal"};
+        String[] arkiv = new String[]{"bro"};
         String U = Username.getText();
         String P = Password.getText();
 
-        for (int i = 0; i < arkiv.length - 1; i++) {
+        for (int i = 0; i < arkiv.length; i++) {
             if (U.equals(arkiv[i])) {
                 return true;
             }
@@ -48,11 +71,11 @@ public class ControllerLogin {
     }
 
     private boolean KontrolSP() {
-        String[] arkiv = new String[]{"dude", "bro", "guy", "friend", "pal"};
+        String[] arkiv = new String[]{"guy", "friend", "pal"};
         String U = Username.getText();
         String P = Password.getText();
 
-        for (int i = 0; i < arkiv.length - 1; i++) {
+        for (int i = 0; i < arkiv.length; i++) {
             if (U.equals(arkiv[i])) {
                 return true;
             }

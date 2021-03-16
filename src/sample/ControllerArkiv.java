@@ -53,7 +53,6 @@ public class ControllerArkiv {
 
     public void PulsArkiv() throws FileNotFoundException {
         populateChart("Pulse",pulsArray,PulseXYChart,PulseChart,PulseTime,PulseValue);
-
     }
 
     public void TempArkiv() throws FileNotFoundException {
