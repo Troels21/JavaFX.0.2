@@ -81,7 +81,7 @@ public class ControllerArkiv {
 
     public void PulsArkiv() throws FileNotFoundException {
         String FileName = CPR.getText();
-        File Pulse1 = new File(FileName, "Pulse");
+        File Pulse1 = new File("PatientData/"+FileName+"/Pulse"); //mac :FileName, "Pulse"
         Scanner Patient = new Scanner(Pulse1);
         String PulseData = Patient.nextLine();
 
@@ -111,7 +111,7 @@ public class ControllerArkiv {
 
     public void TempArkiv() throws FileNotFoundException {
         String FileName = CPR.getText();
-        File Temp1 = new File(FileName, "Temp");
+        File Temp1 = new File("PatientData/"+FileName+"/Temp"); // Mac:FileName, "Temp"
         Scanner Patient = new Scanner(Temp1);
         String TempData = Patient.nextLine();
 
@@ -141,7 +141,7 @@ public class ControllerArkiv {
 
     public void SpO2Arkiv() throws FileNotFoundException {
         String FileName = CPR.getText();
-        File SpO21 = new File(FileName, "SpO2");
+        File SpO21 = new File("PatientData/"+FileName+"/SpO2"); //FileName, "SpO2"
         Scanner Patient = new Scanner(SpO21);
         String SpO2Data = Patient.nextLine();
 
@@ -171,7 +171,7 @@ public class ControllerArkiv {
 
     public void EKGArkiv() throws FileNotFoundException {
         String FileName = CPR.getText();
-        File EKG1 = new File(FileName, "EKG");
+        File EKG1 = new File("PatientData/"+FileName+"/EKG"); //FileName, "EKG"
         Scanner Patient = new Scanner(EKG1);
         String EKGData = Patient.nextLine();
 

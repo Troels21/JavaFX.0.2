@@ -31,6 +31,7 @@ public class EKGcontroller extends Beregner implements Initializable {
         y = 0;
         navn = CPRLabel.getText();
         if (navn != null && navn.length() == 10) {
+            System.out.println("her");
 
             tjek = Double.parseDouble(navn);
             try {
