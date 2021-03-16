@@ -32,7 +32,7 @@ public class ControllerLogin {
             m.stage.show();
         } else if (KontrolSP()) {
             // sundhedspersonale skal kunne tilgå det meste, undtagen alarmgrænser.
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
+            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooserNoAlarm.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
             m.stage.show();
         } else if(KontrolP()) {
