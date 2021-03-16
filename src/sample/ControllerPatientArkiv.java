@@ -10,9 +10,6 @@ import java.util.ResourceBundle;
 
 public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
     public Label Cprlabel;
-    // interagtion med show knapper
-    //display cpr
-    // alt funktionalitet fra akrivet
     ControllerLogin CL = new ControllerLogin();
 
     public void PulsArkiv(ActionEvent actionEvent) throws FileNotFoundException {

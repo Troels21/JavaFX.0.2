@@ -6,7 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ControllerLogin {
     Main m = new Main();
@@ -20,6 +23,7 @@ public class ControllerLogin {
 
 
     public void login() throws IOException {
+
 
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
