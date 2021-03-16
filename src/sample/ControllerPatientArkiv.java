@@ -36,16 +36,6 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     @FXML
     LineChart<NumberAxis, NumberAxis> EKGChart;
 
-    XYChart.Series PulseXYChart = new XYChart.Series();
-    XYChart.Series TempXYChart = new XYChart.Series();
-    XYChart.Series SpO2XYChart = new XYChart.Series();
-    XYChart.Series EKGXYChart = new XYChart.Series();
-
-
-    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue;
-    String[] pulsArray, tempArray, SpO2Array, EKGArray;
-    int timeMaxInt = 60;
-    int timeMinInt = 0;
 
     public void PulsArkiv(ActionEvent actionEvent) throws FileNotFoundException {
         populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue);
