@@ -62,50 +62,9 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     public void EKGArkiv(ActionEvent actionEvent) throws FileNotFoundException {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
     }
-
-    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, int[] value) throws FileNotFoundException {
-        xyChart.getData().clear();
-        lineChart.getData().clear();
-
-        String FileName = Cprlabel.getText();
-        File Pulse1 = new File("PatientData/" + FileName + "/" + filetype); //mac :FileName, "Pulse"
-        Scanner Patient = new Scanner(Pulse1);
-        String PulseData = Patient.nextLine();
-
-        String Rå = PulseData.replaceAll("[^0-9,]", "");
-        array = Rå.split(",");
-
-        time = new int[array.length / 2];
-        if (array.length > 1) {
-            for (int i = 0; i < array.length; i = i + 2) {
-                time[i / 2] = Integer.parseInt(array[i]);
-
-            }
-        }
-
-        value = new int[array.length / 2];
-        if (array.length > 1) {
-            for (int i = 1; i < array.length; i = i + 2) {
-                value[i / 2] = Integer.parseInt(array[i]); // hvad sker der når man deler 3 med 2 som integer.
-
-            }
-        }
-        if (timeMax.getText() != "null" && timeMin.getText() != "null") {
-            try {
-                timeMaxInt = Integer.parseInt(timeMax.getText());
-                timeMinInt = Integer.parseInt(timeMin.getText());
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-        if (timeMaxInt > value.length) {
-            timeMaxInt = value.length;
-            timeMax.setText(String.valueOf(timeMaxInt));
-        }
-        for (int a = timeMinInt; a < timeMaxInt; a++) {
-            xyChart.getData().add(new XYChart.Data(time[a], value[a]));
-        }
-        lineChart.getData().add(xyChart);
+    @Override
+    public String CPR (){
+        return Cprlabel.getText();
     }
 
     @Override

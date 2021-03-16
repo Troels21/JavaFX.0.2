@@ -67,11 +67,15 @@ public class ControllerArkiv {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
     }
 
+    public String CPR (){
+        return CPR.getText();
+    }
+
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, int[] value) throws FileNotFoundException {
         xyChart.getData().clear();
         lineChart.getData().clear();
 
-        String FileName = CPR.getText();
+        String FileName = CPR();
         File Pulse1 = new File("PatientData/" + FileName + "/" + filetype); //mac :FileName, "Pulse"
         Scanner Patient = new Scanner(Pulse1);
         String PulseData = Patient.nextLine();
