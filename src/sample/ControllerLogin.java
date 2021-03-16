@@ -6,7 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ControllerLogin {
     Main m = new Main();
@@ -29,9 +32,8 @@ public class ControllerLogin {
             m.stage.show();
         } else if (KontrolSP()) {
             // sundhedspersonale skal kunne tilgå det meste, undtagen alarmgrænser.
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooserNoAlarm.fxml"));
+            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
             m.stage.setScene(new Scene(ProgramChooser, 650, 400));
-            m.stage.show();
             m.stage.show();
         } else if(KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
