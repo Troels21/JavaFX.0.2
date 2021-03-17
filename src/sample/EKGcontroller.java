@@ -48,6 +48,7 @@ public class EKGcontroller extends Beregner implements Initializable {
                                     int redval = redv();
                                     data.getData().add((new XYChart.Data<String, Number>(n, redval)));
                                     ekgplot.getData().add(data);
+                                    alarmCheck("EKG ER FARLIG",ekgMaxDouble,ekgMinDouble,redval);
                                     try {
                                         FL.saveData("EKG", n, redval);
                                     } catch (IOException e) {

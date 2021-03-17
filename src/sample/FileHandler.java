@@ -22,6 +22,13 @@ public class FileHandler {
         f1.write(bogstav+","+value+","+"null"+"|");
         f1.flush();
     }
+
+    public void saveDataDouble(String type,String bogstav,double value) throws IOException {
+        f1 = new FileWriter((this.path+"\\"+type),true);
+        String t = type;
+        f1.write(bogstav+","+value+","+"null"+"|");
+        f1.flush();
+    }
 }
 
 

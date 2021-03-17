@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class Beregner {
 
     double nametest;
-    double math, math2, math3;
-    int puls, temp, red, u, SpO2int;
+    double math, math2, math3, temp;
+    int puls, red, u, SpO2int;
     String Spo2;
     double intervalmin = 70;
     double intervalmax = 70;
@@ -38,8 +38,8 @@ public class Beregner {
     static double tempMinDouble = 35;
     static double SpO2MaxDouble = 100;
     static double SpO2MinDouble = 95;
-    static double ekgMaxDouble = 1337;
-    static double ekgMinDouble = 420;
+    static double ekgMaxDouble = 150;
+    static double ekgMinDouble = -50;
 
     static String name;
     int pulseCheck, tempCheck, i;
@@ -66,18 +66,21 @@ public class Beregner {
                             SpO2String += bogstav + " " + Spo2 + " ";
                             pulseSimulation();
                             temperatureSimulation();
-                            if (tempCheck == 1)
+                            if (tempCheck == 1) {
                                 temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
+                                alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp);
+                            }
 
                             try {
-                                fh.saveData("Temp", bogstav, temp);
+                                fh.saveDataDouble("Temp", bogstav, temp);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
-                            if (pulseCheck == 1)
+                            if (pulseCheck == 1) {
                                 pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
-
+                                alarmCheck("ALARM PULS ER FARLIG",pulseMaxDouble,pulseMinDouble,puls);
+                            }
                             try {
                                 fh.saveData("Pulse", bogstav, puls);
                             } catch (IOException e) {
@@ -86,6 +89,7 @@ public class Beregner {
 
                             if (i % 5 == 0) {
                                 label.setText(Spo2);
+                                alarmCheck("SPO2 ER FARLIG",SpO2MaxDouble,SpO2MinDouble,SpO2int);
 
                                 try {
                                     fh.saveData("SpO2", bogstav, SpO2int);
@@ -140,6 +144,14 @@ public class Beregner {
         return 0;
     }
 
+    //Alarm
+    public void alarmCheck(String string, double alarmMax, double alarmMin, double value) {
+        if (value < alarmMin || value > alarmMax) {
+            error(string);
+        }
+    }
+
+
     //Simulations
 
     public void pulseSimulation() {
@@ -159,7 +171,7 @@ public class Beregner {
 
     public void temperatureSimulation() {
         math3 = Math.random() * (intervalmax3 - intervalmin3) + intervalmin3;
-        temp = (int) math3;
+        temp = math3;
         intervalmax3 = math3 + 0.05;
         intervalmin3 = math3 - 0.05;
     }
