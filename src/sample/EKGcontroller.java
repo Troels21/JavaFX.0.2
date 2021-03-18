@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class EKGcontroller extends Beregner implements Initializable {
+    ControllerProgramChooser cpc=new ControllerProgramChooser();
     static String navn;
     double tjek;
     int y = 0;
@@ -29,7 +31,7 @@ public class EKGcontroller extends Beregner implements Initializable {
     LineChart<String, Number> ekgplot;
     @FXML
     TextField CPRLabel;
-    ScheduledExecutorService tid = Executors.newSingleThreadScheduledExecutor();
+    //Dataserie
     XYChart.Series<String, Number> data = new XYChart.Series<String, Number>();
 
     public void startEKG() {
@@ -40,7 +42,7 @@ public class EKGcontroller extends Beregner implements Initializable {
             if (navn.length() == 10) {
                 name = navn;
                 FileHandler FL = new FileHandler(navn);
-                tid.scheduleAtFixedRate(() ->
+                Eventhandler.scheduleAtFixedRate(() ->
                         Platform.runLater(() -> {
                                     ekgplot.getData().clear();
                                     ekgSimulation();
@@ -48,7 +50,7 @@ public class EKGcontroller extends Beregner implements Initializable {
                                     int redval = redv();
                                     data.getData().add((new XYChart.Data<String, Number>(n, redval)));
                                     ekgplot.getData().add(data);
-                                    alarmCheck("EKG ER FARLIG",ekgMaxDouble,ekgMinDouble,redval);
+                                    alarmCheck("EKG ER FARLIG", ekgMaxDouble, ekgMinDouble, redval);
                                     try {
                                         FL.saveData("EKG", n, redval);
                                     } catch (IOException e) {
@@ -67,12 +69,14 @@ public class EKGcontroller extends Beregner implements Initializable {
     }
 
 
-    public void stop() {
-        tid.shutdown();
+    public void EKGstop() {
+        Eventhandler.shutdown();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CPRLabel.setText(name);
-    }
+    } //Sætter CPR navn
+
+
 }

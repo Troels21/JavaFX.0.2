@@ -1,7 +1,7 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -12,6 +12,7 @@ import java.io.*;
 
 public class ControllerArkiv {
     Beregner b = new Beregner();
+    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
     @FXML
     public TextField timeMin;
@@ -34,8 +35,8 @@ public class ControllerArkiv {
     XYChart.Series SpO2XYChart = new XYChart.Series();
     XYChart.Series EKGXYChart = new XYChart.Series();
 
-
-    int[] PulseTime, PulseValue, TempTime, TempValue, SpO2Time, SpO2Value, EKGTime, EKGValue;
+    int[] PulseTime, TempTime,  SpO2Time, EKGTime;
+    double[] PulseValue,TempValue, SpO2Value, EKGValue;
     String[] pulsArray, tempArray, SpO2Array, EKGArray;
     int timeMaxInt = 60;
     int timeMinInt = 0;
@@ -67,11 +68,12 @@ public class ControllerArkiv {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
     }
 
-    public String CPR (){
+    public String CPR() {
         return CPR.getText();
     }
 
-    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, int[] value) throws FileNotFoundException {
+    //metode til at finde data og indlæse det i grafer.
+    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, double[] value) throws FileNotFoundException {
         xyChart.getData().clear();
         lineChart.getData().clear();
 
@@ -80,7 +82,7 @@ public class ControllerArkiv {
         Scanner Patient = new Scanner(Pulse1);
         String PulseData = Patient.nextLine();
 
-        String Rå = PulseData.replaceAll("[^0-9,]", "");
+        String Rå = PulseData.replaceAll("[^0-9,.]", "");
         array = Rå.split(",");
 
         time = new int[array.length / 2];
@@ -91,19 +93,22 @@ public class ControllerArkiv {
             }
         }
 
-        value = new int[array.length / 2];
+        value = new double[array.length / 2];
         if (array.length > 1) {
             for (int i = 1; i < array.length; i = i + 2) {
-                value[i / 2] = Integer.parseInt(array[i]); // hvad sker der når man deler 3 med 2 som integer.
+                value[i / 2] = Double.parseDouble(array[i]); // hvad sker der når man deler 3 med 2 som integer.
 
             }
         }
-        if (timeMax.getText() != "null" && timeMin.getText() != "null") {
+        if (timeMax.getText() != "null" || timeMin.getText() != "null") {
             try {
                 timeMaxInt = Integer.parseInt(timeMax.getText());
                 timeMinInt = Integer.parseInt(timeMin.getText());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                timeMaxInt = value.length;
+                timeMax.setText(String.valueOf(timeMaxInt));
+                timeMinInt = 0;
+                timeMin.setText(String.valueOf(timeMinInt));
             }
         }
         if (timeMaxInt > value.length) {
@@ -115,4 +120,5 @@ public class ControllerArkiv {
         }
         lineChart.getData().add(xyChart);
     }
+
 }

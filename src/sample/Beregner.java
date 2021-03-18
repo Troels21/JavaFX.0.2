@@ -15,42 +15,45 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Beregner {
 
-    double nametest;
-    double math, math2, math3, temp;
-    int puls, red, u, SpO2int;
-    String Spo2;
+    //Variabler til puls, temperatur,ekg simulation og fremvisning
+    double nametest, math, math2, math3, temp, SpO2double;
+    int puls, red, u, pulseCheck, tempCheck, i;
+    String Spo2, SpO2String;
     double intervalmin = 70;
     double intervalmax = 70;
     double intervalmin2 = 98;
     double intervalmax2 = 100;
     double intervalmin3 = 36;
-    double intervalmax3 = 40;
+    double intervalmax3 = 38;
 
+    //værdier brugt til Alarmgrænser
     static double pulseMaxDouble = 220;
     static double pulseMinDouble = 0;
-    static double tempMaxDouble = 40;
+    static double tempMaxDouble = 49;
     static double tempMinDouble = 35;
     static double SpO2MaxDouble = 100;
     static double SpO2MinDouble = 95;
     static double ekgMaxDouble = 150;
     static double ekgMinDouble = -50;
 
+    //String brugt til holde CPR gemt, mellem stages.
     static String name;
-    int pulseCheck, tempCheck, i;
-    String SpO2String;
 
-    ScheduledExecutorService pulsEventhandler = Executors.newSingleThreadScheduledExecutor();
+    //Objekter brugt til at fremvise linechart serie i realtid
+    ScheduledExecutorService Eventhandler = Executors.newSingleThreadScheduledExecutor();
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
 
-    //Pulse spo2 temp
-    public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart, Label label) throws IOException {
+    //metode til at fremvise puls,temp og spo2
+    public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart, Label label, Label label2) throws IOException {
         this.name = textField.getText();
         try {
             nametest = Double.parseDouble(name);
@@ -59,7 +62,7 @@ public class Beregner {
                 pulsSeries.setName("puls");
                 temperatureSeries.setName("Temperature");
                 linechart.getData().addAll(pulsSeries, temperatureSeries);
-                pulsEventhandler.scheduleAtFixedRate(() ->
+                Eventhandler.scheduleAtFixedRate(() ->
                         Platform.runLater(() -> {
                             String bogstav = String.valueOf(i);
                             SpO2Simulation();
@@ -67,6 +70,7 @@ public class Beregner {
                             pulseSimulation();
                             temperatureSimulation();
                             if (tempCheck == 1) {
+                                label2.setText((temp + "°C"));
                                 temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
                                 alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp);
                             }
@@ -79,7 +83,7 @@ public class Beregner {
 
                             if (pulseCheck == 1) {
                                 pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
-                                alarmCheck("ALARM PULS ER FARLIG",pulseMaxDouble,pulseMinDouble,puls);
+                                alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls);
                             }
                             try {
                                 fh.saveData("Pulse", bogstav, puls);
@@ -87,12 +91,12 @@ public class Beregner {
                                 e.printStackTrace();
                             }
 
-                            if (i % 5 == 0) {
+                            if (i % 2 == 0) {
                                 label.setText(Spo2);
-                                alarmCheck("SPO2 ER FARLIG",SpO2MaxDouble,SpO2MinDouble,SpO2int);
+                                alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double);
 
                                 try {
-                                    fh.saveData("SpO2", bogstav, SpO2int);
+                                    fh.saveDataDouble("SpO2", bogstav, SpO2double);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -109,17 +113,12 @@ public class Beregner {
         }
     }
 
+    //Metode til at stoppe fremvisning i realtid af puls, temp og spo2
     public void monitorStopPuls() throws IOException {
-        pulsEventhandler.shutdown();
+        Eventhandler.shutdown();
     }
 
-    public void refreshPuls(LineChart<CategoryAxis, NumberAxis> lineChart, Label label) {
-        lineChart.getData().clear();
-        pulsSeries.getData().clear();
-        temperatureSeries.getData().clear();
-        label.setText("00%");
-    }
-
+    //Kontrol logic in radiobutton pulse
     public int showPulsePuls() {
         if (pulseCheck == 1) {
             pulseCheck = 0;
@@ -132,6 +131,7 @@ public class Beregner {
         return 0;
     }
 
+    //Kontrol logic in radiobutton temp
     public int showTemperaturePuls() {
         if (tempCheck == 1) {
             tempCheck = 0;
@@ -144,15 +144,12 @@ public class Beregner {
         return 0;
     }
 
-    //Alarm
+    //metode til at kontrollere alarm
     public void alarmCheck(String string, double alarmMax, double alarmMin, double value) {
         if (value < alarmMin || value > alarmMax) {
             error(string);
         }
     }
-
-
-    //Simulations
 
     public void pulseSimulation() {
         math = Math.random() * (intervalmax - intervalmin) + intervalmin;
@@ -163,19 +160,20 @@ public class Beregner {
 
     public void SpO2Simulation() {
         math2 = Math.random() * (intervalmax2 - intervalmin2) + intervalmin2;
-        SpO2int = (int) math2;
-        Spo2 = String.valueOf(SpO2int + "%");
+        SpO2double = new BigDecimal(math2).setScale(2, RoundingMode.HALF_UP).doubleValue();//Runder til 2 decimal
+        Spo2 = (SpO2double + "%");
         intervalmax2 = math2 + 0.05;
         intervalmin2 = math2 - 0.05;
     }
 
     public void temperatureSimulation() {
         math3 = Math.random() * (intervalmax3 - intervalmin3) + intervalmin3;
-        temp = math3;
-        intervalmax3 = math3 + 0.05;
-        intervalmin3 = math3 - 0.05;
+        temp = new BigDecimal(math3).setScale(2, RoundingMode.HALF_UP).doubleValue(); //Runder til 2 decimal
+        intervalmax3 = math3 + 0.25;
+        intervalmin3 = math3 - 0.25;
     }
 
+    //EKG værdier array
     double Red[] = {0, 10, 15, 20, 15, 10, 0, 0, -10, 100, -30, 0, 0, 5, 10, 20, 25, 30, 20, 10, 5, 0};
 
     public void ekgSimulation() {
@@ -191,6 +189,7 @@ public class Beregner {
         return red;
     }
 
+    //Alarm besked
     public void error(String message) {
         Label alertLabel = new Label();
         StackPane allertLayout = new StackPane();

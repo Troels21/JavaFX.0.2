@@ -1,17 +1,21 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Puls_SpO2_TempController extends Beregner implements Initializable {
+    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
-
+    @FXML
+    Label tempLabel;
     @FXML
     LineChart<CategoryAxis, NumberAxis> Diagram;
     @FXML
@@ -19,17 +23,12 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
     @FXML
     Label Spo2Label;
 
-
     public void monitorStart() throws IOException {
-        monitorStartPuls(Name,Diagram,Spo2Label);
+        monitorStartPuls(Name, Diagram, Spo2Label, tempLabel);
     }
 
     public void monitorStop() throws IOException {
         monitorStopPuls();
-    }
-
-    public void refresh() {
-        refreshPuls(Diagram,Spo2Label);
     }
 
     public void showPulse() {
@@ -40,12 +39,13 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
         showTemperaturePuls();
     }
 
-    public void setName(String string){
+    public void setName(String string) {
         Name.setText(string);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(name);
-    }
+    } //Sætter CPR navn
+
 }

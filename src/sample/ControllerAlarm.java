@@ -1,20 +1,16 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerAlarm implements Initializable {
-    Beregner b = new Beregner();
+public class ControllerAlarm extends Beregner implements Initializable {
+    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
+    //Finder textfields i fxml
     public TextField pulseMax;
     public TextField pulseMin;
     public TextField tempMax;
@@ -45,38 +41,39 @@ public class ControllerAlarm implements Initializable {
             if (max > min) {
                 a++;
             } else {
-                b.error("Max has to be greater than Min");
+                error("Max has to be greater than Min");
             }
         } catch (NumberFormatException e) {
-            b.error("Invalid Number, Write a real number comma with . ");
+            error("Invalid Number, Write a real number comma with . ");
         }
     }
 
 
     public void setText() {
-        pulseMax.setText(String.valueOf(b.pulseMaxDouble));
-        pulseMin.setText(String.valueOf(b.pulseMinDouble));
-        tempMax.setText(String.valueOf(b.tempMaxDouble));
-        tempMin.setText(String.valueOf(b.tempMinDouble));
-        SpO2Max.setText(String.valueOf(b.SpO2MaxDouble));
-        SpO2Min.setText(String.valueOf(b.SpO2MinDouble));
-        ekgMax.setText(String.valueOf(b.ekgMaxDouble));
-        ekgMin.setText(String.valueOf(b.ekgMinDouble));
+        pulseMax.setText(String.valueOf(pulseMaxDouble));
+        pulseMin.setText(String.valueOf(pulseMinDouble));
+        tempMax.setText(String.valueOf(tempMaxDouble));
+        tempMin.setText(String.valueOf(tempMinDouble));
+        SpO2Max.setText(String.valueOf(SpO2MaxDouble));
+        SpO2Min.setText(String.valueOf(SpO2MinDouble));
+        ekgMax.setText(String.valueOf(ekgMaxDouble));
+        ekgMin.setText(String.valueOf(ekgMinDouble));
     }
 
-    public void getText(){
-        b.pulseMaxDouble = Double.parseDouble(pulseMax.getText());
-        b.pulseMinDouble = Double.parseDouble(pulseMin.getText());
-        b.tempMaxDouble = Double.parseDouble(tempMax.getText());
-        b.tempMinDouble = Double.parseDouble(tempMin.getText());
-        b.SpO2MaxDouble = Double.parseDouble(SpO2Max.getText());
-        b.SpO2MinDouble = Double.parseDouble(SpO2Min.getText());
-        b.ekgMaxDouble = Double.parseDouble(ekgMax.getText());
-        b.ekgMinDouble = Double.parseDouble(ekgMin.getText());
+    public void getText() {
+        pulseMaxDouble = Double.parseDouble(pulseMax.getText());
+        pulseMinDouble = Double.parseDouble(pulseMin.getText());
+        tempMaxDouble = Double.parseDouble(tempMax.getText());
+        tempMinDouble = Double.parseDouble(tempMin.getText());
+        SpO2MaxDouble = Double.parseDouble(SpO2Max.getText());
+        SpO2MinDouble = Double.parseDouble(SpO2Min.getText());
+        ekgMaxDouble = Double.parseDouble(ekgMax.getText());
+        ekgMinDouble = Double.parseDouble(ekgMin.getText());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setText();
     }
+
 }

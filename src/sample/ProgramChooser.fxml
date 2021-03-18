@@ -14,10 +14,10 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" onAction="#Arkiv" prefHeight="55.0" prefWidth="106.0" text="Arkiv" />
+                <Button layoutX="444.0" layoutY="245.0" mnemonicParsing="false" onAction="#arkivClicked" prefHeight="55.0" prefWidth="106.0" text="Arkiv" />
                 <Button layoutX="444.0" layoutY="146.0" mnemonicParsing="false" onAction="#ekgClicked" prefHeight="55.0" prefWidth="106.0" text="EKG" />
                 <Separator layoutX="226.0" layoutY="7.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="5.0" />
-                <Button layoutX="281.0" layoutY="146.0" mnemonicParsing="false" onAction="#scene1Clicked" prefHeight="55.0" prefWidth="106.0" text="Puls/Temp/SpO2" />
+                <Button layoutX="281.0" layoutY="146.0" mnemonicParsing="false" onAction="#pulsTempClicked" prefHeight="55.0" prefWidth="106.0" text="Puls/Temp/SpO2" />
                 <Button layoutX="281.0" layoutY="245.0" mnemonicParsing="false" onAction="#alarmClicked" prefHeight="55.0" prefWidth="106.0" text="Alarm" />
             </children>
         </AnchorPane>

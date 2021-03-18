@@ -6,24 +6,17 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class ControllerProgramChooserNoAlarm {
-    Main m = new Main();
-
-    public void scene1Clicked() throws IOException {
-        Parent Puls_SpO2_Temp = FXMLLoader.load(getClass().getResource("Puls_SpO2_Temp.fxml"));
-        m.stage.setScene(new Scene(Puls_SpO2_Temp, 650, 400));
-        m.stage.show();
+public class ControllerProgramChooserNoAlarm extends ControllerProgramChooser {
+    //Alle metoder laver ny stage med nye scene, denne klasse indeholder ikke en alarm knap
+    public void pulsTemp2() throws IOException {
+        pulsTempClicked();
     }
 
-    public void Arkiv() throws IOException {
-        Parent ControllerArkiv = FXMLLoader.load(getClass().getResource("Arkiv.fxml"));
-        m.stage.setScene(new Scene(ControllerArkiv, 650, 400));
-        m.stage.show();
+    public void arkiv2() throws IOException {
+        arkivClicked();
     }
 
-    public void ekgClicked() throws IOException {
-        Parent EKG = FXMLLoader.load(getClass().getResource("EKG.fxml"));
-        m.stage.setScene(new Scene(EKG, 650, 400));
-        m.stage.show();
+    public void ekgClicked2() throws IOException {
+        ekgClicked();
     }
 }

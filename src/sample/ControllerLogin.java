@@ -46,6 +46,7 @@ public class ControllerLogin {
     }
 
     private boolean KontrolP() {
+        //Hvis dit CPR findes at PatientData folderen, kan du logge ind
         String U = Username.getText();
         String P = Password.getText();
 

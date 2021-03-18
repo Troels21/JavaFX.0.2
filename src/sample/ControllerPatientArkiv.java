@@ -16,9 +16,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
-
     ControllerLogin CL = new ControllerLogin();
-
+    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
     @FXML
     public TextField timeMin;
@@ -52,12 +51,13 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     public void EKGArkiv(ActionEvent actionEvent) throws FileNotFoundException {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
     }
-    @Override
-    public String CPR (){
-        return Cprlabel.getText();
-    }
 
     @Override
+    public String CPR() {
+        return Cprlabel.getText();
+    }  //En patient skal kun kunne tilgå sine egne data
+
+    @Override  //En patient skal kun kunne tilgå sine egne data, derfor bliver CPR automatisk overført
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Cprlabel.setText(CL.CPR);
     }

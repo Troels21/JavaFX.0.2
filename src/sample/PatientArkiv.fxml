@@ -14,17 +14,17 @@
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Label layoutX="286.0" layoutY="6.0" text="Cpr-nummer" />
-            <Label layoutX="68.0" layoutY="224.0" text="Pulse">
+            <Label layoutX="68.0" layoutY="224.0" text="Pulse" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="68.0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="499.0" layoutY="38.0" text="SpO2">
+            <Label layoutX="499.0" layoutY="38.0" text="SpO2" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="38.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <LineChart id="Diagram" fx:id="PulseChart" animated="false" layoutX="-1.0" layoutY="240.0" prefHeight="160.0" prefWidth="318.0">
+            <LineChart id="Diagram" fx:id="PulseChart" animated="false" layoutX="-1.0" layoutY="240.0" prefHeight="160.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="322.0">
                <xAxis>
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
@@ -32,8 +32,8 @@
                   <NumberAxis label="Pulse " side="LEFT" upperBound="220.0" />
                </yAxis>
             </LineChart>
-            <Button layoutX="106.0" layoutY="219.0" mnemonicParsing="false" onAction="#PulsArkiv" text="Show" />
-            <LineChart id="Diagram" fx:id="TempChart" animated="false" layoutX="318.0" layoutY="240.0" prefHeight="160.0" prefWidth="318.0">
+            <Button layoutX="106.0" layoutY="219.0" mnemonicParsing="false" onAction="#PulsArkiv" text="Show" AnchorPane.bottomAnchor="155.66666666666666" AnchorPane.leftAnchor="106.0" />
+            <LineChart id="Diagram" fx:id="TempChart" animated="false" layoutX="318.0" layoutY="240.0" prefHeight="160.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0">
                <xAxis>
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
@@ -41,13 +41,13 @@
                   <NumberAxis label="Temperature" side="LEFT" upperBound="220.0" />
                </yAxis>
             </LineChart>
-            <Label layoutX="477.0" layoutY="224.0" text="Temperature">
+            <Label layoutX="477.0" layoutY="224.0" text="Temperature" AnchorPane.rightAnchor="83.66666666666667" AnchorPane.topAnchor="224.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="567.0" layoutY="219.0" mnemonicParsing="false" onAction="#TempArkiv" text="Show" />
-            <LineChart id="Diagram" fx:id="SpO2Chart" animated="false" layoutX="318.0" layoutY="52.0" prefHeight="160.0" prefWidth="318.0">
+            <Button layoutX="567.0" layoutY="219.0" mnemonicParsing="false" onAction="#TempArkiv" text="Show" AnchorPane.rightAnchor="27.666666666666664" AnchorPane.topAnchor="219.00000000000065" />
+            <LineChart id="Diagram" fx:id="SpO2Chart" animated="false" layoutX="318.0" layoutY="52.0" prefHeight="160.0" prefWidth="318.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
                <xAxis>
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
@@ -55,8 +55,8 @@
                   <NumberAxis label="SpO2" lowerBound="80.0" minorTickCount="1" side="LEFT" />
                </yAxis>
             </LineChart>
-            <Button layoutX="567.0" layoutY="33.0" mnemonicParsing="false" onAction="#SpO2Arkiv" text="Show" />
-            <LineChart id="Diagram" fx:id="EKGChart" animated="false" layoutX="-1.0" layoutY="52.0" prefHeight="160.0" prefWidth="318.0">
+            <Button layoutX="567.0" layoutY="33.0" mnemonicParsing="false" onAction="#SpO2Arkiv" text="Show" AnchorPane.rightAnchor="27.666666666666664" AnchorPane.topAnchor="33.0" />
+            <LineChart id="Diagram" fx:id="EKGChart" animated="false" layoutX="-1.0" layoutY="52.0" prefHeight="160.0" prefWidth="318.0" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="323.0" AnchorPane.topAnchor="52.0">
                <xAxis>
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
