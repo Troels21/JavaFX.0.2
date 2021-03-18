@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
@@ -8,7 +7,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerAlarm extends Beregner implements Initializable {
-    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
     //Finder textfields i fxml
     public TextField pulseMax;
@@ -31,6 +29,7 @@ public class ControllerAlarm extends Beregner implements Initializable {
         if (a == 4) {
             getText();
             setText();
+            error("Values updated");
         }
     }
 
