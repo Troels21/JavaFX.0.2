@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
@@ -12,7 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Puls_SpO2_TempController extends Beregner implements Initializable {
-    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
     @FXML
     Label tempLabel;
@@ -24,7 +22,9 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
     Label Spo2Label;
 
     public void monitorStart() throws IOException {
-        monitorStartPuls(Name, Diagram, Spo2Label, tempLabel);
+        if (Kontrol()) {
+            monitorStartPuls(Name, Diagram, Spo2Label, tempLabel);
+        }
     }
 
     public void monitorStop() throws IOException {
@@ -39,13 +39,31 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
         showTemperaturePuls();
     }
 
+    public boolean Kontrol() {
+        // Kontrollere om Name er et tal på 10 cifre
+        double tjek;
+        try {
+            tjek = Double.parseDouble(Name.getText());
+        } catch (Exception e) {
+            error("Invalid input, CPR skal være tal");
+            return false;
+        }
+        if (Name.getLength() == 10) {
+            return true;
+        } else {
+            error("Invalid input, Cpr skal være 10 cifre");
+        }
+        return false;
+    }
+
     public void setName(String string) {
         Name.setText(string);
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(name);
-    } //Sætter CPR navn
+    } //Bruger navnet fra en tidligere stage til at sætte CPR navn.
 
 }
