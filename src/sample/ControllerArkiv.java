@@ -10,9 +10,9 @@ import javafx.scene.control.TextField;
 import java.util.*;
 import java.io.*;
 
-public class ControllerArkiv {
+public class ControllerArkiv extends Beregner {
     Beregner b = new Beregner();
-    ControllerProgramChooser cpc=new ControllerProgramChooser();
+    ControllerProgramChooser cpc = new ControllerProgramChooser();
 
     @FXML
     public TextField timeMin;
@@ -35,20 +35,23 @@ public class ControllerArkiv {
     XYChart.Series SpO2XYChart = new XYChart.Series();
     XYChart.Series EKGXYChart = new XYChart.Series();
 
-    int[] PulseTime, TempTime,  SpO2Time, EKGTime;
-    double[] PulseValue,TempValue, SpO2Value, EKGValue;
+    int[] PulseTime, TempTime, SpO2Time, EKGTime;
+    double[] PulseValue, TempValue, SpO2Value, EKGValue;
     String[] pulsArray, tempArray, SpO2Array, EKGArray;
     int timeMaxInt = 60;
     int timeMinInt = 0;
+    public boolean ErDerValgtEnFil = false;
 
     public void PatientChooser() throws FileNotFoundException {
         File checker = new File("PatientData", CPR.getText());
 
         if (checker.exists() && CPR.getText().length() > 0) {
             b.error("CPR-nummer er godkendt");
+            ErDerValgtEnFil = true;
 
         } else {
             b.error("Ugyldigt CPR-nummer");
+            ErDerValgtEnFil = false;
         }
     }
 
@@ -66,59 +69,66 @@ public class ControllerArkiv {
 
     public void EKGArkiv() throws FileNotFoundException {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
+
     }
 
     public String CPR() {
         return CPR.getText();
     }
 
+
     //metode til at finde data og indlæse det i grafer.
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, double[] value) throws FileNotFoundException {
-        xyChart.getData().clear();
-        lineChart.getData().clear();
+        PatientChooser();
+        if (ErDerValgtEnFil) {
 
-        String FileName = CPR();
-        File Pulse1 = new File("PatientData/" + FileName + "/" + filetype); //mac :FileName, "Pulse"
-        Scanner Patient = new Scanner(Pulse1);
-        String PulseData = Patient.nextLine();
 
-        String Rå = PulseData.replaceAll("[^0-9,.]", "");
-        array = Rå.split(",");
+            xyChart.getData().clear();
+            lineChart.getData().clear();
 
-        time = new int[array.length / 2];
-        if (array.length > 1) {
-            for (int i = 0; i < array.length; i = i + 2) {
-                time[i / 2] = Integer.parseInt(array[i]);
+            String FileName = CPR();
+            File Pulse1 = new File("PatientData/" + FileName + "/" + filetype); //mac :FileName, "Pulse"
+            Scanner Patient = new Scanner(Pulse1);
+            String PulseData = Patient.nextLine();
 
+            String Rå = PulseData.replaceAll("[^0-9,.]", "");
+            array = Rå.split(",");
+
+            time = new int[array.length / 2];
+            if (array.length > 1) {
+                for (int i = 0; i < array.length; i = i + 2) {
+                    time[i / 2] = Integer.parseInt(array[i]);
+
+                }
             }
-        }
 
-        value = new double[array.length / 2];
-        if (array.length > 1) {
-            for (int i = 1; i < array.length; i = i + 2) {
-                value[i / 2] = Double.parseDouble(array[i]); // hvad sker der når man deler 3 med 2 som integer.
+            value = new double[array.length / 2];
+            if (array.length > 1) {
+                for (int i = 1; i < array.length; i = i + 2) {
+                    value[i / 2] = Double.parseDouble(array[i]); // hvad sker der når man deler 3 med 2 som integer.
 
+                }
             }
-        }
-        if (timeMax.getText() != "null" || timeMin.getText() != "null") {
-            try {
-                timeMaxInt = Integer.parseInt(timeMax.getText());
-                timeMinInt = Integer.parseInt(timeMin.getText());
-            } catch (NumberFormatException e) {
+            if (timeMax.getText() != "null" || timeMin.getText() != "null") {
+                try {
+                    timeMaxInt = Integer.parseInt(timeMax.getText());
+                    timeMinInt = Integer.parseInt(timeMin.getText());
+                } catch (NumberFormatException e) {
+                    timeMaxInt = value.length;
+                    timeMax.setText(String.valueOf(timeMaxInt));
+                    timeMinInt = 0;
+                    timeMin.setText(String.valueOf(timeMinInt));
+                }
+            }
+            if (timeMaxInt > value.length) {
                 timeMaxInt = value.length;
                 timeMax.setText(String.valueOf(timeMaxInt));
-                timeMinInt = 0;
-                timeMin.setText(String.valueOf(timeMinInt));
             }
+            for (int a = timeMinInt; a < timeMaxInt; a++) {
+                xyChart.getData().add(new XYChart.Data(time[a], value[a]));
+            }
+            lineChart.getData().add(xyChart);
         }
-        if (timeMaxInt > value.length) {
-            timeMaxInt = value.length;
-            timeMax.setText(String.valueOf(timeMaxInt));
-        }
-        for (int a = timeMinInt; a < timeMaxInt; a++) {
-            xyChart.getData().add(new XYChart.Data(time[a], value[a]));
-        }
-        lineChart.getData().add(xyChart);
     }
 
 }
