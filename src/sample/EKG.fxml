@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane id="plot" prefHeight="561.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EKGcontroller">
+<AnchorPane id="plot" prefHeight="561.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.EKGcontroller">
     <children>
         <Button layoutX="29.0" layoutY="36.0" mnemonicParsing="false" onAction="#startEKG" prefHeight="25.0" prefWidth="61.0" text="Start" />
-        <Button layoutX="29.0" layoutY="76.0" mnemonicParsing="false" onAction="#EKGstop" prefHeight="25.0" prefWidth="61.0" text="Stop" />
+        <Button layoutX="29.0" layoutY="76.0" mnemonicParsing="false" onAction="#stop" prefHeight="25.0" prefWidth="61.0" text="Stop" />
+        <Button layoutX="500.0" layoutY="36.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="61.0" text="Exit" />
       <TextField fx:id="CPRLabel" layoutX="99.0" layoutY="36.0" prefHeight="25.0" prefWidth="122.0" promptText="set CPR" />
-        <LineChart fx:id="ekgplot" animated="false" layoutX="8.0" layoutY="113.0" prefHeight="412.0" prefWidth="722.0" title="EKG" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
+        <LineChart fx:id="ekgplot" animated="false" layoutY="197.0" prefHeight="431.0" prefWidth="722.0" title="EKG">
             <xAxis>
                 <CategoryAxis side="BOTTOM" />
             </xAxis>
