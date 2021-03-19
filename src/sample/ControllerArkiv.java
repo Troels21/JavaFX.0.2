@@ -11,7 +11,6 @@ import java.util.*;
 import java.io.*;
 
 public class ControllerArkiv extends Beregner {
-    Beregner b = new Beregner();
     ControllerProgramChooser cpc = new ControllerProgramChooser();
 
     @FXML
@@ -40,18 +39,12 @@ public class ControllerArkiv extends Beregner {
     String[] pulsArray, tempArray, SpO2Array, EKGArray;
     int timeMaxInt = 60;
     int timeMinInt = 0;
-    public boolean ErDerValgtEnFil = false;
 
     public void PatientChooser() throws FileNotFoundException {
-        File checker = new File("PatientData", CPR.getText());
-
-        if (checker.exists() && CPR.getText().length() > 0) {
-            b.error("CPR-nummer er godkendt");
-            ErDerValgtEnFil = true;
-
+        if (cprCheck2()) {
+            error("CPR-nummer er godkendt");
         } else {
-            b.error("Ugyldigt CPR-nummer");
-            ErDerValgtEnFil = false;
+            error("Ugyldigt CPR-nummer");
         }
     }
 
@@ -79,9 +72,8 @@ public class ControllerArkiv extends Beregner {
 
     //metode til at finde data og indlæse det i grafer.
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, double[] value) throws FileNotFoundException {
-        cprCheck2();
-        if (ErDerValgtEnFil) {
 
+        if (cprCheck2()) {
 
             xyChart.getData().clear();
             lineChart.getData().clear();
@@ -128,12 +120,18 @@ public class ControllerArkiv extends Beregner {
                 xyChart.getData().add(new XYChart.Data(time[a], value[a]));
             }
             lineChart.getData().add(xyChart);
+        }else{
+            error("Ugyldigt cpr");
         }
     }
 
-    public void cprCheck2(){
-        if (ErDerValgtEnFil==false){
-            b.error("Ugyldigt CPR-nummer");
+    public boolean cprCheck2(){
+        // metode som kontrollere om der er indtastet et eksiterende cpr
+        File checker = new File("PatientData", CPR());
+        if (checker.exists() && CPR().length() > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 

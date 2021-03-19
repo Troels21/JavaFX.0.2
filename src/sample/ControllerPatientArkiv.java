@@ -36,19 +36,19 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     LineChart<NumberAxis, NumberAxis> EKGChart;
 
 
-    public void PulsArkiv(ActionEvent actionEvent) throws FileNotFoundException {
+    public void PulsArkiv() throws FileNotFoundException {
         populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue);
     }
 
-    public void TempArkiv(ActionEvent actionEvent) throws FileNotFoundException {
+    public void TempArkiv() throws FileNotFoundException {
         populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue);
     }
 
-    public void SpO2Arkiv(ActionEvent actionEvent) throws FileNotFoundException {
+    public void SpO2Arkiv() throws FileNotFoundException {
         populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value);
     }
 
-    public void EKGArkiv(ActionEvent actionEvent) throws FileNotFoundException {
+    public void EKGArkiv() throws FileNotFoundException {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
     }
 
@@ -58,7 +58,18 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     }  //En patient skal kun kunne tilgå sine egne data
 
     @Override  //En patient skal kun kunne tilgå sine egne data, derfor bliver CPR automatisk overført
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
         Cprlabel.setText(CL.CPR);
+        // populære charts fra start
+        try {
+            PulsArkiv();
+            TempArkiv();
+            SpO2Arkiv();
+            EKGArkiv();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
