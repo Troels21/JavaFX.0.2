@@ -79,7 +79,7 @@ public class ControllerArkiv extends Beregner {
 
     //metode til at finde data og indlæse det i grafer.
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, double[] value) throws FileNotFoundException {
-        PatientChooser();
+        cprCheck2();
         if (ErDerValgtEnFil) {
 
 
@@ -128,6 +128,12 @@ public class ControllerArkiv extends Beregner {
                 xyChart.getData().add(new XYChart.Data(time[a], value[a]));
             }
             lineChart.getData().add(xyChart);
+        }
+    }
+
+    public void cprCheck2(){
+        if (ErDerValgtEnFil==false){
+            b.error("Ugyldigt CPR-nummer");
         }
     }
 
