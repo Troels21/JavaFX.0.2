@@ -75,13 +75,11 @@ public class Beregner {
                                 temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
                                 alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp);
                             }
-
                             try {
                                 fh.saveDataDouble("Temp", bogstav, temp);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                             if (pulseCheck == 1) {
                                 pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
                                 alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls);
@@ -91,7 +89,6 @@ public class Beregner {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                             if (i % 2 == 0) {
                                 label.setText(Spo2);
                                 alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double);
@@ -102,7 +99,6 @@ public class Beregner {
                                     e.printStackTrace();
                                 }
                             }
-
                             i++;
                         }), 0, 1, TimeUnit.SECONDS);
             } else {
