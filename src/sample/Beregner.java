@@ -53,7 +53,8 @@ public class Beregner {
     XYChart.Series temperatureSeries = new XYChart.Series();
 
     //metode til at fremvise puls,temp og spo2
-    public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart, Label label, Label label2) throws IOException {
+    public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart,
+                                 Label label, Label label2) throws IOException {
         this.name = textField.getText();
         try {
             nametest = Double.parseDouble(name);

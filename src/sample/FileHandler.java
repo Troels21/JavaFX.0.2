@@ -19,16 +19,14 @@ public class FileHandler {
     //Save date gemmer en int
     public void saveData(String type, String bogstav, int value) throws IOException {
         f1 = new FileWriter((this.path + "\\" + type), true);
-        String t = type;
-        f1.write(bogstav + "," + value + "," + "null" + "|");
+        f1.write(bogstav + "," + value + "|");
         f1.flush();
     }
 
     //Save date double gemmer en double
     public void saveDataDouble(String type, String bogstav, double value) throws IOException {
         f1 = new FileWriter((this.path + "\\" + type), true);
-        String t = type;
-        f1.write(bogstav + "," + value + "," + "null" + "|");
+        f1.write(bogstav + "," + value + "|");
         f1.flush();
     }
 }

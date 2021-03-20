@@ -1,9 +1,6 @@
 package sample;
 
 import javafx.fxml.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -23,19 +20,13 @@ public class ControllerLogin {
     public void login() throws IOException {
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
-            m.stage.setScene(new Scene(ProgramChooser, 650, 400));
-            m.stage.show();
+            m.openStage("ProgramChooser.fxml");
         } else if (KontrolSP()) {
             // sundhedspersonale skal kunne tilgå det meste, undtagen alarmgrænser.
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooserNoAlarm.fxml"));
-            m.stage.setScene(new Scene(ProgramChooser, 650, 400));
-            m.stage.show();
+            m.openStage("ProgramChooserNoAlarm.fxml");
         } else if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
-            Parent ProgramChooser = FXMLLoader.load(getClass().getResource("PatientArkiv.fxml"));
-            m.stage.setScene(new Scene(ProgramChooser, 650, 400));
-            m.stage.show();
+            m.openStage("PatientArkiv.fxml");
         } else {
             b.error("Forkert adgangskode");
         }
