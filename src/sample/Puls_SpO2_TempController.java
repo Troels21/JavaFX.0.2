@@ -45,5 +45,4 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(name);
     } //Bruger navnet fra en tidligere stage til at sætte CPR navn.
-
 }
