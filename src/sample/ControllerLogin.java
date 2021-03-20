@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ControllerLogin {
     Main m = new Main();
@@ -21,10 +20,7 @@ public class ControllerLogin {
     @FXML
     PasswordField Password;
 
-
     public void login() throws IOException {
-
-
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
             Parent ProgramChooser = FXMLLoader.load(getClass().getResource("ProgramChooser.fxml"));
@@ -52,11 +48,9 @@ public class ControllerLogin {
 
         File checker = new File("PatientData", U);
         CPR = U;
-
         if (checker.exists()) {
             return true;
         }
-
         return false;
     }
 

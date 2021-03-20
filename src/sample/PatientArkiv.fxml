@@ -38,7 +38,7 @@
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis label="Temperature" side="LEFT" upperBound="220.0" />
+                  <NumberAxis autoRanging="false" label="Temperature" lowerBound="33.0" side="LEFT" tickLength="3.0" tickUnit="2.0" upperBound="43.0" />
                </yAxis>
             </LineChart>
             <Label layoutX="477.0" layoutY="224.0" text="Temperature" AnchorPane.rightAnchor="83.66666666666667" AnchorPane.topAnchor="224.0">
@@ -52,7 +52,7 @@
                   <NumberAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis label="SpO2" lowerBound="80.0" minorTickCount="1" side="LEFT" />
+                  <NumberAxis autoRanging="false" label="SpO2" minorTickCount="1" side="LEFT" />
                </yAxis>
             </LineChart>
             <Button layoutX="567.0" layoutY="33.0" mnemonicParsing="false" onAction="#SpO2Arkiv" text="Show" AnchorPane.rightAnchor="27.666666666666664" AnchorPane.topAnchor="33.0" />

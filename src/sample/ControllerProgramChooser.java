@@ -8,30 +8,25 @@ import java.io.IOException;
 
 public class ControllerProgramChooser {
     Main m = new Main();
-
     //alle metoder laver ny stage med FXML som scene
     public void pulsTempClicked() throws IOException {
-        Parent Puls_SpO2_Temp = FXMLLoader.load(getClass().getResource("Puls_SpO2_Temp.fxml"));
-        m.stage.setScene(new Scene(Puls_SpO2_Temp, 650, 400));
-        m.stage.show();
+        openStage("Puls_SpO2_Temp.fxml");
     }
 
     public void arkivClicked() throws IOException {
-        Parent ControllerArkiv = FXMLLoader.load(getClass().getResource("Arkiv.fxml"));
-        m.stage.setScene(new Scene(ControllerArkiv, 650, 400));
-        m.stage.show();
+        openStage("Arkiv.fxml");
     }
 
     public void ekgClicked() throws IOException {
-        Parent EKG = FXMLLoader.load(getClass().getResource("EKG.fxml"));
-        m.stage.setScene(new Scene(EKG, 650, 400));
-        m.stage.show();
+        openStage("EKG.½FXML");
     }
 
     public void alarmClicked() throws IOException {
-        Parent EKG = FXMLLoader.load(getClass().getResource("Alarm.fxml"));
-        m.stage.setScene(new Scene(EKG, 650, 400));
+       openStage("Alarm.fxml");
+    }
+    public void openStage(String filename) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource(filename));
+        m.stage.setScene(new Scene(parent, 650, 400));
         m.stage.show();
     }
-
 }
