@@ -1,23 +1,17 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
     ControllerLogin CL = new ControllerLogin();
-    ControllerProgramChooser cpc=new ControllerProgramChooser();
 
     @FXML
     public TextField timeMin;

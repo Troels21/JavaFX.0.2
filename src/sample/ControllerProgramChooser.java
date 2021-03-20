@@ -14,7 +14,7 @@ public class ControllerProgramChooser {
     }
 
     public void ekgClicked() throws IOException {
-        m.openStage("EKG.½FXML");
+        m.openStage("EKG.FXML");
     }
 
     public void alarmClicked() throws IOException {

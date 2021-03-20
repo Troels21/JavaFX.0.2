@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -11,8 +10,6 @@ import java.util.*;
 import java.io.*;
 
 public class ControllerArkiv extends Beregner {
-    ControllerProgramChooser cpc = new ControllerProgramChooser();
-
     @FXML
     public TextField timeMin;
     @FXML
@@ -71,7 +68,8 @@ public class ControllerArkiv extends Beregner {
 
 
     //metode til at finde data og indlæse det i grafer.
-    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart, int[] time, double[] value) throws FileNotFoundException {
+    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart,
+                              int[] time, double[] value) throws FileNotFoundException {
 
         if (cprCheck2()) {
 
@@ -98,7 +96,6 @@ public class ControllerArkiv extends Beregner {
             if (array.length > 1) {
                 for (int i = 1; i < array.length; i = i + 2) {
                     value[i / 2] = Double.parseDouble(array[i]); // hvad sker der når man deler 3 med 2 som integer.
-
                 }
             }
             if (timeMax.getText() != "null" || timeMin.getText() != "null") {
@@ -134,5 +131,4 @@ public class ControllerArkiv extends Beregner {
             return false;
         }
     }
-
 }
