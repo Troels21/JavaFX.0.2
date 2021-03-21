@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -14,6 +15,14 @@ public class ControllerArkiv extends Beregner {
     public TextField timeMin;
     @FXML
     public TextField timeMax;
+    @FXML
+    public NumberAxis SpO2XAkse;
+    @FXML
+    public NumberAxis EKGXAkse;
+    @FXML
+    public NumberAxis tempXAkse;
+    @FXML
+    public NumberAxis pulsexAkse;
     @FXML
     TextField CPR;
 
@@ -46,19 +55,19 @@ public class ControllerArkiv extends Beregner {
     }
 
     public void PulsArkiv() throws FileNotFoundException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue);
+        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexAkse);
     }
 
     public void TempArkiv() throws FileNotFoundException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue);
+        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempXAkse);
     }
 
     public void SpO2Arkiv() throws FileNotFoundException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value);
+        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2XAkse);
     }
 
     public void EKGArkiv() throws FileNotFoundException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
+        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGXAkse);
 
     }
 
@@ -69,7 +78,7 @@ public class ControllerArkiv extends Beregner {
 
     //metode til at finde data og indlæse det i grafer.
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart,
-                              int[] time, double[] value) throws FileNotFoundException {
+                              int[] time, double[] value, NumberAxis xakse) throws FileNotFoundException {
 
         if (cprCheck2()) {
 
@@ -113,9 +122,12 @@ public class ControllerArkiv extends Beregner {
                 timeMaxInt = value.length;
                 timeMax.setText(String.valueOf(timeMaxInt));
             }
-            for (int a = timeMinInt; a < timeMaxInt; a++) {
+            for (int a = 0; a < timeMaxInt; a++) {
                 xyChart.getData().add(new XYChart.Data(time[a], value[a]));
+
             }
+            xakse.setUpperBound(timeMaxInt);
+            xakse.setLowerBound(timeMinInt);
             lineChart.getData().add(xyChart);
         }else{
             error("Ugyldigt cpr");
@@ -130,5 +142,18 @@ public class ControllerArkiv extends Beregner {
         } else {
             return false;
         }
+    }
+
+    public void saveDataToJournal(ActionEvent actionEvent) {
+        FileHandler fh= new FileHandler(CPR.getText());
+        fh.saveAsPng(PulseChart,"Puls.png");
+        fh.saveAsPng(TempChart,"Temp.png");
+        fh.saveAsPng(EKGChart,"EKG.png");
+        fh.saveAsPng(SpO2Chart,"SpO2.png");
+
+    }
+
+    public void closeScene(ActionEvent actionEvent) {
+        m.closeStage(m.stage2);
     }
 }

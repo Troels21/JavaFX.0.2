@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -38,7 +39,7 @@ public class EKGcontroller extends Beregner implements Initializable {
                                     int redval = redv();
                                     data.getData().add((new XYChart.Data<String, Number>(n, redval)));
                                     ekgplot.getData().add(data);
-                                    alarmCheck("EKG ER FARLIG", ekgMaxDouble, ekgMinDouble, redval);
+                                    alarmCheck("EKG ER FARLIG", ekgMaxDouble, ekgMinDouble, redval,y);
                                     try {
                                         FL.saveData("EKG", n, redval);
                                     } catch (IOException e) {
@@ -63,4 +64,11 @@ public class EKGcontroller extends Beregner implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CPRLabel.setText(name);
     } //Sætter CPR navn
+
+    public void closeScene(ActionEvent actionEvent) {
+        if (Eventhandler.isShutdown()==false){
+            Eventhandler.shutdown();
+        }
+        m.closeStage(m.stage2);
+    }
 }

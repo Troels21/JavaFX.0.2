@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
@@ -75,4 +76,7 @@ public class ControllerAlarm extends Beregner implements Initializable {
         setText();
     }
 
+    public void closeScene(ActionEvent actionEvent) {
+        m.closeStage(m.stage2);
+    }
 }

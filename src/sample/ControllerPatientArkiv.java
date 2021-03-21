@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
+
     ControllerLogin CL = new ControllerLogin();
 
     @FXML
@@ -19,7 +20,14 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     public TextField timeMax;
     @FXML
     public Label Cprlabel;
-
+    @FXML
+    public NumberAxis EKGxAkse2;
+    @FXML
+    public NumberAxis SpO2xAkse2;
+    @FXML
+    public NumberAxis tempxAkse2;
+    @FXML
+    public NumberAxis pulsexakse2;
     @FXML
     LineChart<NumberAxis, NumberAxis> PulseChart;
     @FXML
@@ -31,19 +39,19 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
 
 
     public void PulsArkiv() throws FileNotFoundException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue);
+        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2);
     }
 
     public void TempArkiv() throws FileNotFoundException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue);
+        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempxAkse2);
     }
 
     public void SpO2Arkiv() throws FileNotFoundException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value);
+        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2);
     }
 
     public void EKGArkiv() throws FileNotFoundException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue);
+        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2);
     }
 
     @Override

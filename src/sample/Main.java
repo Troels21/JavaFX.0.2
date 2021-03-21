@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    Stage stage = new Stage();
+    static Stage stage = new Stage();
+    static Stage stage2= new Stage();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -18,10 +19,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 650, 400));
         primaryStage.show();
     }
-    public void openStage(String filename) throws IOException {
+    public void openStage(String filename,Stage stage) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource(filename));
-        stage.setScene(new Scene(parent, 650, 400));
+        stage.setScene(new Scene(parent, 800, 600));
         stage.show();
+    }
+    public void closeStage(Stage stage){
+        stage.hide();
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
@@ -41,4 +42,11 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(name);
     } //Bruger navnet fra en tidligere stage til at sætte CPR navn.
+
+    public void closeScene(ActionEvent actionEvent) {
+        if (Eventhandler.isShutdown()==false){
+            Eventhandler.shutdown();
+        }
+        m.closeStage(m.stage2);
+    }
 }

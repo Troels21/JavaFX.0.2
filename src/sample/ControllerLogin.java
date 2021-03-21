@@ -20,13 +20,13 @@ public class ControllerLogin {
     public void login() throws IOException {
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
-            m.openStage("ProgramChooser.fxml");
+            m.openStage("ProgramChooser.fxml",m.stage);
         } else if (KontrolSP()) {
             // sundhedspersonale skal kunne tilgå det meste, undtagen alarmgrænser.
-            m.openStage("ProgramChooserNoAlarm.fxml");
+            m.openStage("ProgramChooserNoAlarm.fxml", m.stage);
         } else if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
-            m.openStage("PatientArkiv.fxml");
+            m.openStage("PatientArkiv.fxml",m.stage);
         }
         else {
             b.error("Forkert adgangskode");

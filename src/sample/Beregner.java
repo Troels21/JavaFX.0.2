@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Platform;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -22,6 +23,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Beregner {
+    Main m = new Main();
 
     //Variabler til puls, temperatur,ekg simulation og fremvisning
     double nametest, math, math2, math3, temp, SpO2double;
@@ -43,6 +45,7 @@ public class Beregner {
     static double SpO2MinDouble = 95;
     static double ekgMaxDouble = 150;
     static double ekgMinDouble = -50;
+    int alarmCounter=-50;
 
     //String brugt til holde CPR gemt, mellem stages.
     static String name;
@@ -73,7 +76,7 @@ public class Beregner {
                             if (tempCheck == 1) {
                                 label2.setText((temp + "°C"));
                                 temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
-                                alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp);
+                                alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp,i);
                             }
                             try {
                                 fh.saveDataDouble("Temp", bogstav, temp);
@@ -82,7 +85,7 @@ public class Beregner {
                             }
                             if (pulseCheck == 1) {
                                 pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
-                                alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls);
+                                alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls,i);
                             }
                             try {
                                 fh.saveData("Pulse", bogstav, puls);
@@ -91,7 +94,7 @@ public class Beregner {
                             }
                             if (i % 2 == 0) {
                                 label.setText(Spo2);
-                                alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double);
+                                alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double,i);
 
                                 try {
                                     fh.saveDataDouble("SpO2", bogstav, SpO2double);
@@ -142,9 +145,10 @@ public class Beregner {
     }
 
     //metode til at kontrollere alarm
-    public void alarmCheck(String string, double alarmMax, double alarmMin, double value) {
-        if (value < alarmMin || value > alarmMax) {
+    public void alarmCheck(String string, double alarmMax, double alarmMin, double value,int tæller) {
+        if (value < alarmMin || value > alarmMax && (tæller-alarmCounter)>50) {
             error(string);
+            alarmCounter=tæller;
         }
     }
 
