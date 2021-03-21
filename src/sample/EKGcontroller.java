@@ -67,7 +67,7 @@ public class EKGcontroller extends Beregner implements Initializable {
 
     public void closeScene(ActionEvent actionEvent) {
         if (Eventhandler.isShutdown()==false){
-            Eventhandler.shutdown();
+            EKGstop();
         }
         m.closeStage(m.stage2);
     }
