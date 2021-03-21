@@ -41,7 +41,7 @@ public class Beregner {
     static double tempMinDouble = 35;
     static double SpO2MaxDouble = 100;
     static double SpO2MinDouble = 95;
-    static double ekgMaxDouble = 150;
+    static double ekgMaxDouble = 150;   
     static double ekgMinDouble = -50;
 
     //String brugt til holde CPR gemt, mellem stages.
