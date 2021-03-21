@@ -27,7 +27,8 @@ public class ControllerLogin {
         } else if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
             m.openStage("PatientArkiv.fxml");
-        } else {
+        }
+        else {
             b.error("Forkert adgangskode");
         }
     }
@@ -36,13 +37,14 @@ public class ControllerLogin {
         //Hvis dit CPR findes at PatientData folderen, kan du logge ind
         String U = Username.getText();
         String P = Password.getText();
-
-        File checker = new File("PatientData", U);
-        CPR = U;
-        if (checker.exists()) {
-            return true;
+        if (U!="") {
+            File checker = new File("PatientData", U);
+            CPR = U;
+            if (checker.exists()) {
+                return true;
+            }
         }
-        return false;
+            return false;
     }
 
     private boolean KontrolL() {

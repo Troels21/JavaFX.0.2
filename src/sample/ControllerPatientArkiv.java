@@ -57,10 +57,10 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
         Cprlabel.setText(CL.CPR);
         // populære charts fra start
         try {
+            EKGArkiv();
             PulsArkiv();
             TempArkiv();
             SpO2Arkiv();
-            EKGArkiv();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

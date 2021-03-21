@@ -22,7 +22,7 @@
                 </Label>
                 <LineChart id="Diagram" fx:id="Diagram" animated="false" layoutX="8.0" layoutY="89.0" prefHeight="304.0" prefWidth="623.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                     <xAxis>
-                        <CategoryAxis label="Time in secounds" prefWidth="537.0" side="BOTTOM" />
+                        <CategoryAxis label="Time in seconds" prefWidth="537.0" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                         <NumberAxis label="Pulse and Temperature " side="LEFT" upperBound="220.0" />

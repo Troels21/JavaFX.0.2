@@ -37,10 +37,6 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
         showTemperaturePuls();
     }
 
-    public void setName(String string) {
-        Name.setText(string);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(name);
