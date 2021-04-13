@@ -62,6 +62,10 @@ public class ControllerArkiv extends Simulering {
 
     }
 
+    public void saveDataToJournal(){
+        saveData(PulseChart, TempChart, EKGChart, SpO2Chart);
+    }
+
     public String CPR() {
         return CPR.getText();
     }  //En patient skal kun kunne tilgå sine egne data

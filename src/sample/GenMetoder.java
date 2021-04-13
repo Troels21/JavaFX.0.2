@@ -140,7 +140,7 @@ public class GenMetoder{
     }
 
 
-    public void saveDataToJournal(LineChart PulseChart, LineChart TempChart, LineChart EKGChart, LineChart SpO2Chart) {
+    public void saveData(LineChart PulseChart, LineChart TempChart, LineChart EKGChart, LineChart SpO2Chart) {
         FileHandler fh = new FileHandler();
         String path = fh.savepath();
         fh.saveAsPng(path, PulseChart, "Puls.png");
