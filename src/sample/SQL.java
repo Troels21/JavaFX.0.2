@@ -3,10 +3,7 @@ package sample;
 import java.sql.*;
 
 public class SQL {
-    package com.company;
-import java.sql.*;
 
-    public class Main {
         static String url = "jdbc:mysql://localhost:3306/login";
         static String user = "root";
         static String password = "";
@@ -71,22 +68,6 @@ import java.sql.*;
             }
         }
 
-        public static void writeToPatientMaaling(String CPR, double Puls, double EKG, double Temp, double SpO2){
-            try {
-                String write_to_database2 ="insert into patientMaaling"+CPR+"(PulsValue, EKGValue, TEMPValue,SpO2Value) values(?, ?, ?, ?);";
-                PreparedStatement PP2 = myConn.prepareStatement(write_to_database2);
-
-                PP2.setDouble(1, Puls);
-                PP2.setDouble(2, EKG);
-                PP2.setDouble(3, Temp);
-                PP2.setDouble(4, SpO2);
-
-                PP2.execute();
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-
         static public void selectFrom(String Table,String CPR,int Columnlenght) throws SQLException {
             String sql_SelectFrom="SELECT * FROM login."+Table+CPR;
             ResultSet rs= myStatement.executeQuery(sql_SelectFrom);
@@ -113,5 +94,3 @@ import java.sql.*;
             }
         }
     }
-
-}
