@@ -64,6 +64,7 @@ public class Beregner {
             nametest = Double.parseDouble(name);
             if (name.length() == 10) {
                 FileHandler fh = new FileHandler(name);
+                sql_objekt.createNewPatient(name);
                 pulsSeries.setName("puls");
                 temperatureSeries.setName("Temperature");
                 linechart.getData().addAll(pulsSeries, temperatureSeries);
@@ -93,7 +94,7 @@ public class Beregner {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }*/
-                            if (i % 2 == 0) {
+
                                 label.setText(Spo2);
                                 alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double,i);
                                 /*
@@ -102,8 +103,7 @@ public class Beregner {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }*/
-                            }
-
+                            sql_objekt.writeToPatientMaalingPuls(name,puls,temp,SpO2double);
                             i++;
                         }), 0, 1, TimeUnit.SECONDS);
             } else {

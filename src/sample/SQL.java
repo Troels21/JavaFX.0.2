@@ -10,6 +10,9 @@ public class SQL {
     static Connection myConn;
     static Statement myStatement;
 
+   // public static void main(String[] args) throws SQLException {
+    //}
+
     // konstruktør der opretter forbindelse til databsen
     public SQL() {
         try {
@@ -18,25 +21,6 @@ public class SQL {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        SQL sql = new SQL();
-
-        String CPR = "2222222222";
-        createNewPatient(CPR);
-        System.out.println(rowCounter("patientMaalingEKG",CPR));
-        //writePatientListe(CPR);
-        //writeToPatientMaalingPuls(CPR, 66,  37.5, 98.5);
-        writeToPatientMaalingEKG(CPR,100);
-
-        Read_data_Puls("patientMaalingPuls", CPR);
-        System.out.println();
-        //Read_data_EKG("patientMaalingEKG",CPR);
-        System.out.println();
-        Read_data_logininfo("logininfo", "");
-        System.out.println();
-        Read_data_patientliste("patientListe", "");
     }
 
     //metode til der samler oprettelse af tabeller og opdatering af patientliste.
@@ -122,6 +106,20 @@ public class SQL {
         }
     }
 
+    //row tæller
+    static public int rowCounter(String Table, String CPR){
+        String sql_Count = "SELECT COUNT(*) FROM "+ Table + CPR;
+        ResultSet rs = null;
+        try {
+            rs = myStatement.executeQuery(sql_Count);
+            rs.next();
+            int count =rs.getInt(1);
+            return count;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
 
     // Read metode som læser data fra ekg tabel
     static public void readDataEKG(String CPR, int[] tid_array, double[] ekg_array) throws SQLException {
@@ -138,37 +136,24 @@ public class SQL {
         }
     }
 
-    //row tæller
-    static public int rowCounter(String Table, String CPR){
-        String sql_Count = "SELECT COUNT(*) FROM "+ Table + CPR;
-        ResultSet rs = null;
-        try {
-            rs = myStatement.executeQuery(sql_Count);
-            rs.next();
-            int count =rs.getInt(1);
-            return count;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
     // read metode som læser data fra Puls tabel
-    static public void Read_data_Puls(String Table, String CPR) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+    static public void readDataPuls(String CPR,int[] tid_array, double[] puls_array,double[] temp_array,double[] SpO2_array) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login.patientMaalingPuls"+ CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
-
+        int i=0;
         while (rs.next()) {
-            System.out.print(rs.getDouble("timeaxis"));
-            System.out.println(rs.getDouble("PulsValue"));
-            System.out.println(rs.getDouble("TEMPValue"));
-            System.out.println(rs.getDouble("SpO2Value"));
+            tid_array[i] = rs.getInt("timeaxis");
+            puls_array[i] = rs.getDouble("PulsValue");
+            temp_array[i] = rs.getDouble("TEMPValue");
+            SpO2_array[i] = rs.getDouble("SpO2Value");
+            i++;
         }
     }
 
     // read metode som læser data fra logininfo
-    static public void Read_data_logininfo(String Table, String CPR) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+    static public void Read_data_logininfo(String CPR) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login.logininfo" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
 
         while (rs.next()) {
@@ -180,13 +165,24 @@ public class SQL {
     }
 
     // read metode som læser data fra patient liste
-    static public void Read_data_patientliste(String Table, String CPR) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+    static public void Read_data_patientliste(String CPR) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login.patientListe" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
 
         while (rs.next()) {
             System.out.print(rs.getString("CPR")+" ");
         }
     }
+
+    static public boolean doesPatientExsist(String CPR) throws SQLException {
+        String findPatient = "SELECT CPR\n"
+                +" FROM login.patientListe\n"
+                +"WHERE EXISTS\n"
+                +"(SELECT CPR FROM patientListe WHERE CPR="+CPR+");";
+        PreparedStatement PP2 = myConn.prepareStatement(findPatient);
+        return PP2.execute();
+    }
+
+
 
 }

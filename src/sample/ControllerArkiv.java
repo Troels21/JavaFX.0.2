@@ -49,31 +49,28 @@ public class ControllerArkiv extends Beregner {
     int timeMaxInt = 60;
     int timeMinInt = 0;
 
-    public void PatientChooser() throws FileNotFoundException {
+    public void PatientChooser() throws FileNotFoundException, SQLException {
         if (cprCheck2()) {
             error("CPR-nummer er godkendt");
+            updateArray();
         } else {
             error("Ugyldigt CPR-nummer");
         }
     }
 
-    public void PulsArkiv() throws FileNotFoundException {
+    public void PulsArkiv() throws FileNotFoundException, SQLException {
         populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexAkse);
     }
 
-    public void TempArkiv() throws FileNotFoundException {
+    public void TempArkiv() throws FileNotFoundException, SQLException {
         populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempXAkse);
     }
 
-    public void SpO2Arkiv() throws FileNotFoundException {
+    public void SpO2Arkiv() throws FileNotFoundException, SQLException {
         populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2XAkse);
     }
 
     public void EKGArkiv() throws FileNotFoundException, SQLException {
-        String cpr = CPR();
-        EKGTime = new int[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
-        EKGValue = new double[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
-        sql_objekt.readDataEKG(cpr, EKGTime, EKGValue);
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGXAkse);
 
     }
@@ -85,10 +82,9 @@ public class ControllerArkiv extends Beregner {
 
     //metode til at finde data og indlæse det i grafer.
     public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart,
-                              int[] time, double[] value, NumberAxis xakse) throws FileNotFoundException {
+                              int[] time, double[] value, NumberAxis xakse) throws FileNotFoundException, SQLException {
 
         if (cprCheck2()) {
-
 
             xyChart.getData().clear();
             lineChart.getData().clear();
@@ -146,10 +142,30 @@ public class ControllerArkiv extends Beregner {
         }
     }
 
-    public boolean cprCheck2(){
-        // metode som kontrollere om der er indtastet et eksiterende cpr
+    public void updateArray() throws SQLException {
+        String cpr = CPR();
+        EKGTime = new int[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
+        EKGValue = new double[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
+
+        PulseTime = new int[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+        TempTime = new int[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+        SpO2Time = new int[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+
+        PulseValue = new double[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+        TempValue = new double[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+        SpO2Value = new double[sql_objekt.rowCounter("patientMaalingPuls",cpr)];
+
+        sql_objekt.readDataEKG(cpr, EKGTime, EKGValue);
+        sql_objekt.readDataPuls(cpr,PulseTime,PulseValue,TempValue,SpO2Value);
+        TempTime=PulseTime;
+        SpO2Time=PulseTime;
+    }
+
+    public boolean cprCheck2() throws SQLException {
+        /*// metode som kontrollere om der er indtastet et eksiterende cpr
         File checker = new File("PatientData", CPR());
-        if (checker.exists() && CPR().length() > 0) {
+        if (checker.exists() && CPR().length() > 0) {*/
+        if (sql_objekt.doesPatientExsist(CPR())){
             return true;
         } else {
             return false;
@@ -158,10 +174,11 @@ public class ControllerArkiv extends Beregner {
 
     public void saveDataToJournal(ActionEvent actionEvent) {
         FileHandler fh= new FileHandler(CPR());
-        fh.saveAsPng(PulseChart,"Puls.png");
-        fh.saveAsPng(TempChart,"Temp.png");
-        fh.saveAsPng(EKGChart,"EKG.png");
-        fh.saveAsPng(SpO2Chart,"SpO2.png");
+        String path = fh.savepath();
+        fh.saveAsPng(path,PulseChart,"Puls.png");
+        fh.saveAsPng(path,TempChart,"Temp.png");
+        fh.saveAsPng(path,EKGChart,"EKG.png");
+        fh.saveAsPng(path,SpO2Chart,"SpO2.png");
 
     }
 

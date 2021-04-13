@@ -4,6 +4,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -38,11 +39,18 @@ public class FileHandler {
         f1.flush();
     }
 
-    public void saveAsPng(LineChart lineChart,String name) { //Laver png billede
-        File file1 = new File("Journal Billeder/" + cpr);
+    public String savepath(){
+        FileChooser fc= new FileChooser();
+        File file1 = fc.showSaveDialog(null);
+        //File file1 = new File("Journal Billeder/" + cpr);
         file1.mkdir();
+        String path=file1.getAbsolutePath();
+        return path;
+    }
+
+    public void saveAsPng(String path,LineChart lineChart,String name) { //Laver png billede
         WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
-        File file = new File("Journal Billeder/" + cpr + "/" + name);
+        File file = new File(path + "/" + name);
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {

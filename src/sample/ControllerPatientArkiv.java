@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
@@ -38,19 +39,19 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
     LineChart<NumberAxis, NumberAxis> EKGChart;
 
 
-    public void PulsArkiv() throws FileNotFoundException {
+    public void PulsArkiv() throws FileNotFoundException, SQLException {
         populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2);
     }
 
-    public void TempArkiv() throws FileNotFoundException {
+    public void TempArkiv() throws FileNotFoundException, SQLException {
         populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempxAkse2);
     }
 
-    public void SpO2Arkiv() throws FileNotFoundException {
+    public void SpO2Arkiv() throws FileNotFoundException, SQLException {
         populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2);
     }
 
-    public void EKGArkiv() throws FileNotFoundException {
+    public void EKGArkiv() throws FileNotFoundException, SQLException {
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2);
     }
 
@@ -69,7 +70,7 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
             PulsArkiv();
             TempArkiv();
             SpO2Arkiv();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
         }
 
