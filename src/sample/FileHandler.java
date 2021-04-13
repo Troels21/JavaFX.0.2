@@ -12,43 +12,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileHandler {
-    String path;
-    FileWriter f1;
-    String cpr;
 
-    //Laver en direktory i konstruktøren
-    public FileHandler(String cpr) {
-        this.path = "PatientData/" + cpr;
-        this.cpr=cpr;
-        System.out.println(path);
-        File folder = new File(path);
-        folder.mkdir();
-    }
-
-    //Save date gemmer en int
-    public void saveData(String type, String bogstav, int value) throws IOException {
-        f1 = new FileWriter((this.path + "\\" + type), true);
-        f1.write(bogstav + "," + value +","+"null"+"|");
-        f1.flush();
-    }
-
-    //Save date double gemmer en double
-    public void saveDataDouble(String type, String bogstav, double value) throws IOException {
-        f1 = new FileWriter((this.path + "\\" + type), true);
-        f1.write(bogstav + "," + value + ","+"null"+"|");
-        f1.flush();
-    }
-
-    public String savepath(){
-        FileChooser fc= new FileChooser();
+    public String savepath() {
+        FileChooser fc = new FileChooser();
         File file1 = fc.showSaveDialog(null);
-        //File file1 = new File("Journal Billeder/" + cpr);
         file1.mkdir();
-        String path=file1.getAbsolutePath();
+        String path = file1.getAbsolutePath();
         return path;
     }
 
-    public void saveAsPng(String path,LineChart lineChart,String name) { //Laver png billede
+    public void saveAsPng(String path, LineChart lineChart, String name) { //Laver png billede
         WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
         File file = new File(path + "/" + name);
         try {

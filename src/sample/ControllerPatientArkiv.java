@@ -11,7 +11,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ControllerPatientArkiv extends ControllerArkiv implements Initializable {
+public class ControllerPatientArkiv extends Simulering implements Initializable {
 
     ControllerLogin CL = new ControllerLogin();
 
@@ -40,25 +40,20 @@ public class ControllerPatientArkiv extends ControllerArkiv implements Initializ
 
 
     public void PulsArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2);
+        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2, timeMin, timeMax, Cprlabel.getText());
     }
 
     public void TempArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempxAkse2);
+        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempxAkse2, timeMin, timeMax, Cprlabel.getText());
     }
 
     public void SpO2Arkiv() throws FileNotFoundException, SQLException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2);
+        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2, timeMin, timeMax, Cprlabel.getText());
     }
 
     public void EKGArkiv() throws FileNotFoundException, SQLException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2);
+        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2, timeMin, timeMax, Cprlabel.getText());
     }
-
-    @Override
-    public String CPR() {
-        return Cprlabel.getText();
-    }  //En patient skal kun kunne tilgå sine egne data
 
     @Override  //En patient skal kun kunne tilgå sine egne data, derfor bliver CPR automatisk overført
     public void initialize(URL url, ResourceBundle resourceBundle)

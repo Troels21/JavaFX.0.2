@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ControllerLogin {
     Main m = new Main();
-    Beregner b = new Beregner();
+    Simulering b = new Simulering();
     static String CPR;
 
     @FXML

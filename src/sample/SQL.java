@@ -6,12 +6,9 @@ public class SQL {
 
     static String url = "jdbc:mysql://localhost:3306/login";
     static String user = "root";
-    static String password = "1234";
+    static String password = "";
     static Connection myConn;
     static Statement myStatement;
-
-   // public static void main(String[] args) throws SQLException {
-    //}
 
     // konstruktør der opretter forbindelse til databsen
     public SQL() {
@@ -22,6 +19,16 @@ public class SQL {
             throwables.printStackTrace();
         }
     }
+
+    /*public static void main(String[] args) throws SQLException {
+        SQL s = new SQL();
+        if (doesPatientExsist("111111")){
+            System.out.println("1");
+        }else{
+            System.out.println("2");
+        }
+
+    }*/
 
     //metode til der samler oprettelse af tabeller og opdatering af patientliste.
     public static void createNewPatient(String CPR){
@@ -109,12 +116,11 @@ public class SQL {
     //row tæller
     static public int rowCounter(String Table, String CPR){
         String sql_Count = "SELECT COUNT(*) FROM "+ Table + CPR;
-        ResultSet rs = null;
+        ResultSet rs;
         try {
             rs = myStatement.executeQuery(sql_Count);
             rs.next();
-            int count =rs.getInt(1);
-            return count;
+            return rs.getInt(1);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -127,11 +133,8 @@ public class SQL {
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
         int i = 0;
         while (rs.next()) {
-            //System.out.print(rs.getInt("timeaxis"));
-            //System.out.println(rs.getDouble("EKGValue"));
             tid_array[i] = rs.getInt("timeaxis");
             ekg_array[i] = rs.getDouble("EKGValue");
-
             i++;
         }
     }
@@ -169,20 +172,25 @@ public class SQL {
         String sql_SelectFrom = "SELECT * FROM login.patientListe" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
 
+
         while (rs.next()) {
             System.out.print(rs.getString("CPR")+" ");
         }
     }
 
+    // boolsk kontrol af om cpr eksistere i databse
     static public boolean doesPatientExsist(String CPR) throws SQLException {
         String findPatient = "SELECT CPR\n"
                 +" FROM login.patientListe\n"
-                +"WHERE EXISTS\n"
-                +"(SELECT CPR FROM patientListe WHERE CPR="+CPR+");";
-        PreparedStatement PP2 = myConn.prepareStatement(findPatient);
-        return PP2.execute();
+                +"WHERE EXISTS (SELECT CPR FROM patientliste WHERE CPR = "+CPR+");";
+        ResultSet rs;
+        try {
+            rs = myStatement.executeQuery(findPatient);
+            rs.next();
+            return rs.getBoolean(1);
+        } catch (SQLException throwables) {
+            return false;
+        }
+
     }
-
-
-
 }

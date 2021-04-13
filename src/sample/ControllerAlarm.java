@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerAlarm extends Beregner implements Initializable {
+public class ControllerAlarm extends Simulering implements Initializable {
 
     //Finder textfields i fxml
     public TextField pulseMax;

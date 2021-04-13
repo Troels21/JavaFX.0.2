@@ -9,9 +9,10 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class Puls_SpO2_TempController extends Beregner implements Initializable {
+public class Puls_SpO2_TempController extends Simulering implements Initializable {
 
     @FXML
     Label tempLabel;
@@ -22,7 +23,7 @@ public class Puls_SpO2_TempController extends Beregner implements Initializable 
     @FXML
     Label Spo2Label;
 
-    public void monitorStart() throws IOException {
+    public void monitorStart() throws IOException, SQLException {
         monitorStartPuls(Name, Diagram, Spo2Label, tempLabel);
     }
 
