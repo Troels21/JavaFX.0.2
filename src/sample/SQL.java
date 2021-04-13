@@ -6,7 +6,7 @@ public class SQL {
 
         static String url = "jdbc:mysql://localhost:3306/login";
         static String user = "root";
-        static String password = "";
+        static String password = "1234";
         static Connection myConn;
         static Statement myStatement;
 
@@ -67,6 +67,20 @@ public class SQL {
                 e.printStackTrace();
             }
         }
+
+    public static void writeToPatientMaalingEKG(String CPR, double EKG){
+        try {
+            String write_to_database2 ="insert into patientMaaling"+CPR+"(PulsValue, EKGValue, TEMPValue,SpO2Value) values(?, ?, ?, ?);";
+            PreparedStatement PP2 = myConn.prepareStatement(write_to_database2);
+
+            PP2.setDouble(2, EKG);
+
+
+            PP2.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
         static public void selectFrom(String Table,String CPR,int Columnlenght) throws SQLException {
             String sql_SelectFrom="SELECT * FROM login."+Table+CPR;
