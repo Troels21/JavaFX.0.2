@@ -23,6 +23,7 @@ public class Main extends Application {
         Parent parent = FXMLLoader.load(getClass().getResource(filename));
         stage.setScene(new Scene(parent, 800, 600));
         stage.show();
+
     }
     public void closeStage(Stage stage){
         stage.hide();
