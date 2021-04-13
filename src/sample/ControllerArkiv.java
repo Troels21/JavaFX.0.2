@@ -145,7 +145,7 @@ public class ControllerArkiv extends Beregner {
     }
 
     public void saveDataToJournal(ActionEvent actionEvent) {
-        FileHandler fh= new FileHandler(CPR.getText());
+        FileHandler fh= new FileHandler(CPR());
         fh.saveAsPng(PulseChart,"Puls.png");
         fh.saveAsPng(TempChart,"Temp.png");
         fh.saveAsPng(EKGChart,"EKG.png");

@@ -6,7 +6,7 @@ public class SQL {
 
     static String url = "jdbc:mysql://localhost:3306/login";
     static String user = "root";
-    static String password = "1234";
+    static String password = "";
     static Connection myConn;
     static Statement myStatement;
 

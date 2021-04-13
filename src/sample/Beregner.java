@@ -175,7 +175,7 @@ public class Beregner {
     }
 
     //EKG værdier array
-    double Red[] = {0, 10, 15, 20, 15, 10, 0, 0, -10, 100, -30, 0, 0, 5, 10, 20, 25, 30, 20, 10, 5, 0};
+    double[] Red = {0, 10, 15, 20, 15, 10, 0, 0, -10, 100, -30, 0, 0, 5, 10, 20, 25, 30, 20, 10, 5, 0};
 
     public void ekgSimulation() {
         if (u < 21) {

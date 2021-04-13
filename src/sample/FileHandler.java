@@ -39,10 +39,10 @@ public class FileHandler {
     }
 
     public void saveAsPng(LineChart lineChart,String name) { //Laver png billede
-        File file1 = new File("journal Billeder/" + cpr);
+        File file1 = new File("Journal Billeder/" + cpr);
         file1.mkdir();
         WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
-        File file = new File("journal Billeder/" + cpr + "/" + name);
+        File file = new File("Journal Billeder/" + cpr + "/" + name);
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {
