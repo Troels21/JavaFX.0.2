@@ -38,7 +38,7 @@ public class FileHandler {
         f1.flush();
     }
 
-    public void saveAsPng(LineChart lineChart,String name) {
+    public void saveAsPng(LineChart lineChart,String name) { //Laver png billede
         File file1 = new File("journal Billeder/" + cpr);
         file1.mkdir();
         WritableImage image = lineChart.snapshot(new SnapshotParameters(), null);
