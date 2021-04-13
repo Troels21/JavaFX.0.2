@@ -24,6 +24,8 @@ public class EKGcontroller extends Beregner implements Initializable {
     XYChart.Series<String, Number> data = new XYChart.Series<String, Number>();
 
     public void startEKG() {
+
+
         y = 0;
         navn = CPRLabel.getText();
         try {
@@ -31,6 +33,9 @@ public class EKGcontroller extends Beregner implements Initializable {
             if (navn.length() == 10) {
                 name = navn;
                 FileHandler FL = new FileHandler(navn);
+                SQL sql_objekt = new SQL();
+                sql_objekt.createNewPatient(navn);
+
                 Eventhandler.scheduleAtFixedRate(() ->
                         Platform.runLater(() -> {
                                     ekgplot.getData().clear();
@@ -40,12 +45,10 @@ public class EKGcontroller extends Beregner implements Initializable {
                                     data.getData().add((new XYChart.Data<String, Number>(n, redval)));
                                     ekgplot.getData().add(data);
                                     alarmCheck("EKG ER FARLIG", ekgMaxDouble, ekgMinDouble, redval,y);
-                                    try {
-                                        FL.saveData("EKG", n, redval);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    y++;
+                            // FL.saveData("EKG", n, redval);
+                            sql_objekt.writeToPatientMaalingEKG(navn, redval);
+
+                            y++;
                                 }
                         ), 0, 100, TimeUnit.MILLISECONDS);
             } else {

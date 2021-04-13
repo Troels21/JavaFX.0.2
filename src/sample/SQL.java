@@ -10,7 +10,8 @@ public class SQL {
     static Connection myConn;
     static Statement myStatement;
 
-    static {
+    // konstruktør der opretter forbindelse til databsen
+    public SQL() {
         try {
             myConn = DriverManager.getConnection(url, user, password);
             myStatement = myConn.createStatement();
@@ -20,21 +21,32 @@ public class SQL {
     }
 
     public static void main(String[] args) throws SQLException {
+        SQL sql = new SQL();
+
         String CPR = "2222222222";
+        createNewPatient(CPR);
+        //writePatientListe(CPR);
+        //writeToPatientMaalingPuls(CPR, 66,  37.5, 98.5);
+        //writeToPatientMaalingEKG(CPR,100);
+
+        Read_data_Puls("patientMaalingPuls", CPR);
+        System.out.println();
+        //Read_data_EKG("patientMaalingEKG",CPR);
+        System.out.println();
+        Read_data_logininfo("logininfo", "");
+        System.out.println();
+        Read_data_patientliste("patientListe", "");
+    }
+
+    //metode til der samler oprettelse af tabeller og opdatering af patientliste.
+    public static void createNewPatient(String CPR){
         writePatientListe(CPR);
         createTableCPREKG(CPR);
         createTableCPRPuls(CPR);
-        writeToPatientMaalingPuls(CPR, 66,  37.5, 98.5);
-        writeToPatientMaalingEKG(CPR,100);
-        selectFrom("patientMaalingPuls", CPR, 4);
-        System.out.println();
-        selectFrom("patientMaalingEKG",CPR,2);
-        System.out.println();
-        selectFrom("loginInfo", "", 4);
-        System.out.println();
-        selectFrom("patientListe", "", 1);
     }
 
+
+    // Write metoden, som skriver CPR ind i patientlisten
     public static void writePatientListe(String CPR){
         String write_to_database1 = "INSERT INTO patientListe " + "(CPR) values(?);";
         PreparedStatement PP1;
@@ -48,7 +60,7 @@ public class SQL {
 
 
     }
-
+    // create metode som laver en tabel som indeholder tid, puls, temp og spo2.
     static public void createTableCPRPuls(String CPR) {
         String sql_CreateTable = "CREATE TABLE IF NOT EXISTS patientMaalingPuls" + CPR + "(\n"
                 + "timeaxis INT PRIMARY KEY AUTO_INCREMENT,\n"
@@ -63,6 +75,7 @@ public class SQL {
         }
     }
 
+    // create metode som laver en tabel som indeholder tid og ekg.
     static public void createTableCPREKG(String CPR) {
         String sql_CreateTable = "CREATE TABLE IF NOT EXISTS patientMaalingEKG" + CPR + "(\n"
                 + "timeaxis INT PRIMARY KEY AUTO_INCREMENT,\n"
@@ -76,6 +89,8 @@ public class SQL {
         }
     }
 
+
+    // write metode som skriver puls temp og spo2 ind i en tabel, som den identificere med CPR.
     public static void writeToPatientMaalingPuls(String CPR, double Puls, double Temp, double SpO2) {
             try {
                 String write_to_database2 = "insert into patientMaalingPuls" + CPR + "(PulsValue, TEMPValue,SpO2Value) values(?, ?, ?)";
@@ -91,6 +106,8 @@ public class SQL {
             }
         }
 
+
+    //write metode som skriver ekg ind i en tabel, som den identificere med EKG.
     public static void writeToPatientMaalingEKG(String CPR, double EKG) {
         try {
             String write_to_database2 = "insert into patientMaalingEKG" + CPR + "(EKGValue) values(?)";
@@ -105,30 +122,64 @@ public class SQL {
     }
 
 
-
-    static public void selectFrom(String Table, String CPR, int Columnlenght) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+    // Read metode som læser data fra ekg tabel
+    static public void readDataEKG(String CPR, int[] tid_array, double[] ekg_array) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login.patientMaalingEKG" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
+        int i = 0;
         while (rs.next()) {
-            if (Columnlenght == 1) {
-                System.out.println(rs.getString(1));
-            }
-            if (Columnlenght == 2) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2));
-            }
-            if (Columnlenght == 3) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2) + " "
-                        + rs.getString(3));
-            }
-            if (Columnlenght == 4) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2) + " "
-                        + rs.getString(3) + " " + rs.getString(4));
-            }
-            if (Columnlenght == 5) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2) + " "
-                        + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5));
-            }
+            //System.out.print(rs.getInt("timeaxis"));
+            //System.out.println(rs.getDouble("EKGValue"));
+            tid_array[i] = rs.getInt("timeaxis");
+            ekg_array[i] = rs.getDouble("EKGValue");
 
+            i++;
         }
     }
+
+    //row tæller
+    static public void rowCounter(){
+        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
+
+
+    }
+
+
+    // read metode som læser data fra Puls tabel
+    static public void Read_data_Puls(String Table, String CPR) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
+
+        while (rs.next()) {
+            System.out.print(rs.getDouble("timeaxis"));
+            System.out.println(rs.getDouble("PulsValue"));
+            System.out.println(rs.getDouble("TEMPValue"));
+            System.out.println(rs.getDouble("SpO2Value"));
+        }
+    }
+
+    // read metode som læser data fra logininfo
+    static public void Read_data_logininfo(String Table, String CPR) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
+
+        while (rs.next()) {
+            System.out.print(rs.getInt("id")+" ");
+            System.out.print(rs.getString("username")+" ");
+            System.out.print(rs.getString("password")+" ");
+            System.out.println(rs.getInt("doctor"));
+        }
+    }
+
+    // read metode som læser data fra patient liste
+    static public void Read_data_patientliste(String Table, String CPR) throws SQLException {
+        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
+        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
+
+        while (rs.next()) {
+            System.out.print(rs.getString("CPR")+" ");
+        }
+    }
+
 }

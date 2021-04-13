@@ -7,6 +7,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.io.*;
 
@@ -34,6 +35,8 @@ public class ControllerArkiv extends Beregner {
     LineChart<NumberAxis, NumberAxis> SpO2Chart;
     @FXML
     LineChart<NumberAxis, NumberAxis> EKGChart;
+
+    SQL sql_objekt = new SQL();
 
     XYChart.Series PulseXYChart = new XYChart.Series();
     XYChart.Series TempXYChart = new XYChart.Series();
@@ -66,7 +69,9 @@ public class ControllerArkiv extends Beregner {
         populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2XAkse);
     }
 
-    public void EKGArkiv() throws FileNotFoundException {
+    public void EKGArkiv() throws FileNotFoundException, SQLException {
+        String cpr = CPR();
+        sql_objekt.readDataEKG(cpr, EKGTime, EKGValue);
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGXAkse);
 
     }
@@ -82,9 +87,10 @@ public class ControllerArkiv extends Beregner {
 
         if (cprCheck2()) {
 
+
             xyChart.getData().clear();
             lineChart.getData().clear();
-
+            /*
             String FileName = CPR();
             File Pulse1 = new File("PatientData/" + FileName + "/" + filetype); //mac :FileName, "Pulse"
             Scanner Patient = new Scanner(Pulse1);
@@ -106,7 +112,11 @@ public class ControllerArkiv extends Beregner {
                 for (int i = 1; i < array.length; i = i + 2) {
                     value[i / 2] = Double.parseDouble(array[i]); // hvad sker der når man deler 3 med 2 som integer.
                 }
-            }
+            }*/
+            //
+
+
+
             if (timeMax.getText() != "null" || timeMin.getText() != "null") {
                 try {
                     timeMaxInt = Integer.parseInt(timeMax.getText());
