@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Beregner {
     Main m = new Main();
+    SQL sql_objekt = new SQL();
 
     //Variabler til puls, temperatur,ekg simulation og fremvisning
     double nametest, math, math2, math3, temp, SpO2double;
@@ -77,31 +78,32 @@ public class Beregner {
                                 label2.setText((temp + "°C"));
                                 temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
                                 alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp,i);
-                            }
+                            }/*
                             try {
                                 fh.saveDataDouble("Temp", bogstav, temp);
                             } catch (IOException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             if (pulseCheck == 1) {
                                 pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
                                 alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls,i);
-                            }
+                            }/*
                             try {
                                 fh.saveData("Pulse", bogstav, puls);
                             } catch (IOException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             if (i % 2 == 0) {
                                 label.setText(Spo2);
                                 alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double,i);
-
+                                /*
                                 try {
                                     fh.saveDataDouble("SpO2", bogstav, SpO2double);
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                }
+                                }*/
                             }
+
                             i++;
                         }), 0, 1, TimeUnit.SECONDS);
             } else {

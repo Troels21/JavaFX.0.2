@@ -36,7 +36,7 @@ public class ControllerArkiv extends Beregner {
     @FXML
     LineChart<NumberAxis, NumberAxis> EKGChart;
 
-    SQL sql_objekt = new SQL();
+
 
     XYChart.Series PulseXYChart = new XYChart.Series();
     XYChart.Series TempXYChart = new XYChart.Series();
@@ -71,6 +71,8 @@ public class ControllerArkiv extends Beregner {
 
     public void EKGArkiv() throws FileNotFoundException, SQLException {
         String cpr = CPR();
+        EKGTime = new int[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
+        EKGValue = new double[sql_objekt.rowCounter("patientMaalingEKG",cpr)];
         sql_objekt.readDataEKG(cpr, EKGTime, EKGValue);
         populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGXAkse);
 

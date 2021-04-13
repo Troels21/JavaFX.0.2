@@ -6,7 +6,7 @@ public class SQL {
 
     static String url = "jdbc:mysql://localhost:3306/login";
     static String user = "root";
-    static String password = "";
+    static String password = "1234";
     static Connection myConn;
     static Statement myStatement;
 
@@ -25,9 +25,10 @@ public class SQL {
 
         String CPR = "2222222222";
         createNewPatient(CPR);
+        System.out.println(rowCounter("patientMaalingEKG",CPR));
         //writePatientListe(CPR);
         //writeToPatientMaalingPuls(CPR, 66,  37.5, 98.5);
-        //writeToPatientMaalingEKG(CPR,100);
+        writeToPatientMaalingEKG(CPR,100);
 
         Read_data_Puls("patientMaalingPuls", CPR);
         System.out.println();
@@ -138,13 +139,19 @@ public class SQL {
     }
 
     //row tæller
-    static public void rowCounter(){
-        String sql_SelectFrom = "SELECT * FROM login." + Table + CPR;
-        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
-
-
+    static public int rowCounter(String Table, String CPR){
+        String sql_Count = "SELECT COUNT(*) FROM "+ Table + CPR;
+        ResultSet rs = null;
+        try {
+            rs = myStatement.executeQuery(sql_Count);
+            rs.next();
+            int count =rs.getInt(1);
+            return count;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
-
 
     // read metode som læser data fra Puls tabel
     static public void Read_data_Puls(String Table, String CPR) throws SQLException {
