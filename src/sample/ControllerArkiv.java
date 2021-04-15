@@ -1,10 +1,10 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.TextField;
+
 import java.sql.SQLException;
 
 public class ControllerArkiv extends Simulering {
@@ -50,7 +50,7 @@ public class ControllerArkiv extends Simulering {
     }
 
     public void SpO2Arkiv() throws SQLException {
-        populateChart(SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMax, timeMin,CPR());
+        populateChart(SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMax, timeMin, CPR());
     }
 
     public void EKGArkiv() throws SQLException {
@@ -58,7 +58,7 @@ public class ControllerArkiv extends Simulering {
 
     }
 
-    public void saveDataToJournal(){
+    public void saveDataToJournal() {
         saveData(PulseChart, TempChart, EKGChart, SpO2Chart);
     }
 
@@ -66,7 +66,7 @@ public class ControllerArkiv extends Simulering {
         return CPR.getText();
     }  //En patient skal kun kunne tilgå sine egne data
 
-    public void closeScene(ActionEvent actionEvent) {
-        m.closeStage(m.stage2);
+    public void closeScene() {
+        m.closeStage(Main.stage2);
     }
 }

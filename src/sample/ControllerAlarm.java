@@ -1,6 +1,6 @@
 package sample;
 
-import javafx.event.ActionEvent;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
@@ -76,7 +76,7 @@ public class ControllerAlarm extends Simulering implements Initializable {
         setText();
     }
 
-    public void closeScene(ActionEvent actionEvent) {
+    public void closeScene() {
         m.closeStage(Main.stage2);
     }
 }

@@ -20,11 +20,6 @@ public class SQL {
         }
     }
 
-    /*public static void main(String[] args) throws SQLException {
-        SQL s = new SQL();
-
-    }*/
-
     //metode til der samler oprettelse af tabeller og opdatering af patientliste.
     public void createNewPatient(String CPR) {
         writePatientListe(CPR);
@@ -64,7 +59,7 @@ public class SQL {
     }
 
     // create metode som laver en tabel som indeholder tid og ekg.
-   public void createTableCPREKG(String CPR) {
+    public void createTableCPREKG(String CPR) {
         String sql_CreateTable = "CREATE TABLE IF NOT EXISTS patientMaalingEKG" + CPR + "(\n"
                 + "timeaxis INT PRIMARY KEY AUTO_INCREMENT,\n"
                 + "EKGValue DOUBLE);";
@@ -151,7 +146,7 @@ public class SQL {
     }
 
     // read metode som læser data fra logininfo
-    public String Read_data_logininfo(String username){
+    public String Read_data_logininfo(String username) {
         try {
             String sql_SelectFrom = "SELECT *\n" +
                     "From login.logininfo\n" +

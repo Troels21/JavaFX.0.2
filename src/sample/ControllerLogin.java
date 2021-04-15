@@ -3,8 +3,8 @@ package sample;
 import javafx.fxml.*;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class ControllerLogin extends SQL {
     Main m = new Main();
@@ -19,7 +19,7 @@ public class ControllerLogin extends SQL {
     @FXML
     PasswordField Password;
 
-    public void login() throws IOException, SQLException {
+    public void login() throws IOException {
 
         if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
@@ -35,7 +35,7 @@ public class ControllerLogin extends SQL {
         }
     }
 
-    private boolean KontrolP() throws SQLException {
+    private boolean KontrolP() {
         //Hvis dit CPR findes at PatientData folderen, kan du logge ind
         String U = Username.getText();
         if (doesPatientExsist(U)) {
@@ -47,14 +47,14 @@ public class ControllerLogin extends SQL {
 
     }
 
-    private boolean KontrolL(){
+    private boolean KontrolL() {
         String U = Username.getText();
         String P = Password.getText();
         String s = Read_data_logininfo(U);
 
-        if(s.equals("null")){
+        if (s.equals("null")) {
             return false;
-        }else{
+        } else {
             String[] data = s.split(",");
             username_kontrol = data[0];
             password_kontrol = data[1];
@@ -68,9 +68,9 @@ public class ControllerLogin extends SQL {
         String P = Password.getText();
         String s = Read_data_logininfo(U);
 
-        if(s.equals("null")){
+        if (s.equals("null")) {
             return false;
-        }else{
+        } else {
             String[] data = s.split(",");
             username_kontrol = data[0];
             password_kontrol = data[1];

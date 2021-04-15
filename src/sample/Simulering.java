@@ -7,10 +7,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import java.io.IOException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,9 +44,9 @@ public class Simulering extends GenMetoder {
     //metode til at fremvise puls,temp og spo2
 
     public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart,
-                                 Label label, Label label2){
+                                 Label label, Label label2) {
         name = textField.getText();
-        if (!threadCheck){
+        if (!threadCheck) {
             return;
         }
         if (cprCheck2(name)) {
@@ -87,10 +86,10 @@ public class Simulering extends GenMetoder {
     }
 
     //Metode til at stoppe fremvisning i realtid af puls, temp og spo2
-    public void eventhandlerShutdown(){
-        if (!threadCheck){
-        Eventhandler.shutdown();
-        threadCheck = true;
+    public void eventhandlerShutdown() {
+        if (!threadCheck) {
+            Eventhandler.shutdown();
+            threadCheck = true;
         }
     }
 
@@ -98,8 +97,7 @@ public class Simulering extends GenMetoder {
     public void showPulsePuls() {
         if (pulseCheck == 1) {
             pulseCheck = 0;
-        }
-        else {
+        } else {
             pulseCheck = 1;
         }
     }
@@ -108,8 +106,7 @@ public class Simulering extends GenMetoder {
     public void showTemperaturePuls() {
         if (tempCheck == 1) {
             tempCheck = 0;
-        }
-        else {
+        } else {
             tempCheck = 1;
         }
     }
@@ -153,14 +150,16 @@ public class Simulering extends GenMetoder {
         return red;
     }
 
-    public void EKGSim(TextField CPRLabel, LineChart ekgplot, XYChart.Series<String, Number> data){
+    public void EKGSim(TextField CPRLabel, LineChart ekgplot, XYChart.Series<String, Number> data) {
         name = CPRLabel.getText();
-        if (threadCheck = false){{
-        return;}
+        if (threadCheck = false) {
+            {
+                return;
+            }
         }
         if (cprCheck2(name)) {
             sql_objekt.createNewPatient(name);
-            threadCheck=false;
+            threadCheck = false;
             SQL sql_objekt = new SQL();
             Eventhandler = Executors.newSingleThreadScheduledExecutor();
 

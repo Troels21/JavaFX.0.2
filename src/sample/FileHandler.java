@@ -5,6 +5,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.LineChart;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
