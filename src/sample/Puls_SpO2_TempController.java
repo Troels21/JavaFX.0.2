@@ -28,7 +28,7 @@ public class Puls_SpO2_TempController extends Simulering implements Initializabl
     }
 
     public void monitorStop() throws IOException {
-        monitorStopPuls();
+        eventhandlerShutdown();
     }
 
     public void showPulse() {
@@ -44,10 +44,8 @@ public class Puls_SpO2_TempController extends Simulering implements Initializabl
         Name.setText(name);
     } //Bruger navnet fra en tidligere stage til at sætte CPR navn.
 
-    public void closeScene(ActionEvent actionEvent) {
-        if (Eventhandler.isShutdown()==false){
-            Eventhandler.shutdown();
-        }
+    public void closeScene(ActionEvent actionEvent) throws IOException {
+        eventhandlerShutdown();
         m.closeStage(m.stage2);
     }
 }

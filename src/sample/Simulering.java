@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -29,7 +30,7 @@ public class Simulering extends GenMetoder {
 
     //Variabler til puls, temperatur,ekg simulation og fremvisning
     double math, math2, math3, temp, SpO2double;
-    int puls, red, u, pulseCheck, tempCheck, i, y;
+    int puls, red, u, pulseCheck, tempCheck;
     String Spo2, SpO2String;
     double intervalmin = 70;
     double intervalmax = 70;
@@ -37,9 +38,14 @@ public class Simulering extends GenMetoder {
     double intervalmax2 = 100;
     double intervalmin3 = 36;
     double intervalmax3 = 38;
+    int i = 0;
+    int y = 0;
+
+    Boolean threadCheck = true;
 
     //Objekter brugt til at fremvise linechart serie i realtid
-    ScheduledExecutorService Eventhandler = Executors.newSingleThreadScheduledExecutor();
+    //ScheduledExecutorService Eventhandler = Executors.newSingleThreadScheduledExecutor();
+    ScheduledExecutorService Eventhandler;
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
     XYChart.Series<String, Number> ekgseries = new XYChart.Series<String, Number>();
@@ -49,12 +55,17 @@ public class Simulering extends GenMetoder {
     public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart,
                                  Label label, Label label2) throws IOException, SQLException {
         name = textField.getText();
-        i = 0;
+        if (threadCheck == false){
+            return;
+        }
         if (cprCheck2(name)) {
             sql_objekt.createNewPatient(name);
+            threadCheck = false;
             pulsSeries.setName("puls");
             temperatureSeries.setName("Temperature");
+            linechart.getData().clear();
             linechart.getData().addAll(pulsSeries, temperatureSeries);
+            Eventhandler = Executors.newSingleThreadScheduledExecutor();
             Eventhandler.scheduleAtFixedRate(() ->
                     Platform.runLater(() -> {
                         String bogstav = String.valueOf(i);
@@ -62,15 +73,16 @@ public class Simulering extends GenMetoder {
                         SpO2String += bogstav + " " + Spo2 + " ";
                         pulseSimulation();
                         temperatureSimulation();
+                        if (pulseCheck == 1) {
+                            pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
+                            alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls, i);
+                        }
                         if (tempCheck == 1) {
                             label2.setText((temp + "°C"));
                             temperatureSeries.getData().add(new XYChart.Data(bogstav, temp));
                             alarmCheck("ALARM TEMPERATUR ER FARLIG", tempMaxDouble, tempMinDouble, temp, i);
                         }
-                        if (pulseCheck == 1) {
-                            pulsSeries.getData().add(new XYChart.Data(bogstav, puls));
-                            alarmCheck("ALARM PULS ER FARLIG", pulseMaxDouble, pulseMinDouble, puls, i);
-                        }
+
                         label.setText(Spo2);
                         alarmCheck("SPO2 ER FARLIG", SpO2MaxDouble, SpO2MinDouble, SpO2double, i);
 
@@ -83,34 +95,31 @@ public class Simulering extends GenMetoder {
     }
 
     //Metode til at stoppe fremvisning i realtid af puls, temp og spo2
-    public void monitorStopPuls() throws IOException {
+    public void eventhandlerShutdown() throws IOException {
+        if (threadCheck == false){
         Eventhandler.shutdown();
+        threadCheck = true;
+        }
     }
 
     //Kontrol logic in radiobutton pulse
-    public int showPulsePuls() {
+    public void showPulsePuls() {
         if (pulseCheck == 1) {
             pulseCheck = 0;
-            return pulseCheck;
         }
-        if (pulseCheck == 0) {
+        else {
             pulseCheck = 1;
-            return pulseCheck;
         }
-        return 0;
     }
 
     //Kontrol logic in radiobutton temp
-    public int showTemperaturePuls() {
+    public void showTemperaturePuls() {
         if (tempCheck == 1) {
             tempCheck = 0;
-            return tempCheck;
         }
-        if (tempCheck == 0) {
+        else {
             tempCheck = 1;
-            return tempCheck;
         }
-        return 0;
     }
 
 
@@ -153,12 +162,15 @@ public class Simulering extends GenMetoder {
     }
 
     public void EKGSim(TextField CPRLabel, LineChart ekgplot, XYChart.Series<String, Number> data) throws SQLException {
-        y = 0;
         name = CPRLabel.getText();
+        if (threadCheck = false){{
+        return;}
+        }
         if (cprCheck2(name)) {
-            name = this.name;
-            SQL sql_objekt = new SQL();
             sql_objekt.createNewPatient(name);
+            threadCheck=false;
+            SQL sql_objekt = new SQL();
+            Eventhandler = Executors.newSingleThreadScheduledExecutor();
 
             Eventhandler.scheduleAtFixedRate(() ->
                     Platform.runLater(() -> {

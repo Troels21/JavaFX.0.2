@@ -46,19 +46,19 @@ public class ControllerArkiv extends Simulering {
     }
 
     public void PulsArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue, pulsexAkse, timeMin, timeMax, CPR());
+        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue, pulsexAkse, timeMax, timeMin, CPR());
     }
 
     public void TempArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue, tempXAkse, timeMin, timeMax, CPR());
+        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue, tempXAkse, timeMax, timeMin, CPR());
     }
 
     public void SpO2Arkiv() throws FileNotFoundException, SQLException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMin, timeMax,CPR());
+        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMax, timeMin,CPR());
     }
 
     public void EKGArkiv() throws FileNotFoundException, SQLException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue, EKGXAkse, timeMin, timeMax, CPR());
+        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue, EKGXAkse, timeMax, timeMin, CPR());
 
     }
 

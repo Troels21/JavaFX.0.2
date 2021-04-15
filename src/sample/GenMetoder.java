@@ -78,9 +78,14 @@ public class GenMetoder{
 
     // metode som kontrollere om der er indtastet et eksiterende cpr
     public boolean cprCheck2(String name) throws SQLException {
-        if (sql_objekt.doesPatientExsist(name)) {
+        try{
+            double test = Double.parseDouble(name);
+        if (name.length() ==10) {
             return true;
         } else {
+            return false;
+        }
+        } catch (Exception e) {
             return false;
         }
     }
@@ -91,7 +96,7 @@ public class GenMetoder{
                               int[] time, double[] value, NumberAxis xakse,
                               TextField timeMax, TextField timeMin, String cpr) throws FileNotFoundException, SQLException {
 
-        if (cprCheck2(cpr)) {
+        if (sql_objekt.doesPatientExsist(cpr)){
             xyChart.getData().clear();
             lineChart.getData().clear();
             if (timeMax.getText() != "null" || timeMin.getText() != "null") {

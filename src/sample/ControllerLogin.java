@@ -6,18 +6,20 @@ import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
-public class ControllerLogin {
+public class ControllerLogin extends SQL{
     Main m = new Main();
     Simulering b = new Simulering();
     static String CPR;
+
 
     @FXML
     TextField Username;
     @FXML
     PasswordField Password;
 
-    public void login() throws IOException {
+    public void login() throws IOException, SQLException {
         if (KontrolL()) {
             // læge skal kunne tilgå det hele
             m.openStage("ProgramChooser.fxml",m.stage);
@@ -33,51 +35,30 @@ public class ControllerLogin {
         }
     }
 
-    private boolean KontrolP() {
+    private boolean KontrolP() throws SQLException {
         //Hvis dit CPR findes at PatientData folderen, kan du logge ind
         String U = Username.getText();
         String P = Password.getText();
-        if (U!="") {
-            File checker = new File("PatientData", U);
-            CPR = U;
-            if (checker.exists()) {
-                return true;
-            }
+        if (doesPatientExsist(U)){
+            return true;
         }
+        else{
             return false;
+        }
+
     }
 
     private boolean KontrolL() {
-        // her skal SQL implementeres
-        String[] Uarkiv = new String[3];
-        String[] Parkiv = new String[3];
-        Uarkiv[0] = "DR";
-        Parkiv[0] = "Password";
         String U = Username.getText();
         String P = Password.getText();
 
-        for (int i = 0; i < Uarkiv.length; i++) {
-            if (U.equals(Uarkiv[i]) && P.equals(Parkiv[i])) {
-                return true;
-            }
-        }
         return false;
     }
 
     private boolean KontrolSP() {
-        // her skal SQL implementeres
-        String[] Uarkiv = new String[3];
-        String[] Parkiv = new String[3];
-        Uarkiv[0] = "nurse";
-        Parkiv[0] = "Password";
         String U = Username.getText();
         String P = Password.getText();
 
-        for (int i = 0; i < Uarkiv.length; i++) {
-            if (U.equals(Uarkiv[i]) && P.equals(Parkiv[i])) {
-                return true;
-            }
-        }
         return false;
     }
 }

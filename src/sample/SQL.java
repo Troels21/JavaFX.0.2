@@ -6,7 +6,7 @@ public class SQL {
 
     static String url = "jdbc:mysql://localhost:3306/login";
     static String user = "root";
-    static String password = "";
+    static String password = "1234";
     static Connection myConn;
     static Statement myStatement;
 
@@ -20,15 +20,14 @@ public class SQL {
         }
     }
 
-    /*public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         SQL s = new SQL();
-        if (doesPatientExsist("111111")){
-            System.out.println("1");
-        }else{
-            System.out.println("2");
-        }
+        String us = "DR";
+        String ps = "password";
+        int ss = 0;
+        s.Read_data_logininfo(us,ps,ss);
 
-    }*/
+    }
 
     //metode til der samler oprettelse af tabeller og opdatering af patientliste.
     public static void createNewPatient(String CPR){
@@ -155,28 +154,18 @@ public class SQL {
     }
 
     // read metode som læser data fra logininfo
-    static public void Read_data_logininfo(String CPR) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login.logininfo" + CPR;
-        ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
-
-        while (rs.next()) {
-            System.out.print(rs.getInt("id")+" ");
-            System.out.print(rs.getString("username")+" ");
-            System.out.print(rs.getString("password")+" ");
-            System.out.println(rs.getInt("doctor"));
-        }
-    }
-
-    // read metode som læser data fra patient liste
-    static public void Read_data_patientliste(String CPR) throws SQLException {
-        String sql_SelectFrom = "SELECT * FROM login.patientListe" + CPR;
+    static public void Read_data_logininfo(String username, String password, int doctor) throws SQLException {
+        String sql_SelectFrom = "SELECT *\n" +
+                "From login.logininfo\n" +
+                "WHERE username ="+username+" ;";
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
 
 
-        while (rs.next()) {
-            System.out.print(rs.getString("CPR")+" ");
+        rs.getString(2);
+        rs.getString(3);
+        rs.getInt(4);
         }
-    }
+
 
     // boolsk kontrol af om cpr eksistere i databse
     static public boolean doesPatientExsist(String CPR) throws SQLException {

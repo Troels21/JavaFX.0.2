@@ -5,6 +5,7 @@ import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -21,8 +22,8 @@ public class EKGcontroller extends Simulering implements Initializable {
         EKGSim(CPRLabel, ekgplot, ekgseries);
     }
 
-    public void EKGstop() {
-        Eventhandler.shutdown();
+    public void EKGstop() throws IOException {
+        eventhandlerShutdown();
     }
 
     @Override
@@ -30,10 +31,8 @@ public class EKGcontroller extends Simulering implements Initializable {
         CPRLabel.setText(name);
     } //Sætter CPR navn
 
-    public void closeScene(ActionEvent actionEvent) {
-        if (Eventhandler.isShutdown() == false) {
-            EKGstop();
-        }
+    public void closeScene(ActionEvent actionEvent) throws IOException {
+        eventhandlerShutdown();
         m.closeStage(m.stage2);
     }
 }
