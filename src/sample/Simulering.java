@@ -1,21 +1,12 @@
 package sample;
 
 import javafx.application.Platform;
-
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -48,14 +39,15 @@ public class Simulering extends GenMetoder {
     ScheduledExecutorService Eventhandler;
     XYChart.Series pulsSeries = new XYChart.Series();
     XYChart.Series temperatureSeries = new XYChart.Series();
-    XYChart.Series<String, Number> ekgseries = new XYChart.Series<String, Number>();
+    XYChart.Series<String, Number> ekgseries = new XYChart.Series<>();
 
 
     //metode til at fremvise puls,temp og spo2
+
     public void monitorStartPuls(TextField textField, LineChart<CategoryAxis, NumberAxis> linechart,
-                                 Label label, Label label2) throws IOException, SQLException {
+                                 Label label, Label label2){
         name = textField.getText();
-        if (threadCheck == false){
+        if (!threadCheck){
             return;
         }
         if (cprCheck2(name)) {
@@ -95,8 +87,8 @@ public class Simulering extends GenMetoder {
     }
 
     //Metode til at stoppe fremvisning i realtid af puls, temp og spo2
-    public void eventhandlerShutdown() throws IOException {
-        if (threadCheck == false){
+    public void eventhandlerShutdown(){
+        if (!threadCheck){
         Eventhandler.shutdown();
         threadCheck = true;
         }
@@ -161,7 +153,7 @@ public class Simulering extends GenMetoder {
         return red;
     }
 
-    public void EKGSim(TextField CPRLabel, LineChart ekgplot, XYChart.Series<String, Number> data) throws SQLException {
+    public void EKGSim(TextField CPRLabel, LineChart ekgplot, XYChart.Series<String, Number> data){
         name = CPRLabel.getText();
         if (threadCheck = false){{
         return;}
@@ -178,7 +170,7 @@ public class Simulering extends GenMetoder {
                                 ekgSimulation();
                                 String n = String.valueOf(y);
                                 int redval = redv();
-                                data.getData().add((new XYChart.Data<String, Number>(n, redval)));
+                                data.getData().add((new XYChart.Data<>(n, redval)));
                                 ekgplot.getData().add(data);
                                 alarmCheck("EKG ER FARLIG", ekgMaxDouble, ekgMinDouble, redval, y);
                                 sql_objekt.writeToPatientMaalingEKG(name, redval);

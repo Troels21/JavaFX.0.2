@@ -19,7 +19,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 650, 400));
         primaryStage.show();
     }
-    public void openStage(String filename,Stage stage) throws IOException {
+    public void openStage(String filename, Stage stage) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource(filename));
         stage.setScene(new Scene(parent, 800, 600));
         stage.show();

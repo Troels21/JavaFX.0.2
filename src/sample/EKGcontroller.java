@@ -33,6 +33,6 @@ public class EKGcontroller extends Simulering implements Initializable {
 
     public void closeScene(ActionEvent actionEvent) throws IOException {
         eventhandlerShutdown();
-        m.closeStage(m.stage2);
+        m.closeStage(Main.stage2);
     }
 }

@@ -77,6 +77,6 @@ public class ControllerAlarm extends Simulering implements Initializable {
     }
 
     public void closeScene(ActionEvent actionEvent) {
-        m.closeStage(m.stage2);
+        m.closeStage(Main.stage2);
     }
 }

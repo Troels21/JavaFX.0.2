@@ -46,6 +46,6 @@ public class Puls_SpO2_TempController extends Simulering implements Initializabl
 
     public void closeScene(ActionEvent actionEvent) throws IOException {
         eventhandlerShutdown();
-        m.closeStage(m.stage2);
+        m.closeStage(Main.stage2);
     }
 }

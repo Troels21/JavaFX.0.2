@@ -4,11 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
-
 import java.sql.SQLException;
-import java.io.*;
 
 public class ControllerArkiv extends Simulering {
     @FXML
@@ -35,30 +32,29 @@ public class ControllerArkiv extends Simulering {
     @FXML
     LineChart<NumberAxis, NumberAxis> EKGChart;
 
-    public void PatientChooser() throws FileNotFoundException, SQLException {
+    public void PatientChooser() throws SQLException {
         if (cprCheck2(CPR())) {
-
-            error("CPR-nummer er godkendt");
             updateArray(CPR());
+            error("CPR-nummer er godkendt");
         } else {
             error("Ugyldigt CPR-nummer");
         }
     }
 
-    public void PulsArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue, pulsexAkse, timeMax, timeMin, CPR());
+    public void PulsArkiv() throws SQLException {
+        populateChart(PulseXYChart, PulseChart, PulseTime, PulseValue, pulsexAkse, timeMax, timeMin, CPR());
     }
 
-    public void TempArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue, tempXAkse, timeMax, timeMin, CPR());
+    public void TempArkiv() throws SQLException {
+        populateChart(TempXYChart, TempChart, TempTime, TempValue, tempXAkse, timeMax, timeMin, CPR());
     }
 
-    public void SpO2Arkiv() throws FileNotFoundException, SQLException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMax, timeMin,CPR());
+    public void SpO2Arkiv() throws SQLException {
+        populateChart(SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value, SpO2XAkse, timeMax, timeMin,CPR());
     }
 
-    public void EKGArkiv() throws FileNotFoundException, SQLException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue, EKGXAkse, timeMax, timeMin, CPR());
+    public void EKGArkiv() throws SQLException {
+        populateChart(EKGXYChart, EKGChart, EKGTime, EKGValue, EKGXAkse, timeMax, timeMin, CPR());
 
     }
 

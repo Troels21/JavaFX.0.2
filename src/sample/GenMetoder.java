@@ -1,6 +1,6 @@
 package sample;
 
-import javafx.event.ActionEvent;
+
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -12,10 +12,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-public class GenMetoder{
+public class GenMetoder {
 
     //værider til cotroller ting
     XYChart.Series PulseXYChart = new XYChart.Series();
@@ -25,7 +24,6 @@ public class GenMetoder{
 
     int[] PulseTime, TempTime, SpO2Time, EKGTime;
     double[] PulseValue, TempValue, SpO2Value, EKGValue;
-    String[] pulsArray, tempArray, SpO2Array, EKGArray;
     int timeMaxInt = 60;
     int timeMinInt = 0;
 
@@ -48,10 +46,10 @@ public class GenMetoder{
     SQL sql_objekt = new SQL();
 
     //metode til at kontrollere alarm
-    public void alarmCheck(String string, double alarmMax, double alarmMin, double value, int tæller) {
-        if (value < alarmMin || value > alarmMax && (tæller - alarmCounter) > 50) {
+    public void alarmCheck(String string, double alarmMax, double alarmMin, double value, int counter) {
+        if (value < alarmMin || value > alarmMax && (counter - alarmCounter) > 50) {
             error(string);
-            alarmCounter = tæller;
+            alarmCounter = counter;
         }
     }
 
@@ -77,14 +75,10 @@ public class GenMetoder{
     }
 
     // metode som kontrollere om der er indtastet et eksiterende cpr
-    public boolean cprCheck2(String name) throws SQLException {
-        try{
+    public boolean cprCheck2(String name) {
+        try {
             double test = Double.parseDouble(name);
-        if (name.length() ==10) {
-            return true;
-        } else {
-            return false;
-        }
+            return name.length() == 10;
         } catch (Exception e) {
             return false;
         }
@@ -92,24 +86,24 @@ public class GenMetoder{
 
 
     //metode til at finde data og indlæse det i grafer.
-    public void populateChart(String filetype, String[] array, XYChart.Series xyChart, LineChart lineChart,
+    public void populateChart(XYChart.Series xyChart, LineChart lineChart,
                               int[] time, double[] value, NumberAxis xakse,
-                              TextField timeMax, TextField timeMin, String cpr) throws FileNotFoundException, SQLException {
+                              TextField timeMax, TextField timeMin, String cpr) throws SQLException {
 
-        if (sql_objekt.doesPatientExsist(cpr)){
+        if (sql_objekt.doesPatientExsist(cpr)) {
             xyChart.getData().clear();
             lineChart.getData().clear();
-            if (timeMax.getText() != "null" || timeMin.getText() != "null") {
-                try {
-                    timeMaxInt = Integer.parseInt(timeMax.getText());
-                    timeMinInt = Integer.parseInt(timeMin.getText());
-                } catch (NumberFormatException e) {
-                    timeMaxInt = value.length;
-                    timeMax.setText(String.valueOf(timeMaxInt));
-                    timeMinInt = 0;
-                    timeMin.setText(String.valueOf(timeMinInt));
-                }
+
+            try {
+                timeMaxInt = Integer.parseInt(timeMax.getText());
+                timeMinInt = Integer.parseInt(timeMin.getText());
+            } catch (NumberFormatException e) {
+                timeMaxInt = value.length;
+                timeMax.setText(String.valueOf(timeMaxInt));
+                timeMinInt = 0;
+                timeMin.setText(String.valueOf(timeMinInt));
             }
+
             if (timeMaxInt > value.length) {
                 timeMaxInt = value.length;
                 timeMax.setText(String.valueOf(timeMaxInt));
@@ -138,7 +132,7 @@ public class GenMetoder{
         TempValue = new double[sql_objekt.rowCounter("patientMaalingPuls", cpr)];
         SpO2Value = new double[sql_objekt.rowCounter("patientMaalingPuls", cpr)];
 
-        sql_objekt.readDataEKG(cpr, EKGTime, EKGValue);
+        sql_objekt.readDataEKG(cpr, EKGTime, this.EKGValue);
         sql_objekt.readDataPuls(cpr, PulseTime, PulseValue, TempValue, SpO2Value);
         TempTime = PulseTime;
         SpO2Time = PulseTime;
@@ -154,8 +148,6 @@ public class GenMetoder{
         fh.saveAsPng(path, SpO2Chart, "SpO2.png");
 
     }
-
-
 
 
 }

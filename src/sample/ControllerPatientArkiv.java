@@ -40,25 +40,30 @@ public class ControllerPatientArkiv extends Simulering implements Initializable 
 
 
     public void PulsArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Pulse", pulsArray, PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2, timeMin, timeMax, Cprlabel.getText());
+        populateChart(PulseXYChart, PulseChart, PulseTime, PulseValue,pulsexakse2, timeMax, timeMin, CL.CPR);
     }
 
     public void TempArkiv() throws FileNotFoundException, SQLException {
-        populateChart("Temp", tempArray, TempXYChart, TempChart, TempTime, TempValue,tempxAkse2, timeMin, timeMax, Cprlabel.getText());
+        populateChart(TempXYChart, TempChart, TempTime, TempValue,tempxAkse2, timeMax, timeMin, CL.CPR);
     }
 
     public void SpO2Arkiv() throws FileNotFoundException, SQLException {
-        populateChart("SpO2", SpO2Array, SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2, timeMin, timeMax, Cprlabel.getText());
+        populateChart(SpO2XYChart, SpO2Chart, SpO2Time, SpO2Value,SpO2xAkse2, timeMax, timeMin, CL.CPR);
     }
 
     public void EKGArkiv() throws FileNotFoundException, SQLException {
-        populateChart("EKG", EKGArray, EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2, timeMin, timeMax, Cprlabel.getText());
+        populateChart(EKGXYChart, EKGChart, EKGTime, EKGValue,EKGxAkse2, timeMax, timeMin, CL.CPR);
     }
 
     @Override  //En patient skal kun kunne tilgå sine egne data, derfor bliver CPR automatisk overført
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         Cprlabel.setText(CL.CPR);
+        try {
+            updateArray(CL.CPR);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         // populære charts fra start
         try {
             EKGArkiv();
@@ -68,6 +73,5 @@ public class ControllerPatientArkiv extends Simulering implements Initializable 
         } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
