@@ -148,6 +148,4 @@ public class GenMetoder {
         fh.saveAsPng(path, SpO2Chart, "SpO2.png");
 
     }
-
-
 }

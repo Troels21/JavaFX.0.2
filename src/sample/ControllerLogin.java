@@ -13,14 +13,12 @@ public class ControllerLogin extends SQL {
     String password_kontrol, username_kontrol;
     int DR;
 
-
     @FXML
     TextField Username;
     @FXML
     PasswordField Password;
 
     public void login() throws IOException {
-
         if (KontrolP()) {
             // patienter skal kun kunne tilgå deres arkiv.
             m.openStage("PatientArkiv.fxml", Main.stage);
@@ -50,7 +48,7 @@ public class ControllerLogin extends SQL {
     private boolean KontrolL() {
         String U = Username.getText();
         String P = Password.getText();
-        String s = Read_data_logininfo(U);
+        String s = ReadDataLogininfo(U);
 
         if (s.equals("null")) {
             return false;
@@ -66,7 +64,7 @@ public class ControllerLogin extends SQL {
     private boolean KontrolSP() {
         String U = Username.getText();
         String P = Password.getText();
-        String s = Read_data_logininfo(U);
+        String s = ReadDataLogininfo(U);
 
         if (s.equals("null")) {
             return false;

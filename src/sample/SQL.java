@@ -142,7 +142,7 @@ public class SQL {
     }
 
     // read metode som læser data fra logininfo
-    public String Read_data_logininfo(String username) {
+    public String ReadDataLogininfo(String username) {
         try {
             String sql_SelectFrom = "SELECT *\n" +
                     "From login.logininfo\n" +
