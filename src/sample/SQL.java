@@ -39,8 +39,6 @@ public class SQL {
         } catch (SQLException throwables) {
             System.out.println("CPR eksisterer allerede i systemet.");
         }
-
-
     }
 
     // create metode som laver en tabel som indeholder tid, puls, temp og spo2.
@@ -64,9 +62,7 @@ public class SQL {
                 + "timeaxis INT PRIMARY KEY AUTO_INCREMENT,\n"
                 + "EKGValue DOUBLE);";
         try {
-
             myStatement.execute(sql_CreateTable);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
