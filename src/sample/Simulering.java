@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Simulering extends GenMetoder {
     Main m = new Main();
-    SQL sql_objekt = new SQL();
 
     //Variabler til puls, temperatur,ekg simulation og fremvisning
     double math, math2, math3, temp, SpO2double;
@@ -160,7 +159,6 @@ public class Simulering extends GenMetoder {
         if (cprCheck2(name)) {
             sql_objekt.createNewPatient(name);
             threadCheck = false;
-            SQL sql_objekt = new SQL();
             Eventhandler = Executors.newSingleThreadScheduledExecutor();
 
             Eventhandler.scheduleAtFixedRate(() ->

@@ -6,7 +6,7 @@ public class SQL {
 
     static String url = "jdbc:mysql://localhost:3306/login";
     static String user = "root";
-    static String password = "";
+    static String password = "1234";
     static Connection myConn;
     static Statement myStatement;
 
@@ -39,8 +39,6 @@ public class SQL {
         } catch (SQLException throwables) {
             System.out.println("CPR eksisterer allerede i systemet.");
         }
-
-
     }
 
     // create metode som laver en tabel som indeholder tid, puls, temp og spo2.
@@ -64,9 +62,7 @@ public class SQL {
                 + "timeaxis INT PRIMARY KEY AUTO_INCREMENT,\n"
                 + "EKGValue DOUBLE);";
         try {
-
             myStatement.execute(sql_CreateTable);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
