@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerAlarm extends Simulering implements Initializable {
+    Main m = new Main();
 
     //Finder textfields i fxml
     public TextField pulseMax;

@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EKGcontroller extends Simulering implements Initializable {
-
+    Main m = new Main();
 
     @FXML
     LineChart<String, Number> ekgplot;

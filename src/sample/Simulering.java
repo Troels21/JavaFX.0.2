@@ -15,7 +15,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Simulering extends GenMetoder {
-    Main m = new Main();
 
     //Variabler til puls, temperatur,ekg simulation og fremvisning
     double math, math2, math3, temp, SpO2double;

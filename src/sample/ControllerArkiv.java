@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 
 public class ControllerArkiv extends Simulering {
+    Main m = new Main();
     @FXML
     public TextField timeMin;
     @FXML

@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Puls_SpO2_TempController extends Simulering implements Initializable {
-
+    Main m = new Main();
     @FXML
     Label tempLabel;
     @FXML

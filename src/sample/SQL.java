@@ -27,7 +27,6 @@ public class SQL {
         createTableCPRPuls(CPR);
     }
 
-
     // Write metoden, som skriver CPR ind i patientlisten
     public void writePatientListe(String CPR) {
         String write_to_database1 = "INSERT INTO patientListe " + "(CPR) values(?);";
@@ -68,7 +67,6 @@ public class SQL {
         }
     }
 
-
     // write metode som skriver puls temp og spo2 ind i en tabel, som den identificere med CPR.
     public void writeToPatientMaalingPuls(String CPR, double Puls, double Temp, double SpO2) {
         try {
@@ -84,7 +82,6 @@ public class SQL {
             e.printStackTrace();
         }
     }
-
 
     //write metode som skriver ekg ind i en tabel, som den identificere med EKG.
     public void writeToPatientMaalingEKG(String CPR, double EKG) {
@@ -126,7 +123,6 @@ public class SQL {
         }
     }
 
-
     // read metode som læser data fra Puls tabel
     public void readDataPuls(String CPR, int[] tid_array, double[] puls_array, double[] temp_array, double[] SpO2_array) throws SQLException {
         String sql_SelectFrom = "SELECT * FROM login.patientMaalingPuls" + CPR;
@@ -155,12 +151,11 @@ public class SQL {
         }
     }
 
-
     // boolsk kontrol af om cpr eksistere i databse
     public boolean doesPatientExsist(String CPR) {
         String findPatient = "SELECT CPR\n"
                 + " FROM login.patientListe\n"
-                + "WHERE EXISTS (SELECT CPR FROM patientliste WHERE CPR = " + CPR + ");";
+                + "WHERE EXISTS (SELECT CPR FROM patientliste WHERE CPR =" + CPR + ");";
         ResultSet rs;
         try {
             rs = myStatement.executeQuery(findPatient);
@@ -169,6 +164,5 @@ public class SQL {
         } catch (SQLException throwables) {
             return false;
         }
-
     }
 }
