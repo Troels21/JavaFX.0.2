@@ -10,8 +10,7 @@ public class SQL {
     static Connection myConn;
     static Statement myStatement;
 
-    // konstruktør der opretter forbindelse til databsen
-    public SQL() {
+    public void makeConnectionSQL(){
         try {
             myConn = DriverManager.getConnection(url, user, password);
             myStatement = myConn.createStatement();
@@ -19,12 +18,25 @@ public class SQL {
             throwables.printStackTrace();
         }
     }
+    public void removeConnectionSQL(){
+        try {
+            if (!myConn.isClosed()){
+                myConn.close();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     //metode til der samler oprettelse af tabeller og opdatering af patientliste.
     public void createNewPatient(String CPR) {
+        makeConnectionSQL();
+
         writePatientListe(CPR);
         createTableCPREKG(CPR);
         createTableCPRPuls(CPR);
+
+        removeConnectionSQL();
     }
 
     // Write metoden, som skriver CPR ind i patientlisten
@@ -70,6 +82,7 @@ public class SQL {
     // write metode som skriver puls temp og spo2 ind i en tabel, som den identificere med CPR.
     public void writeToPatientMaalingPuls(String CPR, double Puls, double Temp, double SpO2) {
         try {
+            makeConnectionSQL();
             String write_to_database2 = "insert into patientMaalingPuls" + CPR + "(PulsValue, TEMPValue,SpO2Value) values(?, ?, ?)";
             PreparedStatement PP2 = myConn.prepareStatement(write_to_database2);
 
@@ -78,22 +91,27 @@ public class SQL {
             PP2.setDouble(3, SpO2);
 
             PP2.execute();
+            removeConnectionSQL();
         } catch (SQLException e) {
             e.printStackTrace();
+            removeConnectionSQL();
         }
     }
 
     //write metode som skriver ekg ind i en tabel, som den identificere med EKG.
     public void writeToPatientMaalingEKG(String CPR, double EKG) {
         try {
+            makeConnectionSQL();
             String write_to_database2 = "insert into patientMaalingEKG" + CPR + "(EKGValue) values(?)";
             PreparedStatement PP2 = myConn.prepareStatement(write_to_database2);
 
             PP2.setDouble(1, EKG);
 
             PP2.execute();
+            removeConnectionSQL();
         } catch (SQLException e) {
             e.printStackTrace();
+            removeConnectionSQL();
         }
     }
 
@@ -102,17 +120,22 @@ public class SQL {
         String sql_Count = "SELECT COUNT(*) FROM " + Table + CPR;
         ResultSet rs;
         try {
+            makeConnectionSQL();
             rs = myStatement.executeQuery(sql_Count);
             rs.next();
-            return rs.getInt(1);
+            int buffer = rs.getInt(1);
+            removeConnectionSQL();
+            return buffer;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            removeConnectionSQL();
         }
         return 0;
     }
 
     // Read metode som læser data fra ekg tabel
     public void readDataEKG(String CPR, int[] tid_array, double[] ekg_array) throws SQLException {
+        makeConnectionSQL();
         String sql_SelectFrom = "SELECT * FROM login.patientMaalingEKG" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
         int i = 0;
@@ -121,10 +144,12 @@ public class SQL {
             ekg_array[i] = rs.getDouble("EKGValue");
             i++;
         }
+        removeConnectionSQL();
     }
 
     // read metode som læser data fra Puls tabel
     public void readDataPuls(String CPR, int[] tid_array, double[] puls_array, double[] temp_array, double[] SpO2_array) throws SQLException {
+        makeConnectionSQL();
         String sql_SelectFrom = "SELECT * FROM login.patientMaalingPuls" + CPR;
         ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
         int i = 0;
@@ -135,24 +160,31 @@ public class SQL {
             SpO2_array[i] = rs.getDouble("SpO2Value");
             i++;
         }
+        removeConnectionSQL();
     }
 
     // read metode som læser data fra logininfo
     public String ReadDataLogininfo(String username) {
+        makeConnectionSQL();
         try {
             String sql_SelectFrom = "SELECT *\n" +
                     "From login.logininfo\n" +
                     "WHERE username ='" + username + "' ;";
             ResultSet rs = myStatement.executeQuery(sql_SelectFrom);
             rs.next();
-            return rs.getString(2) + "," + rs.getString(3) + "," + rs.getString(4);
+            String buffer = rs.getString(2) + "," + rs.getString(3) + "," + rs.getString(4);
+            removeConnectionSQL();
+            return buffer;
         } catch (SQLException throwables) {
+            removeConnectionSQL();
             return "null";
+
         }
     }
 
     // boolsk kontrol af om cpr eksistere i databse
     public boolean doesPatientExsist(String CPR) {
+        makeConnectionSQL();
         String findPatient = "SELECT CPR\n"
                 + " FROM login.patientListe\n"
                 + "WHERE EXISTS (SELECT CPR FROM patientliste WHERE CPR =" + CPR + ");";
@@ -160,8 +192,14 @@ public class SQL {
         try {
             rs = myStatement.executeQuery(findPatient);
             rs.next();
-            return rs.getBoolean(1);
+            boolean buffer = rs.getBoolean(1);
+            removeConnectionSQL();
+            if (!buffer){
+                return true;
+            }
+            return false;
         } catch (SQLException throwables) {
+            removeConnectionSQL();
             return false;
         }
     }
