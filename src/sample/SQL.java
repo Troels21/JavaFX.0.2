@@ -186,19 +186,15 @@ public class SQL {
     // boolsk kontrol af om cpr eksistere i databse
     public boolean doesPatientExsist(String CPR) {
         makeConnectionSQL();
-        String findPatient = "SELECT CPR\n"
-                + " FROM login.patientListe\n"
-                + "WHERE EXISTS (SELECT CPR FROM patientliste WHERE CPR =" + CPR + ");";
+        String findPatient = "SELECT CPR FROM patientliste WHERE CPR =" + CPR + ";";
         ResultSet rs;
         try {
             rs = myStatement.executeQuery(findPatient);
             rs.next();
             boolean buffer = rs.getBoolean(1);
             removeConnectionSQL();
-            if (!buffer){
-                return true;
-            }
-            return false;
+            return buffer;
+
         } catch (SQLException throwables) {
             removeConnectionSQL();
             return false;
