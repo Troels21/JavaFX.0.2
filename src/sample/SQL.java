@@ -18,6 +18,7 @@ public class SQL {
             throwables.printStackTrace();
         }
     }
+
     public void removeConnectionSQL(){
         try {
             if (!myConn.isClosed()){
