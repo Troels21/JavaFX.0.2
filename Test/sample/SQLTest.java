@@ -57,14 +57,23 @@ class SQLTest {
 
     @Test
     void rowCounterTest() {
-        CPR="1234321567";
+        CPR = "1234321567";
         int[] row;
-        row = new int[sql_ob.rowCounter("patientMaalingEKG",CPR)];
-        for(int i =0; i<row.length; i++) {
+        row = new int[sql_ob.rowCounter("patientMaalingEKG", CPR)];
+        for (int i = 0; i < row.length; i++) {
             System.out.println(i + 1);
         }
-
     }
+
+    @Test
+    void doesPatientExsistTest() {
+        CPR = "IDontExsist";
+        Assertions.assertFalse(sql_ob.doesPatientExsist(CPR));
+        CPR = "1111111111";
+        Assertions.assertTrue(sql_ob.doesPatientExsist(CPR));
+    }
+
+    // har udført afprøvning på ovenstående metoder, mangler read metoderne.
 
     @Test
     void readDataEKGTest() {
@@ -91,12 +100,5 @@ class SQLTest {
 
     }
 
-    @Test
-    void doesPatientExsistTest() {
-        CPR = "IDontExsist";
-        Assertions.assertFalse(sql_ob.doesPatientExsist(CPR));
-        CPR = "1111111111";
-        Assertions.assertTrue(sql_ob.doesPatientExsist(CPR));
 
-    }
 }
