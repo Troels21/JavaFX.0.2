@@ -22,13 +22,13 @@ class SQLTest {
     @Test
     void writePatientListeTest() {
         sql_ob.writePatientListe(CPR);
-        CPR="1234512345";
+        CPR="1234500000";
         sql_ob.writePatientListe(CPR);
     }
 
     @Test
     void createTableCPRPulsTest() {
-        CPR="2103005444";
+        CPR="2103005000";
         sql_ob.createTableCPRPuls(CPR);
     }
 
@@ -40,6 +40,7 @@ class SQLTest {
 
     @Test
     void writeToPatientMaalingPulsTest() {
+        CPR = "2103005000";
         Temp=37;
         Puls=67;
         SpO2=99;
@@ -49,21 +50,25 @@ class SQLTest {
 
     @Test
     void writeToPatientMaalingEKGTest() {
-        EKG = 10;
+        CPR="1234321567";
+        EKG = 23;
         sql_ob.writeToPatientMaalingEKG(CPR,EKG);
     }
 
     @Test
     void rowCounterTest() {
+        CPR="1234321567";
         int[] row;
         row = new int[sql_ob.rowCounter("patientMaalingEKG",CPR)];
         for(int i =0; i<row.length; i++) {
-            System.out.println(row[i]);
+            System.out.println(i + 1);
         }
+
     }
 
     @Test
     void readDataEKGTest() {
+        CPR="1234321567";
         try {
             sql_ob.readDataEKG(CPR,gm.EKGTime,gm.EKGValue);
         } catch (SQLException throwables) {
