@@ -96,7 +96,7 @@ class SQLTest {
         CPR = "IDontExsist";
         Assertions.assertFalse(sql_ob.doesPatientExsist(CPR));
         CPR = "1111111111";
-        Assertions.assertTrue(sql_ob.doesPatientExsist("1111111111"));
+        Assertions.assertTrue(sql_ob.doesPatientExsist(CPR));
 
     }
 }
