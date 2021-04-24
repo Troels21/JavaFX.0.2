@@ -1,8 +1,6 @@
 package sample;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 
@@ -14,26 +12,37 @@ class SQLTest {
     String  CPR;
     double Puls, Temp, SpO2, EKG;
 
+
     @BeforeEach
     void setUp() {
         CPR="2103005445";
     }
 
+    @AfterEach
+    void next(){
+        sql_ob.removeConnectionSQL();
+        System.out.println();
+    }
+
     @Test
     void writePatientListeTest() {
+        sql_ob.makeConnectionSQL();
         sql_ob.writePatientListe(CPR);
-        CPR="1234500000";
+        CPR="";
         sql_ob.writePatientListe(CPR);
+
     }
 
     @Test
     void createTableCPRPulsTest() {
+        sql_ob.makeConnectionSQL();
         CPR="2103005000";
         sql_ob.createTableCPRPuls(CPR);
     }
 
     @Test
     void createTableCPREKGTest() {
+        sql_ob.makeConnectionSQL();
         CPR="1234321567";
         sql_ob.createTableCPREKG(CPR);
     }
@@ -77,11 +86,22 @@ class SQLTest {
 
     @Test
     void readDataEKGTest() {
-        CPR="1234321567";
+        CPR="eksistere ikke";
+       int[] tid_array1 = new int[500];
+       double[] ekg_array1 = new double[500];
         try {
-            sql_ob.readDataEKG(CPR,gm.EKGTime,gm.EKGValue);
+            sql_ob.readDataEKG(CPR,tid_array1,ekg_array1);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("test blev fanget");
+        }
+        CPR="1234321567";
+        int[] tid_array2 = new int[500];
+        double[] ekg_array2 = new double[500];
+        try {
+            sql_ob.readDataEKG(CPR,tid_array2,ekg_array2);
+            System.out.println("test bestod");
+        } catch (SQLException throwables) {
+            System.out.println("test fejlede");
         }
     }
 
@@ -96,7 +116,14 @@ class SQLTest {
             sql_ob.readDataPuls(CPR, tid_array, pulsvalue, tempvalue, spo2value);
             System.out.println("testen bestod");
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("Testen fejlede");
+        }
+
+        CPR="2103005000";
+        try {
+            sql_ob.readDataPuls(CPR, tid_array, pulsvalue, tempvalue, spo2value);
+        } catch (SQLException throwables) {
+            System.out.println("testen bestod");
         }
     }
 
