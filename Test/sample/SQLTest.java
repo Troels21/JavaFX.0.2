@@ -40,7 +40,7 @@ class SQLTest {
 
     @Test
     void writeToPatientMaalingPulsTest() {
-        CPR = "2103005000";
+        CPR="2103005000";
         Temp=37;
         Puls=67;
         SpO2=99;
@@ -87,8 +87,14 @@ class SQLTest {
 
     @Test
     void readDataPulsTest() {
+        CPR="2103005000";
+        int[] tid_array = new int[500];
+        double[] pulsvalue = new double[500];
+        double[] tempvalue = new double[500];
+        double[] spo2value = new double[500];
         try {
-            sql_ob.readDataPuls(CPR, gm.PulseTime, gm.PulseValue, gm.TempValue, gm.SpO2Value);
+            sql_ob.readDataPuls(CPR, tid_array, pulsvalue, tempvalue, spo2value);
+            System.out.println("testen bestod");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
